@@ -10,7 +10,7 @@ from contextlib import asynccontextmanager, contextmanager
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -91,6 +91,7 @@ def create_app(database_path: str | Path | None = None) -> FastAPI:
         yield
 
     application = FastAPI(title="Locus Auth API", version="1.0.0", lifespan=lifespan)
+    auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
     def unauthorized() -> HTTPException:
         return HTTPException(
@@ -120,7 +121,7 @@ def create_app(database_path: str | Path | None = None) -> FastAPI:
     def health():
         return {"status": "ok"}
 
-    @application.post("/register", response_model=UserResponse, status_code=201)
+    @auth_router.post("/register", response_model=UserResponse, status_code=201)
     def register(payload: Credentials):
         password_hash = hash_password(payload.password)
         try:
@@ -133,7 +134,7 @@ def create_app(database_path: str | Path | None = None) -> FastAPI:
         except sqlite3.IntegrityError:
             raise HTTPException(status_code=409, detail="Username already registered") from None
 
-    @application.post("/login", response_model=TokenResponse)
+    @auth_router.post("/login", response_model=TokenResponse)
     def login(payload: Credentials):
         with database() as db:
             user = db.execute(
@@ -154,15 +155,16 @@ def create_app(database_path: str | Path | None = None) -> FastAPI:
             )
         return TokenResponse(access_token=token)
 
-    @application.get("/me", response_model=UserResponse)
+    @auth_router.get("/me", response_model=UserResponse)
     def me(session: Annotated[dict, Depends(current_session)]):
         return session
 
-    @application.post("/logout", status_code=204)
+    @auth_router.post("/logout", status_code=204)
     def logout(session: Annotated[dict, Depends(current_session)]):
         with database() as db:
             db.execute("DELETE FROM sessions WHERE token_hash = ?", (session["token_hash"],))
 
+    application.include_router(auth_router)
     return application
 
 

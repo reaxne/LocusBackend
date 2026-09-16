@@ -18,10 +18,10 @@ SQLite создаётся автоматически в `data/auth.db`. Путь
 | Метод | Путь | Назначение |
 | --- | --- | --- |
 | GET | `/health` | Проверка доступности |
-| POST | `/register` | Регистрация, возвращает id и username (201) |
-| POST | `/login` | Вход, возвращает access_token, token_type и expires_in |
-| GET | `/me` | Текущий пользователь по Bearer-токену |
-| POST | `/logout` | Отзыв текущего токена (204) |
+| POST | `/auth/register` | Регистрация, возвращает id и username (201) |
+| POST | `/auth/login` | Вход, возвращает access_token, token_type и expires_in |
+| GET | `/auth/me` | Текущий пользователь по Bearer-токену |
+| POST | `/auth/logout` | Отзыв текущего токена (204) |
 
 Для регистрации и входа передайте JSON:
 
@@ -38,14 +38,14 @@ SQLite создаётся автоматически в `data/auth.db`. Путь
 
 ```powershell
 $body = @{ username = "alice"; password = "my-strong-password" } | ConvertTo-Json
-Invoke-RestMethod http://127.0.0.1:8000/register -Method Post -ContentType 'application/json' -Body $body
-$session = Invoke-RestMethod http://127.0.0.1:8000/login -Method Post -ContentType 'application/json' -Body $body
+Invoke-RestMethod http://127.0.0.1:8000/auth/register -Method Post -ContentType 'application/json' -Body $body
+$session = Invoke-RestMethod http://127.0.0.1:8000/auth/login -Method Post -ContentType 'application/json' -Body $body
 $headers = @{ Authorization = "Bearer $($session.access_token)" }
-Invoke-RestMethod http://127.0.0.1:8000/me -Headers $headers
-Invoke-RestMethod http://127.0.0.1:8000/logout -Method Post -Headers $headers
+Invoke-RestMethod http://127.0.0.1:8000/auth/me -Headers $headers
+Invoke-RestMethod http://127.0.0.1:8000/auth/logout -Method Post -Headers $headers
 ```
 
-В `/docs` скопируйте `access_token` из ответа `/login` в кнопку **Authorize**.
+В `/docs` скопируйте `access_token` из ответа `/auth/login` в кнопку **Authorize**.
 
 Пароли хешируются PBKDF2-HMAC-SHA256 (600 000 итераций) с индивидуальной
 случайной солью. Случайные токены действуют 24 часа; в базе хранятся только их
