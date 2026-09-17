@@ -1,0 +1,48 @@
+[
+  {
+    "id": "demo-robotics",
+    "universityId": "demo-university",
+    "universityName": "Fictional Demo University (NOT A REAL INSTITUTION)",
+    "name": "Demo Robotics and Programming",
+    "city": "Astana",
+    "degree": "bachelor",
+    "description": "FICTIONAL EXAMPLE ONLY. Robotics, programming and embedded systems.",
+    "interests": ["Robotics", "Programming"],
+    "importantCourses": ["Mathematics", "Computer Science"],
+    "careerPaths": ["Robotics engineer"],
+    "recommendedAcademicStrengths": ["Mathematics", "Computer Science"],
+    "languages": ["English"],
+    "tuitionPerYear": 4000000,
+    "stateGrantAvailable": true,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2027,
+    "admissionRoutes": [
+      {
+        "id": "sat",
+        "requirementsComplete": true,
+        "source": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027},
+        "requirements": {
+          "SAT": {"minimum": 1250, "source": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027}},
+          "IELTS": {"minimum": 6.0, "source": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027}}
+        }
+      },
+      {
+        "id": "unt",
+        "requirementsComplete": true,
+        "source": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027},
+        "requirements": {
+          "UNT": {"minimum": 100, "source": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027}}
+        }
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "tuition_per_year": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027},
+      "state_grant_available": {"url": "https://example.invalid/demo-only", "verifiedAt": "2026-09-01", "academicYear": 2027}
+    },
+    "isDemo": true,
+    "active": true
+  }
+]
