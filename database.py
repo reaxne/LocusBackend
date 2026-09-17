@@ -1,154 +1,105 @@
-"""SQLite storage for users, sessions, and surveys."""
-
-import json
+"""PostgreSQL persistence; no SQLite or file fallback."""
 import os
-import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterator
+import psycopg
+from psycopg.rows import dict_row
+from psycopg.types.json import Jsonb
+from settings import database_url
 
 
 class UsernameAlreadyRegistered(Exception):
-    """The requested username is already in use."""
+    pass
+
+
+class SurveyConflict(Exception):
+    pass
 
 
 class Database:
-    def __init__(self, path: str | Path | None = None):
-        self.path = Path(path or os.getenv("DATABASE_PATH", "data/auth.db"))
+    def __init__(self, url: str | None = None):
+        self.url = database_url(url)
 
     @contextmanager
-    def _connect(self) -> Iterator[sqlite3.Connection]:
-        connection = sqlite3.connect(self.path, timeout=10)
-        connection.row_factory = sqlite3.Row
-        try:
-            connection.execute("PRAGMA foreign_keys = ON")
-            with connection:
-                yield connection
-        finally:
-            connection.close()
+    def _connect(self):
+        if not self.url:
+            raise RuntimeError('Set DATABASE_URL to a PostgreSQL connection URL before starting LocusBackend')
+        with psycopg.connect(self.url, row_factory=dict_row) as connection:
+            yield connection
 
-    def initialize(self) -> None:
-        self.path.parent.mkdir(parents=True, exist_ok=True)
+    def initialize(self):
         with self._connect() as db:
-            db.executescript("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    username TEXT NOT NULL UNIQUE,
-                    password_hash TEXT NOT NULL
-                );
-                CREATE TABLE IF NOT EXISTS sessions (
-                    token_hash TEXT PRIMARY KEY,
-                    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-                    expires_at INTEGER NOT NULL
-                );
-                CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
-                CREATE TABLE IF NOT EXISTS surveys (
-                    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-                    answers_json TEXT NOT NULL
-                );
-                CREATE TABLE IF NOT EXISTS programs (
-                    id TEXT NOT NULL,
-                    admission_year INTEGER NOT NULL,
-                    active INTEGER NOT NULL,
-                    is_demo INTEGER NOT NULL,
-                    data_json TEXT NOT NULL,
-                    PRIMARY KEY (id, admission_year)
-                );
-                CREATE INDEX IF NOT EXISTS programs_cycle ON programs(admission_year, active, is_demo);
-            """)
+            db.execute('SELECT pg_advisory_xact_lock(78004321)')
+            db.execute('CREATE TABLE IF NOT EXISTS schema_migrations (version INTEGER PRIMARY KEY)')
+            if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 1').fetchone():
+                db.execute((Path(__file__).parent / 'migrations/001_core.sql').read_text(encoding='utf-8'))
+                db.execute('INSERT INTO schema_migrations(version) VALUES (1)')
 
-    def create_user(self, username: str, password_hash: str) -> dict:
+    def create_user(self, username, password_hash):
         try:
             with self._connect() as db:
-                cursor = db.execute(
-                    "INSERT INTO users (username, password_hash) VALUES (?, ?)",
-                    (username, password_hash),
-                )
-                return {"id": cursor.lastrowid, "username": username}
-        except sqlite3.IntegrityError as exc:
+                return db.execute('INSERT INTO users(username,password_hash) VALUES (%s,%s) RETURNING id,username',
+                                  (username, password_hash)).fetchone()
+        except psycopg.errors.UniqueViolation as exc:
             raise UsernameAlreadyRegistered(username) from exc
 
-    def get_user(self, username: str) -> dict | None:
+    def get_user(self, username):
         with self._connect() as db:
-            row = db.execute(
-                "SELECT * FROM users WHERE username = ?", (username,)
-            ).fetchone()
-        return dict(row) if row is not None else None
+            return db.execute('SELECT * FROM users WHERE username=%s', (username,)).fetchone()
 
-    def get_session(self, token_hash: str, now: int) -> dict | None:
+    def get_session(self, token_hash, now):
         with self._connect() as db:
-            row = db.execute(
-                """SELECT users.id, users.username, sessions.token_hash
-                   FROM sessions JOIN users ON users.id = sessions.user_id
-                   WHERE sessions.token_hash = ? AND sessions.expires_at > ?""",
-                (token_hash, now),
-            ).fetchone()
-        return dict(row) if row is not None else None
+            return db.execute('''SELECT users.id, users.username, sessions.token_hash FROM sessions
+                JOIN users ON users.id=sessions.user_id WHERE token_hash=%s AND expires_at>%s''',
+                              (token_hash, now)).fetchone()
 
-    def create_session(self, token_hash: str, user_id: int, expires_at: int, now: int) -> None:
+    def create_session(self, token_hash, user_id, expires_at, now):
         with self._connect() as db:
-            db.execute("DELETE FROM sessions WHERE expires_at <= ?", (now,))
-            db.execute(
-                "INSERT INTO sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)",
-                (token_hash, user_id, expires_at),
-            )
+            db.execute('DELETE FROM sessions WHERE expires_at<=%s', (now,))
+            db.execute('INSERT INTO sessions(token_hash,user_id,expires_at) VALUES (%s,%s,%s)', (token_hash,user_id,expires_at))
 
-    def delete_session(self, token_hash: str) -> None:
+    def delete_session(self, token_hash):
         with self._connect() as db:
-            db.execute("DELETE FROM sessions WHERE token_hash = ?", (token_hash,))
+            db.execute('DELETE FROM sessions WHERE token_hash=%s', (token_hash,))
 
-    def save_survey(self, user_id: int, answers: dict) -> None:
+    def save_survey(self, user_id, answers, state=None, expected_revision=None):
         with self._connect() as db:
-            db.execute(
-                """INSERT INTO surveys (user_id, answers_json) VALUES (?, ?)
-                   ON CONFLICT(user_id) DO UPDATE SET answers_json = excluded.answers_json""",
-                (user_id, json.dumps(answers, ensure_ascii=False)),
-            )
+            # Lock the owner, including when no survey row exists yet.
+            db.execute('SELECT id FROM users WHERE id=%s FOR UPDATE', (user_id,))
+            previous = db.execute('SELECT revision FROM surveys WHERE user_id=%s', (user_id,)).fetchone()
+            revision = previous['revision'] if previous else 0
+            if expected_revision is not None and expected_revision != revision:
+                raise SurveyConflict('Survey changed in another tab')
+            revision += 1
+            if state is not None:
+                state = {**state, 'revision': revision}
+            db.execute('''INSERT INTO surveys(user_id,answers_json,state_json,revision) VALUES (%s,%s,%s,%s)
+                ON CONFLICT(user_id) DO UPDATE SET answers_json=excluded.answers_json,
+                state_json=excluded.state_json,revision=excluded.revision,updated_at=now()''',
+                (user_id,Jsonb(answers),Jsonb(state) if state is not None else None,revision))
+            return state
 
-    def get_survey(self, user_id: int) -> dict | None:
+    def get_survey_record(self, user_id):
         with self._connect() as db:
-            row = db.execute(
-                "SELECT answers_json FROM surveys WHERE user_id = ?", (user_id,)
-            ).fetchone()
-        return json.loads(row["answers_json"]) if row is not None else None
+            return db.execute('SELECT answers_json,state_json,revision,updated_at FROM surveys WHERE user_id=%s', (user_id,)).fetchone()
 
-    def save_program_records(self, records: list[dict]) -> None:
-        with self._connect() as db:
-            db.executemany(
-                """INSERT INTO programs (id, admission_year, active, is_demo, data_json)
-                   VALUES (?, ?, ?, ?, ?)
-                   ON CONFLICT(id, admission_year) DO UPDATE SET
-                   active = excluded.active, is_demo = excluded.is_demo, data_json = excluded.data_json""",
-                [(item["id"], item["admission_year"] or 0, item["active"], item["is_demo"],
-                  json.dumps(item, ensure_ascii=False)) for item in records],
-            )
+    def get_survey(self, user_id):
+        row = self.get_survey_record(user_id)
+        return row['answers_json'] if row else None
 
-    def get_program_records(self, year: int) -> list[dict]:
+    def save_program_records(self, records):
         with self._connect() as db:
-            rows = db.execute(
-                """SELECT data_json FROM programs WHERE admission_year IN (?, 0)
-                   AND active = 1 AND is_demo = 0
-                   AND (admission_year = ? OR NOT EXISTS (
-                       SELECT 1 FROM programs AS specific
-                       WHERE specific.id = programs.id AND specific.admission_year = ?
-                   )) ORDER BY id, admission_year DESC""", (year, year, year),
-            ).fetchall()
-        # Prefer cycle-specific data over an unknown-cycle record for the same program.
-        records = {}
-        for row in rows:
-            item = json.loads(row["data_json"])
-            records.setdefault(item["id"], item)
-        return list(records.values())
+            with db.cursor() as cursor:
+                cursor.executemany('''INSERT INTO programs(id,admission_year,active,is_demo,data_json) VALUES (%s,%s,%s,%s,%s)
+                    ON CONFLICT(id,admission_year) DO UPDATE SET active=excluded.active,is_demo=excluded.is_demo,data_json=excluded.data_json''',
+                    [(item['id'],item['admission_year'] or 0,int(item['active']),int(item['is_demo']),Jsonb(item)) for item in records])
 
-    def get_program_record(self, program_id: str, year: int) -> dict | None:
+    def get_program_records(self, year):
         with self._connect() as db:
-            row = db.execute(
-                """SELECT data_json FROM programs WHERE id = ? AND admission_year IN (?, 0)
-                   AND active = 1 AND is_demo = 0
-                   AND (admission_year = ? OR NOT EXISTS (
-                       SELECT 1 FROM programs AS specific
-                       WHERE specific.id = programs.id AND specific.admission_year = ?
-                   )) ORDER BY admission_year DESC LIMIT 1""",
-                (program_id, year, year, year),
-            ).fetchone()
-        return json.loads(row["data_json"]) if row is not None else None
+            rows = db.execute('''SELECT data_json FROM programs WHERE admission_year IN (%s,0) AND active=1 AND is_demo=0
+                AND (admission_year=%s OR NOT EXISTS (SELECT 1 FROM programs specific WHERE specific.id=programs.id
+                AND specific.admission_year=%s)) ORDER BY id,admission_year DESC''', (year,year,year)).fetchall()
+        return [row['data_json'] for row in rows]
+
+    def get_program_record(self, program_id, year):
+        return next((row for row in self.get_program_records(year) if row['id'] == program_id), None)

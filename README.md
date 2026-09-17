@@ -1,188 +1,95 @@
-# Locus Auth API
+# LocusBackend
 
-Базовый сервер на Python 3.10+ с FastAPI и SQLite.
+The existing Python/FastAPI backend now uses PostgreSQL for users, sessions, surveys and the program catalog. The existing `/auth/*`, `/survey` and `/recommendations` routes are preserved. No application data is written to JSON files or SQLite by the API.
 
-## Запуск (PowerShell)
+## Setup
+
+For local development with PostgreSQL installed, run `.venv/Scripts/python run_local.py`.
+The launcher initializes a separate password-protected PostgreSQL cluster on loopback port 54328
+only when no configuration exists, creates a restricted application role, saves generated connection
+settings to the ignored `.env`, and starts the API on port 8000. Subsequent runs restart that cluster
+if necessary without replacing data. Set `PG_BIN` if PostgreSQL binaries are not detected.
+The existing system PostgreSQL service is not reconfigured. Keep `data/postgres-local` to retain accounts.
+
+Configuration is automatically loaded from the `.env` beside `settings.py`, even when the IDE's
+working directory is different. Real environment variables take precedence. Plain
+`python -m uvicorn main:app --reload` works after setup while PostgreSQL is running;
+use `run_local.py` after reboot to start both services. No `--env-file` flag is required.
+`setup_local.py` configures/starts the database without launching the API.
+
+Python 3.12+ and PostgreSQL 16+ (tested with 18):
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m uvicorn main:app --reload
+.venv/Scripts/python -m pip install -r requirements-dev.txt
+Copy-Item .env.example .env
+# Configure DATABASE_URL with a dedicated PostgreSQL role/database.
+.venv/Scripts/python -m uvicorn main:app --env-file .env --host 127.0.0.1 --port 8000
 ```
 
-Сервер: http://127.0.0.1:8000. Интерактивная документация: http://127.0.0.1:8000/docs.
-SQLite создаётся автоматически в `data/auth.db`. Путь можно изменить переменной окружения `DATABASE_PATH`.
+`DATABASE_URL` must use `postgresql://USER:PASSWORD@HOST:PORT/DATABASE`; URL-encode special characters in credentials. There is no file-storage fallback. `.env` contains configuration only. The startup initializer applies `migrations/001_core.sql` once, tracking the version in `schema_migrations` under a PostgreSQL advisory lock. Add reviewed numbered migrations and corresponding initializer steps for future schema changes; do not change an already-applied migration.
 
-## Развёртывание на Railway
+Set `ALLOWED_ORIGINS` to a JSON array of exact frontend origins. `COOKIE_SECURE=false` is for local HTTP only; it defaults to true for HTTPS. Production must provide HTTPS. On Railway, attach a PostgreSQL service and supply `DATABASE_URL`; the old `/data` SQLite volume is no longer the active data store. `PORT` is still respected by the Docker command.
 
-1. Отправьте проект в GitHub и создайте в Railway сервис из этого репозитория.
-   Корневая папка сервиса должна содержать `Dockerfile` и `railway.json`.
-2. Добавьте к сервису **Volume** с путём монтирования **`/data`** до использования API.
-   В Docker задано `DATABASE_PATH=/data/auth.db`. Без Volume база будет храниться
-   во временной файловой системе и может исчезнуть при следующем развёртывании.
-3. Оставьте **Start Command** пустым: команда запуска уже задана в `Dockerfile`.
-   Сервер слушает `0.0.0.0` и порт из переменной `PORT`, которую задаёт Railway.
-   `--reload` отключён; используется один worker.
-4. Разверните сервис и включите **Settings → Networking → Generate Domain**.
-   Проверьте `https://<ваш-домен>/health` (ответ `{"status":"ok"}`)
-   и `https://<ваш-домен>/docs`.
+## Existing authentication contract
 
-`railway.json` задаёт Docker-сборку, проверку `/health` при развёртывании,
-одну реплику и перезапуск при сбое. Volume и публичный домен нужно создать
-в Railway отдельно. Используйте одну реплику с этой SQLite-базой; для нескольких
-реплик потребуется переход на общую серверную базу данных.
-Создание таблиц выполняется при запуске приложения, когда Volume уже подключён.
-Локальная база `data/auth.db` не включается в образ: первое развёртывание создаст
-пустую базу. При смене пути `DATABASE_PATH` он должен оставаться внутри Volume.
-
-Настройки окружения:
-
-| Переменная | Локально | Docker / Railway |
+| Method | Route | Request/result |
 | --- | --- | --- |
-| `DATABASE_PATH` | `data/auth.db` | `/data/auth.db` (задано в образе) |
-| `PORT` | `8000` для команды ниже | Назначается Railway; по умолчанию в Docker `8000` |
+| POST | `/auth/register` | `{username,password}` → `{id,username}`, 201 |
+| POST | `/auth/login` | `{username,password}` → `{access_token,token_type,expires_in}` |
+| GET | `/auth/me` | Authenticated `{id,username}` |
+| POST | `/auth/logout` | Revoke current session, 204 |
+| GET/POST | `/survey` | Read/save the user's survey |
+| GET/POST | `/recommendations` | Existing recommendation engine and payload |
+| GET | `/health` | API liveness |
 
-Проверка Docker локально (требуется Docker):
+Usernames are 3–50 Latin letters, digits or underscores, case-insensitive; passwords are 8–128 characters. Registration does not itself log in. Password hashing remains PBKDF2-HMAC-SHA256 with 600,000 iterations and random salts. Tokens remain random, expire after 24 hours, and are stored only as SHA-256 digests in PostgreSQL. Existing API clients continue using `Authorization: Bearer <access_token>`.
 
-```powershell
-docker build -t locus-auth .
-docker run --rm -p 8000:8000 -e PORT=8000 -v locus-auth-data:/data locus-auth
-```
+For browsers, login with `X-Locus-Request: 1` from an allowed Origin also sets an HttpOnly, SameSite=Lax session cookie. The frontend uses `credentials: 'include'` without storing tokens in localStorage. Cookie-based mutations require this custom header and an allowed Origin. Bearer clients without an Origin keep working. Logout revokes the session and clears the cookie. Public deployments still need gateway rate limiting; email verification, password reset and OAuth are outside this update.
 
-Именованный Volume `locus-auth-data` сохраняет базу после остановки контейнера.
-Инструкции Railway: [Dockerfiles](https://docs.railway.com/builds/dockerfiles),
-[Volumes](https://docs.railway.com/volumes),
-[Config as Code](https://docs.railway.com/config-as-code/reference).
+## Questionnaire and profile editing through `/survey`
 
-## Методы
-
-| Метод | Путь | Назначение |
-| --- | --- | --- |
-| GET | `/health` | Проверка доступности |
-| POST | `/auth/register` | Регистрация, возвращает id и username (201) |
-| POST | `/auth/login` | Вход, возвращает access_token, token_type и expires_in |
-| GET | `/auth/me` | Текущий пользователь по Bearer-токену |
-| POST | `/auth/logout` | Отзыв текущего токена (204) |
-| POST | `/survey` | Сохранить или заменить анкету текущего пользователя (200) |
-| GET | `/survey` | Получить сохранённую анкету текущего пользователя (200) |
-| POST | `/recommendations?limit=5` | Рекомендации программ по профилю в теле запроса (200) |
-| GET | `/recommendations?limit=5` | Рекомендации по сохранённой анкете текущего пользователя (200) |
-
-Для регистрации и входа передайте JSON:
+The original payload remains supported:
 
 ```json
-{"username": "alice", "password": "my-strong-password"}
+{"survey":{"grade":11,"entryYear":2027,"interest":"Software engineering","city":"Astana","mustStay":false,"budget":null,"funding":["self_funded"],"category":"domestic","academicStrengths":[],"SAT":null,"IELTS":null,"NUET":null,"UNT":null,"AET":null,"extracurricularInterests":[]}}
 ```
 
-Логин: 3–50 латинских букв, цифр или `_`, без учёта регистра.
-Пароль: 8–128 символов, пробелы и регистр сохраняются.
-Повторная регистрация возвращает 409, неверные данные входа или токен — 401,
-ошибки формата — 422.
+Legacy writes replace the fifteen fields and return `{survey}`; legacy reads retain that shape. They retain their original JSON-value flexibility. Before the first save, GET returns 404. All ownership comes from the authenticated session.
 
-Пример полного сценария в PowerShell:
+The frontend sends an additional optional `state` object:
 
-```powershell
-$body = @{ username = "alice"; password = "my-strong-password" } | ConvertTo-Json
-Invoke-RestMethod http://127.0.0.1:8000/auth/register -Method Post -ContentType 'application/json' -Body $body
-$session = Invoke-RestMethod http://127.0.0.1:8000/auth/login -Method Post -ContentType 'application/json' -Body $body
-$headers = @{ Authorization = "Bearer $($session.access_token)" }
-Invoke-RestMethod http://127.0.0.1:8000/auth/me -Headers $headers
-Invoke-RestMethod http://127.0.0.1:8000/auth/logout -Method Post -Headers $headers
-```
-
-В `/docs` скопируйте `access_token` из ответа `/auth/login` в кнопку **Authorize**.
-
-Пароли хешируются PBKDF2-HMAC-SHA256 (600 000 итераций) с индивидуальной
-случайной солью. Случайные токены действуют 24 часа; в базе хранятся только их
-SHA-256 хеши. Выход отзывает одну сессию, остальные остаются действительными.
-Пользователи и сессии сохраняются при перезапуске.
-
-Railway-конфигурация позволяет разместить API с постоянным хранилищем SQLite.
-Для публичного использования используйте HTTPS и добавьте ограничение частоты
-запросов регистрации и входа; встроенного ограничения в этом API пока нет.
-
-## Анкета
-
-Оба метода `/survey` требуют заголовок `Authorization: Bearer <access_token>`.
-`POST /survey` принимает объект `survey` со всеми 15 полями. Имена полей
-чувствительны к регистру, включая `SAT`, `IELTS`, `NUET`, `UNT` и `AET`.
-Неизвестные и отсутствующие поля возвращают 422. Для вопроса без ответа
-передайте `null`. Форматы ответов пока не ограничены: строки, числа, булевы
-значения, массивы, объекты и `null` сохраняются как JSON без преобразования.
-Диапазоны баллов экзаменов и допустимые варианты ответов пока не проверяются.
-
-Пример тела запроса:
-
-```json
+```text
 {
-  "survey": {
-    "grade": 11,
-    "entryYear": 2027,
-    "interest": ["engineering"],
-    "city": "Алматы",
-    "mustStay": false,
-    "budget": 2000000,
-    "funding": ["scholarship"],
-    "category": "university",
-    "academicStrengths": ["math", "physics"],
-    "SAT": 1400,
-    "IELTS": 7.5,
-    "NUET": null,
-    "UNT": 120,
-    "AET": null,
-    "extracurricularInterests": ["robotics"]
+  survey: <the existing fifteen fields>,
+  state: {
+    profile: <complete ApplicantProfile, or null during diagnosis>,
+    draft: <ApplicantProfile>,
+    draftStep: 0..17,
+    answeredQuestions: <known question IDs>,
+    revision: <last server revision; 0 for a new survey>
   }
 }
 ```
 
-Отправка из JavaScript (`survey` — объект ответов выше):
+`ApplicantProfile` is validated in `profile_schema.py`: exams/statuses/scores, language, academic performance, funding, budget, constraints, strengths, interests, exam goals and IELTS section scores. The top-level survey must equal `to_survey(state.profile or state.draft)`; conflicts between the two representations return 422. Funding becomes the recommendation engine's existing funding list; exams become numeric top-level scores or null. The original exam statuses and extra fields remain intact in `state`.
 
-```javascript
-const response = await fetch(`${apiBaseUrl}/survey`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${accessToken}`,
-  },
-  body: JSON.stringify({ survey }),
-});
-if (!response.ok) throw new Error(`Survey save failed: ${response.status}`);
-const saved = await response.json();
-```
+Send `X-Locus-User` equal to the authenticated user's ID for state writes. It only guards against a different tab changing the session; it cannot select another user's data. Draft and committed profile are updated atomically in one PostgreSQL transaction. Each save increments `revision`; stale writes return 409. Submitted profiles require all questions to be answered or skipped. Profile edits use the same POST route. GET recommendations returns 409 for an unfinished frontend questionnaire.
 
-Ответ `POST /survey` и `GET /survey` имеет ту же форму `{ "survey": { ... } }`.
-До первого сохранения `GET /survey` возвращает 404. Без действующей сессии
-оба метода возвращают 401. На пользователя хранится одна анкета; повторный
-POST полностью заменяет предыдущие ответы, а не дополняет их. Пользователь
-определяется по токену, передавать `user_id` нельзя.
+Browser GET requests with `X-Locus-Request: 1` also receive `userId`, `revision`, and `updatedAt`. Older surveys without `state` remain readable; the frontend imports supported values and reports incompatible legacy formats instead of silently overwriting them. A legacy write intentionally replaces the survey and removes the optional frontend state, matching replacement semantics.
 
-Таблица `surveys` создаётся автоматически при запуске, в том числе в существующей
-базе с пользователями и сессиями. Данные сохраняются в том же SQLite-файле;
-на Railway для сохранения между развёртываниями необходим Volume `/data`.
+## Existing SQLite data
 
-## Рекомендации программ
-
-Добавлен детерминированный движок подбора образовательных программ: нормализация
-профиля → ограничения города/года → проверка альтернативных путей поступления →
-сопоставление интересов → оценки компонентов и динамические веса → рекомендации,
-объяснения, план подготовки и следующее действие. Оба метода требуют Bearer-токен.
-`POST /recommendations` принимает сам объект ответов, без обёртки `survey`;
-`GET /recommendations` использует сохранённую анкету. По умолчанию возвращается
-до пяти программ, `limit` можно задать от 1 до 50.
-
-`matchScore` от 0 до 1 означает совместимость с профилем, а не вероятность
-поступления. Реальные требования вузов не добавлены: без проверенного каталога
-ответ содержит пустой список и предупреждение. Демо-программы исключены из
-производственного каталога. Существующие пользователи, сессии и анкеты сохраняются.
-
-Архитектура, правила оценки, работа с источниками, импорт каталога, примеры,
-embedding-интерфейс и ограничения описаны в [recommendation/README.md](recommendation/README.md).
-Новые зависимости не требуются; по умолчанию работает локальное сопоставление
-ключевых слов с кэшем, без LLM и скачивания модели.
-
-## Проверка
+The runtime no longer reads `DATABASE_PATH`. To import previous records, back up the old database, stop writers, set `DATABASE_URL` to an **empty** PostgreSQL database, then run:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m pytest -q
+.venv/Scripts/python migrate_sqlite.py C:/path/to/old/auth.db
 ```
+
+The utility opens SQLite read-only, preserves user IDs, password/token hashes and survey/catalog records, and imports in one transaction. It refuses to overwrite a nonempty target and leaves the source intact. PostgreSQL's own storage files/volumes are database storage, not file-based API persistence.
+
+## Tests and extension points
+
+Set `TEST_DATABASE_URL` to a dedicated PostgreSQL test database and run `python -m pytest -q`. Each integration test creates and drops its own uniquely named schema. The frontend repository also provides `scripts/test_locus_backend.py --backend <this folder> --browser` to launch an isolated PostgreSQL cluster and run the backend suite plus browser integration tests. Do not point tests at production.
+
+`main.py` keeps the established routes; `database.py` owns transactions; `profile_schema.py` owns the frontend contract. The recommendation engine is unchanged. `PostgreSQLProgramRepository` is the catalog adapter; `SQLiteProgramRepository` remains only as an import alias for older code. The catalog importer uses `DATABASE_URL` or `--database <PostgreSQL URL>`. JSON catalog files are optional import inputs, not runtime persistence. No real catalog is fabricated by this update.

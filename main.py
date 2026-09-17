@@ -4,20 +4,25 @@ import hashlib
 import hmac
 import secrets
 import time
+import os
+import json
 from contextlib import asynccontextmanager
-from pathlib import Path
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query, status
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query, Request, Response, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, ValidationError, field_validator
 
-from database import Database, UsernameAlreadyRegistered
+from database import Database, UsernameAlreadyRegistered, SurveyConflict
+from settings import load_environment
+from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
 from recommendation.recommender import Recommender
-from recommendation.repository import ProgramRepository, SQLiteProgramRepository
+from recommendation.repository import ProgramRepository, PostgreSQLProgramRepository
 
 
 PASSWORD_ITERATIONS = 600_000
@@ -86,17 +91,19 @@ class SurveyPayload(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     survey: Survey
+    state: FrontendState | None = None
 
 
 def create_app(
-    database_path: str | Path | None = None,
+    database_url: str | None = None,
     *,
     program_repository: ProgramRepository | None = None,
     embedding_provider: EmbeddingProvider | None = None,
 ) -> FastAPI:
-    database = Database(database_path)
+    load_environment()
+    database = Database(database_url)
     recommender = Recommender(
-        program_repository if program_repository is not None else SQLiteProgramRepository(database),
+        program_repository if program_repository is not None else PostgreSQLProgramRepository(database),
         InterestMatcher(embedding_provider),
     )
 
@@ -106,6 +113,25 @@ def create_app(
         yield
 
     application = FastAPI(title="Locus Auth API", version="1.0.0", lifespan=lifespan)
+    origins = json.loads(os.getenv('ALLOWED_ORIGINS', '["http://127.0.0.1:5173","http://localhost:5173","http://127.0.0.1:3000","http://localhost:3000"]'))
+    application.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True,
+        allow_methods=['GET','POST'], allow_headers=['Content-Type','Authorization','X-Locus-Request','X-Locus-User'])
+
+    @application.middleware('http')
+    async def browser_security(request: Request, call_next):
+        if request.method == 'POST':
+            origin = request.headers.get('origin')
+            browser_request = request.headers.get('x-locus-request') == '1'
+            cookie_request = request.cookies.get('locus_session') and not request.headers.get('authorization')
+            if (origin and origin not in origins) or ((browser_request or cookie_request) and origin not in origins):
+                return JSONResponse({'detail':'Untrusted origin'}, status_code=403)
+            if cookie_request and not browser_request:
+                return JSONResponse({'detail':'Missing CSRF header'}, status_code=403)
+            if len(await request.body()) > 32768:
+                return JSONResponse({'detail':'Payload too large'}, status_code=413)
+        response = await call_next(request)
+        response.headers['Cache-Control'] = 'no-store'
+        return response
     auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
     def unauthorized() -> HTTPException:
@@ -116,11 +142,13 @@ def create_app(
         )
 
     def current_session(
+        request: Request,
         credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],
     ) -> dict:
-        if credentials is None:
+        token = credentials.credentials if credentials else request.cookies.get('locus_session')
+        if not token:
             raise unauthorized()
-        token_hash = hashlib.sha256(credentials.credentials.encode()).hexdigest()
+        token_hash = hashlib.sha256(token.encode()).hexdigest()
         session = database.get_session(token_hash, int(time.time()))
         if session is None:
             raise unauthorized()
@@ -139,7 +167,7 @@ def create_app(
             raise HTTPException(status_code=409, detail="Username already registered") from None
 
     @auth_router.post("/login", response_model=TokenResponse)
-    def login(payload: Credentials):
+    def login(payload: Credentials, request: Request, response: Response):
         user = database.get_user(payload.username)
         valid = verify_password(
             payload.password, user["password_hash"] if user else DUMMY_PASSWORD_HASH
@@ -151,6 +179,12 @@ def create_app(
         database.create_session(
             hashlib.sha256(token.encode()).hexdigest(), user["id"], now + SESSION_SECONDS, now
         )
+        if request.headers.get('x-locus-request') == '1':
+            old = request.cookies.get('locus_session')
+            if old:
+                database.delete_session(hashlib.sha256(old.encode()).hexdigest())
+            response.set_cookie('locus_session', token, httponly=True, samesite='lax',
+                secure=os.getenv('COOKIE_SECURE', 'true').lower() == 'true', max_age=SESSION_SECONDS, path='/')
         return TokenResponse(access_token=token)
 
     @auth_router.get("/me", response_model=UserResponse)
@@ -158,25 +192,40 @@ def create_app(
         return session
 
     @auth_router.post("/logout", status_code=204)
-    def logout(session: Annotated[dict, Depends(current_session)]):
+    def logout(response: Response, session: Annotated[dict, Depends(current_session)]):
         database.delete_session(session["token_hash"])
+        response.delete_cookie('locus_session', path='/')
 
     application.include_router(auth_router)
 
-    @application.post("/survey", response_model=SurveyPayload, tags=["survey"])
+    @application.post("/survey", tags=["survey"])
     def save_survey(
         payload: SurveyPayload,
+        request: Request,
         session: Annotated[dict, Depends(current_session)],
     ):
-        database.save_survey(session["id"], payload.survey.model_dump(mode="json"))
-        return payload
+        if payload.state is not None:
+            if request.headers.get('x-locus-user') != str(session['id']):
+                raise HTTPException(409, 'Account changed. Reload before saving.')
+            if payload.survey.model_dump() != to_survey(payload.state.profile or payload.state.draft):
+                raise HTTPException(422, 'Survey and frontend state disagree')
+        try:
+            state = database.save_survey(session['id'], payload.survey.model_dump(mode='json'),
+                payload.state.model_dump(mode='json') if payload.state else None,
+                payload.state.revision if payload.state else None)
+        except SurveyConflict:
+            raise HTTPException(409, 'Survey changed in another tab') from None
+        return {'survey': payload.survey, **({'state': state} if state is not None else {})}
 
-    @application.get("/survey", response_model=SurveyPayload, tags=["survey"])
-    def get_survey(session: Annotated[dict, Depends(current_session)]):
-        survey = database.get_survey(session["id"])
-        if survey is None:
+    @application.get("/survey", tags=["survey"])
+    def get_survey(request: Request, session: Annotated[dict, Depends(current_session)]):
+        record = database.get_survey_record(session['id'])
+        if record is None:
             raise HTTPException(status_code=404, detail="Survey not found")
-        return {"survey": survey}
+        result = {'survey': record['answers_json'], **({'state': record['state_json']} if record['state_json'] is not None else {})}
+        if request.headers.get('x-locus-request') == '1':
+            result.update(revision=record['revision'], userId=str(session['id']), updatedAt=record['updated_at'].isoformat())
+        return result
 
     @application.post("/recommendations", response_model=RecommendationResponse, tags=["recommendations"])
     def recommend(
@@ -191,7 +240,10 @@ def create_app(
         session: Annotated[dict, Depends(current_session)],
         limit: Annotated[int, Query(ge=1, le=50)] = 5,
     ):
-        survey = database.get_survey(session["id"])
+        record = database.get_survey_record(session['id'])
+        if record and record['state_json'] is not None and record['state_json']['profile'] is None:
+            raise HTTPException(409, 'Complete the questionnaire first')
+        survey = record['answers_json'] if record else None
         if survey is None:
             raise HTTPException(status_code=404, detail="Survey not found")
         try:

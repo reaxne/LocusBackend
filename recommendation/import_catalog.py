@@ -13,7 +13,7 @@ from recommendation.repository import SQLiteProgramRepository
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("catalog", type=Path, help="JSON array of program records")
-    parser.add_argument("--database", help="Defaults to DATABASE_PATH or data/auth.db")
+    parser.add_argument("--database", help="PostgreSQL URL; defaults to DATABASE_URL")
     args = parser.parse_args()
     programs = TypeAdapter(list[Program]).validate_json(args.catalog.read_text(encoding="utf-8"))
     keys = [(item.id, item.admission_year) for item in programs]

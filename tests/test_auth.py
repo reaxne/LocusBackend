@@ -1,5 +1,5 @@
 import hashlib
-import sqlite3
+import psycopg
 
 import pytest
 from fastapi.testclient import TestClient
@@ -8,8 +8,8 @@ from main import create_app
 
 
 @pytest.fixture
-def api(tmp_path):
-    path = tmp_path / "auth.db"
+def api(db_url):
+    path = db_url
     with TestClient(create_app(path)) as client:
         yield client, path
 
@@ -28,7 +28,7 @@ def test_registration_login_and_logout(api):
     token = login.json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
     assert client.get("/auth/me", headers=headers).json() == response.json()
-    with sqlite3.connect(path) as db:
+    with psycopg.connect(path) as db:
         stored_password = db.execute("SELECT password_hash FROM users").fetchone()[0]
         stored_token = db.execute("SELECT token_hash FROM sessions").fetchone()[0]
     assert USER["password"] not in stored_password
@@ -45,7 +45,7 @@ def test_invalid_auth_and_expiration(api):
     assert client.get("/auth/me").status_code == 401
     assert client.get("/auth/me", headers={"Authorization": "Bearer invalid"}).status_code == 401
     token = client.post("/auth/login", json=USER).json()["access_token"]
-    with sqlite3.connect(path) as db:
+    with psycopg.connect(path) as db:
         db.execute("UPDATE sessions SET expires_at = 0")
     assert client.get("/auth/me", headers={"Authorization": f"Bearer {token}"}).status_code == 401
 
@@ -61,8 +61,8 @@ def test_validation(api, payload):
     assert client.post("/auth/register", json=payload).status_code == 422
 
 
-def test_data_survives_restart(tmp_path):
-    path = tmp_path / "persist.db"
+def test_data_survives_restart(db_url):
+    path = db_url
     with TestClient(create_app(path)) as client:
         client.post("/auth/register", json=USER)
         token = client.post("/auth/login", json=USER).json()["access_token"]

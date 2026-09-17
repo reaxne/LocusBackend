@@ -3,7 +3,7 @@
 from datetime import date
 import json
 from pathlib import Path
-import sqlite3
+import psycopg
 import subprocess
 import sys
 
@@ -343,8 +343,8 @@ def test_cached_program_embeddings_are_batched_and_invalidated_by_content():
     assert len(matcher._cache) == 2
 
 
-def test_repository_persists_cycles_and_excludes_demo_inactive(tmp_path):
-    database = Database(tmp_path / "catalog.db")
+def test_repository_persists_cycles_and_excludes_demo_inactive(db_url):
+    database = Database(db_url)
     database.initialize()
     repository = SQLiteProgramRepository(database)
     # Fictional rows marked non-demo here ONLY to exercise the production query filter.
@@ -353,7 +353,7 @@ def test_repository_persists_cycles_and_excludes_demo_inactive(tmp_path):
         program(id="old", is_demo=False, admission_year=YEAR - 1),
         program(id="active", is_demo=False, admission_year=None),
     ])
-    reopened = SQLiteProgramRepository(Database(database.path))
+    reopened = SQLiteProgramRepository(Database(database.url))
     assert [item.id for item in reopened.get_programs_for_entry_year(YEAR)] == ["active"]
     assert reopened.get_program_by_id("active", YEAR).admission_year == YEAR
     assert reopened.get_program_by_id("demo-robotics", YEAR) is None
@@ -362,8 +362,8 @@ def test_repository_persists_cycles_and_excludes_demo_inactive(tmp_path):
 
 
 @pytest.fixture
-def api(tmp_path):
-    app = create_app(tmp_path / "auth.db", program_repository=MemoryRepository([program()]))
+def api(db_url):
+    app = create_app(db_url, program_repository=MemoryRepository([program()]))
     with TestClient(app) as client:
         credentials = {"username": "alice", "password": "strong-password-123"}
         client.post("/auth/register", json=credentials)
@@ -397,8 +397,8 @@ def test_api_invalid_profiles_and_limits(api):
     assert client.get("/recommendations", headers=headers).status_code == 422
 
 
-def test_api_empty_production_catalog(tmp_path):
-    with TestClient(create_app(tmp_path / "empty.db")) as client:
+def test_api_empty_production_catalog(db_url):
+    with TestClient(create_app(db_url)) as client:
         credentials = {"username": "alice", "password": "strong-password-123"}
         client.post("/auth/register", json=credentials)
         token = client.post("/auth/login", json=credentials).json()["access_token"]
@@ -425,8 +425,8 @@ def test_expired_task_not_selected():
     assert get_next_action([task], AS_OF) is None
 
 
-def test_cycle_deactivation_does_not_fall_back_to_unknown_year(tmp_path):
-    database = Database(tmp_path / "catalog.db")
+def test_cycle_deactivation_does_not_fall_back_to_unknown_year(db_url):
+    database = Database(db_url)
     database.initialize()
     repository = SQLiteProgramRepository(database)
     repository.save_programs([program(is_demo=False, admission_year=None),
@@ -435,22 +435,23 @@ def test_cycle_deactivation_does_not_fall_back_to_unknown_year(tmp_path):
     assert repository.get_program_by_id("demo-robotics", YEAR) is None
 
 
-def test_initialization_preserves_existing_auth_and_survey_tables(tmp_path):
-    database = Database(tmp_path / "existing.db")
+def test_initialization_preserves_existing_auth_and_survey_tables(db_url):
+    database = Database(db_url)
     database.initialize()
     user = database.create_user("alice", "existing-hash")
     database.save_survey(user["id"], {"grade": 10})
-    with sqlite3.connect(database.path) as connection:
+    with psycopg.connect(database.url) as connection:
         connection.execute("DROP TABLE programs")
+        connection.execute('DELETE FROM schema_migrations WHERE version=1')
     database.initialize()
     assert database.get_user("alice")["password_hash"] == "existing-hash"
     assert database.get_survey(user["id"]) == {"grade": 10}
     assert database.get_program_records(YEAR) == []
 
 
-def test_catalog_import_command_and_demo_fixture(tmp_path):
+def test_catalog_import_command_and_demo_fixture(db_url):
     root = Path(__file__).resolve().parents[1]
-    path = tmp_path / "import.db"
+    path = db_url
     result = subprocess.run(
         [sys.executable, "-m", "recommendation.import_catalog", str(root / "examples/programs.demo.json"),
          "--database", str(path)], cwd=root, capture_output=True, text=True, timeout=20,
@@ -458,9 +459,9 @@ def test_catalog_import_command_and_demo_fixture(tmp_path):
     assert result.returncode == 0, result.stderr
     assert "1 demo records" in result.stdout
     assert Database(path).get_program_records(2027) == []
-    with sqlite3.connect(path) as connection:
+    with psycopg.connect(path) as connection:
         row = connection.execute("SELECT data_json FROM programs").fetchone()
-    assert json.loads(row[0])["is_demo"] is True
+    assert row[0]["is_demo"] is True
 
 
 def test_past_entry_year_excluded_and_no_numeric_data_does_not_crash():

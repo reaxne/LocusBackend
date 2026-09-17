@@ -1,4 +1,4 @@
-import sqlite3
+import psycopg
 
 import pytest
 from fastapi.testclient import TestClient
@@ -33,13 +33,13 @@ def sign_in(client, username="alice"):
 
 
 @pytest.fixture
-def api(tmp_path):
-    with TestClient(create_app(tmp_path / "auth.db")) as client:
+def api(db_url):
+    with TestClient(create_app(db_url)) as client:
         yield client, sign_in(client)
 
 
-def test_save_replace_and_restart(tmp_path):
-    path = tmp_path / "auth.db"
+def test_save_replace_and_restart(db_url):
+    path = db_url
     with TestClient(create_app(path)) as client:
         headers = sign_in(client)
         assert client.get("/survey", headers=headers).status_code == 404
@@ -53,7 +53,7 @@ def test_save_replace_and_restart(tmp_path):
     with TestClient(create_app(path)) as client:
         assert client.get("/survey", headers=headers).json() == updated
         assert client.get("/auth/me", headers=headers).status_code == 200
-    with sqlite3.connect(path) as db:
+    with psycopg.connect(path) as db:
         assert db.execute("SELECT COUNT(*) FROM surveys").fetchone()[0] == 1
 
 

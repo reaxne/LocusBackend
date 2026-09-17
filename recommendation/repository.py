@@ -9,7 +9,7 @@ class ProgramRepository(Protocol):
     def get_program_by_id(self, program_id: str, year: int) -> Program | None: ...
 
 
-class SQLiteProgramRepository:
+class PostgreSQLProgramRepository:
     """One catalog query per recommendation request; production never returns demos."""
 
     def __init__(self, database: Database):
@@ -24,3 +24,7 @@ class SQLiteProgramRepository:
 
     def save_programs(self, programs: list[Program]) -> None:
         self.database.save_program_records([item.model_dump(mode="json") for item in programs])
+
+
+# Compatibility alias for existing imports; storage is always PostgreSQL.
+SQLiteProgramRepository = PostgreSQLProgramRepository
