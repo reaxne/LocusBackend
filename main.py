@@ -2,6 +2,7 @@
 
 import hashlib
 import hmac
+import json
 import os
 import secrets
 import sqlite3
@@ -12,7 +13,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, JsonValue, field_validator
 
 
 PASSWORD_ITERATIONS = 600_000
@@ -57,6 +58,32 @@ class TokenResponse(BaseModel):
     expires_in: int = SESSION_SECONDS
 
 
+class Survey(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    grade: JsonValue
+    entryYear: JsonValue
+    interest: JsonValue
+    city: JsonValue
+    mustStay: JsonValue
+    budget: JsonValue
+    funding: JsonValue
+    category: JsonValue
+    academicStrengths: JsonValue
+    SAT: JsonValue
+    IELTS: JsonValue
+    NUET: JsonValue
+    UNT: JsonValue
+    AET: JsonValue
+    extracurricularInterests: JsonValue
+
+
+class SurveyPayload(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    survey: Survey
+
+
 def create_app(database_path: str | Path | None = None) -> FastAPI:
     db_path = Path(database_path or os.getenv("DATABASE_PATH", "data/auth.db"))
 
@@ -87,6 +114,10 @@ def create_app(database_path: str | Path | None = None) -> FastAPI:
                     expires_at INTEGER NOT NULL
                 );
                 CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
+                CREATE TABLE IF NOT EXISTS surveys (
+                    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+                    answers_json TEXT NOT NULL
+                );
             """)
         yield
 
@@ -165,6 +196,30 @@ def create_app(database_path: str | Path | None = None) -> FastAPI:
             db.execute("DELETE FROM sessions WHERE token_hash = ?", (session["token_hash"],))
 
     application.include_router(auth_router)
+
+    @application.post("/survey", response_model=SurveyPayload, tags=["survey"])
+    def save_survey(
+        payload: SurveyPayload,
+        session: Annotated[dict, Depends(current_session)],
+    ):
+        with database() as db:
+            db.execute(
+                """INSERT INTO surveys (user_id, answers_json) VALUES (?, ?)
+                   ON CONFLICT(user_id) DO UPDATE SET answers_json = excluded.answers_json""",
+                (session["id"], payload.survey.model_dump_json()),
+            )
+        return payload
+
+    @application.get("/survey", response_model=SurveyPayload, tags=["survey"])
+    def get_survey(session: Annotated[dict, Depends(current_session)]):
+        with database() as db:
+            row = db.execute(
+                "SELECT answers_json FROM surveys WHERE user_id = ?", (session["id"],)
+            ).fetchone()
+        if row is None:
+            raise HTTPException(status_code=404, detail="Survey not found")
+        return {"survey": json.loads(row["answers_json"])}
+
     return application
 
 

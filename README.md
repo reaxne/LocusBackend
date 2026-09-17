@@ -13,6 +13,47 @@ python -m venv .venv
 Сервер: http://127.0.0.1:8000. Интерактивная документация: http://127.0.0.1:8000/docs.
 SQLite создаётся автоматически в `data/auth.db`. Путь можно изменить переменной окружения `DATABASE_PATH`.
 
+## Развёртывание на Railway
+
+1. Отправьте проект в GitHub и создайте в Railway сервис из этого репозитория.
+   Корневая папка сервиса должна содержать `Dockerfile` и `railway.json`.
+2. Добавьте к сервису **Volume** с путём монтирования **`/data`** до использования API.
+   В Docker задано `DATABASE_PATH=/data/auth.db`. Без Volume база будет храниться
+   во временной файловой системе и может исчезнуть при следующем развёртывании.
+3. Оставьте **Start Command** пустым: команда запуска уже задана в `Dockerfile`.
+   Сервер слушает `0.0.0.0` и порт из переменной `PORT`, которую задаёт Railway.
+   `--reload` отключён; используется один worker.
+4. Разверните сервис и включите **Settings → Networking → Generate Domain**.
+   Проверьте `https://<ваш-домен>/health` (ответ `{"status":"ok"}`)
+   и `https://<ваш-домен>/docs`.
+
+`railway.json` задаёт Docker-сборку, проверку `/health` при развёртывании,
+одну реплику и перезапуск при сбое. Volume и публичный домен нужно создать
+в Railway отдельно. Используйте одну реплику с этой SQLite-базой; для нескольких
+реплик потребуется переход на общую серверную базу данных.
+Создание таблиц выполняется при запуске приложения, когда Volume уже подключён.
+Локальная база `data/auth.db` не включается в образ: первое развёртывание создаст
+пустую базу. При смене пути `DATABASE_PATH` он должен оставаться внутри Volume.
+
+Настройки окружения:
+
+| Переменная | Локально | Docker / Railway |
+| --- | --- | --- |
+| `DATABASE_PATH` | `data/auth.db` | `/data/auth.db` (задано в образе) |
+| `PORT` | `8000` для команды ниже | Назначается Railway; по умолчанию в Docker `8000` |
+
+Проверка Docker локально (требуется Docker):
+
+```powershell
+docker build -t locus-auth .
+docker run --rm -p 8000:8000 -e PORT=8000 -v locus-auth-data:/data locus-auth
+```
+
+Именованный Volume `locus-auth-data` сохраняет базу после остановки контейнера.
+Инструкции Railway: [Dockerfiles](https://docs.railway.com/builds/dockerfiles),
+[Volumes](https://docs.railway.com/volumes),
+[Config as Code](https://docs.railway.com/config-as-code/reference).
+
 ## Методы
 
 | Метод | Путь | Назначение |
@@ -22,6 +63,8 @@ SQLite создаётся автоматически в `data/auth.db`. Путь
 | POST | `/auth/login` | Вход, возвращает access_token, token_type и expires_in |
 | GET | `/auth/me` | Текущий пользователь по Bearer-токену |
 | POST | `/auth/logout` | Отзыв текущего токена (204) |
+| POST | `/survey` | Сохранить или заменить анкету текущего пользователя (200) |
+| GET | `/survey` | Получить сохранённую анкету текущего пользователя (200) |
 
 Для регистрации и входа передайте JSON:
 
@@ -52,8 +95,68 @@ Invoke-RestMethod http://127.0.0.1:8000/auth/logout -Method Post -Headers $heade
 SHA-256 хеши. Выход отзывает одну сессию, остальные остаются действительными.
 Пользователи и сессии сохраняются при перезапуске.
 
-Это основа для локальной разработки. Для публичного размещения нужны HTTPS
-и ограничение частоты запросов регистрации и входа; `--reload` следует отключить.
+Railway-конфигурация позволяет разместить API с постоянным хранилищем SQLite.
+Для публичного использования используйте HTTPS и добавьте ограничение частоты
+запросов регистрации и входа; встроенного ограничения в этом API пока нет.
+
+## Анкета
+
+Оба метода `/survey` требуют заголовок `Authorization: Bearer <access_token>`.
+`POST /survey` принимает объект `survey` со всеми 15 полями. Имена полей
+чувствительны к регистру, включая `SAT`, `IELTS`, `NUET`, `UNT` и `AET`.
+Неизвестные и отсутствующие поля возвращают 422. Для вопроса без ответа
+передайте `null`. Форматы ответов пока не ограничены: строки, числа, булевы
+значения, массивы, объекты и `null` сохраняются как JSON без преобразования.
+Диапазоны баллов экзаменов и допустимые варианты ответов пока не проверяются.
+
+Пример тела запроса:
+
+```json
+{
+  "survey": {
+    "grade": 11,
+    "entryYear": 2027,
+    "interest": ["engineering"],
+    "city": "Алматы",
+    "mustStay": false,
+    "budget": 2000000,
+    "funding": ["scholarship"],
+    "category": "university",
+    "academicStrengths": ["math", "physics"],
+    "SAT": 1400,
+    "IELTS": 7.5,
+    "NUET": null,
+    "UNT": 120,
+    "AET": null,
+    "extracurricularInterests": ["robotics"]
+  }
+}
+```
+
+Отправка из JavaScript (`survey` — объект ответов выше):
+
+```javascript
+const response = await fetch(`${apiBaseUrl}/survey`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${accessToken}`,
+  },
+  body: JSON.stringify({ survey }),
+});
+if (!response.ok) throw new Error(`Survey save failed: ${response.status}`);
+const saved = await response.json();
+```
+
+Ответ `POST /survey` и `GET /survey` имеет ту же форму `{ "survey": { ... } }`.
+До первого сохранения `GET /survey` возвращает 404. Без действующей сессии
+оба метода возвращают 401. На пользователя хранится одна анкета; повторный
+POST полностью заменяет предыдущие ответы, а не дополняет их. Пользователь
+определяется по токену, передавать `user_id` нельзя.
+
+Таблица `surveys` создаётся автоматически при запуске, в том числе в существующей
+базе с пользователями и сессиями. Данные сохраняются в том же SQLite-файле;
+на Railway для сохранения между развёртываниями необходим Volume `/data`.
 
 ## Проверка
 
