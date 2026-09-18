@@ -73,7 +73,8 @@ class ApplicantProfile(StrictModel):
 def to_survey(profile: ApplicantProfile) -> dict:
     values = profile.model_dump()
     keys = ['grade', 'entryYear', 'interest', 'city', 'mustStay', 'budget', 'funding',
-            'category', 'academicStrengths', 'extracurricularInterests']
+            'category', 'academicStrengths', 'extracurricularInterests', 'studyLanguage',
+            'academicPerformance', 'constraints', 'country', 'level']
     survey = {key: values[key] for key in keys}
     survey['city'] = [] if profile.city == 'Any city' else profile.city
     survey['funding'] = {'self': ['self_funded'], 'grant': ['state_grant', 'university_scholarship'],

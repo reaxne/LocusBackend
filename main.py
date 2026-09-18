@@ -22,7 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, JsonValue, ValidationError, f
 from database import Database, UsernameAlreadyRegistered, SurveyConflict, RoadmapConflict
 from settings import load_environment
 from profile_schema import FrontendState, to_survey
-from recommendation.embeddings import EmbeddingProvider, InterestMatcher
+from recommendation.embeddings import InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
 from recommendation.recommender import Recommender, MAX_RECOMMENDATIONS
 from recommendation.ai import GemmaClient, AIUnavailable, build_context, cache_key, compact_context
@@ -97,6 +97,11 @@ class Survey(BaseModel):
     UNT: JsonValue
     AET: JsonValue
     extracurricularInterests: JsonValue
+    studyLanguage: JsonValue | None = None
+    academicPerformance: JsonValue | None = None
+    constraints: JsonValue | None = None
+    country: JsonValue | None = None
+    level: JsonValue | None = None
 
 
 class SurveyPayload(BaseModel):
@@ -110,13 +115,12 @@ def create_app(
     database_url: str | None = None,
     *,
     program_repository: ProgramRepository | None = None,
-    embedding_provider: EmbeddingProvider | None = None,
 ) -> FastAPI:
     load_environment()
     database = Database(database_url)
     recommender = Recommender(
         program_repository if program_repository is not None else JSONProgramRepository(),
-        InterestMatcher(embedding_provider),
+        InterestMatcher(),
     )
 
     @asynccontextmanager

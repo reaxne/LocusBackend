@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import create_app
 from profile_schema import ApplicantProfile, QUESTIONS, to_survey
+from recommendation.models import StudentProfile
 
 HEADERS = {'Origin':'http://127.0.0.1:5173', 'X-Locus-Request':'1'}
 
@@ -28,6 +29,19 @@ def payload(revision=0, complete=False):
     p = profile()
     return {'survey':to_survey(ApplicantProfile(**p)), 'state':{'draft':p,'profile':p if complete else None,
         'draftStep':17 if complete else 1,'answeredQuestions':QUESTIONS if complete else ['grade'],'revision':revision}}
+
+
+def test_recommendation_fields_survive_survey_conversion():
+    value = profile()
+    value.update(studyLanguage='en', academicPerformance='good', constraints='Accessible housing',
+                 country='Kazakhstan', level='bachelor')
+    survey = to_survey(ApplicantProfile(**value))
+    recommendation_profile = StudentProfile.model_validate(survey)
+    assert recommendation_profile.study_language == 'en'
+    assert recommendation_profile.academic_performance == 'good'
+    assert recommendation_profile.constraints == 'Accessible housing'
+    assert recommendation_profile.country == 'Kazakhstan'
+    assert recommendation_profile.level == 'bachelor'
 
 
 def test_browser_cookie_draft_submit_edit_conflict_and_reload(db_url, monkeypatch):

@@ -139,28 +139,22 @@ guaranteed. Missing fees or budget omit financial scoring. A verified expired
 funding deadline for the program or selected route removes that funding option. Living costs and
 scholarship award amounts are not modeled, and grant places are not invented.
 
-## Embeddings
+## Deterministic interest matching
 
-The default `KeywordEmbeddingProvider` is an offline deterministic hashed
-bag-of-words fallback, **not a neural semantic model**. It normalizes text and a
-small explicit English/Russian/Kazakh alias dictionary. It can miss paraphrases and
-unlisted translations; hashing can produce collisions. Program text includes name,
-description, interests/tags, courses, and career paths. Student text includes
-interests and extracurricular interests.
+Interest matching uses no embeddings or hashes. `InterestMatcher` extracts exact,
+normalized keywords and conservative domain concepts from the student interests and
+from a program's name, interests, tags, career paths, courses, and description.
+The catalog fields have fixed weights in that order, so an explicit program name
+match is stronger than a descriptive-text match. The shared English/Russian/Kazakh
+vocabulary is in `recommendation.normalization`; it maps close equivalents such as
+`Programming`, `Computer Science`, and `Software engineering` to one computing
+concept, but does not infer similarity between unrelated words.
 
-The application-scoped `InterestMatcher` batch-encodes cache misses and uses a
-bounded LRU cache (4096 program texts). Changing content invalidates its embedding;
-unchanged programs are not re-encoded per request. The cache is process-local and
-provider access is synchronized for thread safety.
-
-To enable neural semantic matching, implement `EmbeddingProvider.name` and
-`encode(texts) -> list[list[float]]`, then pass the provider to
-`create_app(embedding_provider=provider)`. A possible future adapter is
-`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`.
-TODO for an embedding deployment: add an optional, pinned dependency set, package
-the model files ahead of time, load them once, and validate memory/latency and
-multilingual ranking quality. No model is downloaded by this implementation,
-and no new runtime dependencies were added.
+Each response includes `scoreBreakdown`. A `null` component did not participate
+because the student answer or comparable catalog field was unavailable. The score is
+the weighted average of only non-null components, with their configured weights
+renormalized to one. Unknown eligibility is informational rather than a score
+penalty; verified ineligibility remains filtered for ordinary recommendations.
 
 ## Catalog and provenance
 

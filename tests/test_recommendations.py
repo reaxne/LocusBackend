@@ -14,7 +14,7 @@ from database import Database
 from main import create_app
 from recommendation.config import DEFAULT_CONFIG
 from recommendation.eligibility import check_eligibility, exam_fit
-from recommendation.embeddings import InterestMatcher, KeywordEmbeddingProvider
+from recommendation.embeddings import InterestMatcher
 from recommendation.models import (
     AdmissionRoute, Deadline, ExamRequirement, Program, RoadmapTask, Source, StudentProfile,
 )
@@ -326,26 +326,39 @@ def test_normalization_and_validation():
             student(**update)
 
 
-def test_cached_program_embeddings_are_batched_and_invalidated_by_content():
-    class CountingProvider(KeywordEmbeddingProvider):
-        def __init__(self):
-            super().__init__()
-            self.calls = []
+def test_interest_matching_has_no_hash_collision_false_positive():
+    cyber = program(id="cyber", name="Cybersecurity", interests=["cybersecurity"])
+    translation = program(id="translation", name="Translation", interests=["translation"])
+    scores = InterestMatcher().scores(student(interest=["Cybersecurity"]), [cyber, translation])
+    assert scores["cyber"] == 1
+    assert scores["translation"] == 0
 
-        def encode(self, texts):
-            self.calls.append(list(texts))
-            return super().encode(texts)
 
-    provider = CountingProvider()
-    matcher = InterestMatcher(provider, cache_size=2)
-    programs = [program(), program(id="second", name="Economics")]
-    first = matcher.scores(student(), programs)
-    assert len(provider.calls[0]) == 2
-    assert matcher.scores(student(), programs) == first
-    assert len(provider.calls) == 3  # one program batch and two student encodes
-    matcher.scores(student(), [program(name="Different curriculum")])
-    assert len(provider.calls) == 5
-    assert len(matcher._cache) == 2
+def test_interest_matching_prefers_related_programs_over_unrelated_ones():
+    cyber = program(id="cyber", name="Cybersecurity", interests=["information security"])
+    computing = program(id="computing", name="Computer Science", interests=["programming"])
+    translation = program(id="translation", name="Translation", interests=["translation"])
+    result = recommend(student(interest=["Cybersecurity"], academicStrengths=["Programming"]),
+                       [translation, computing, cyber]).recommendations
+    assert [item.program_id for item in result] == ["cyber", "computing", "translation"]
+    assert result[0].score_breakdown["interest"] > result[-1].score_breakdown["interest"]
+
+
+@pytest.mark.parametrize(("strength", "catalog_value"), [
+    ("Programming", "Computer Science"), ("Research", "Laboratory"),
+    ("Writing", "Creative Writing"), ("Teamwork", "Team projects"),
+])
+def test_academic_strength_aliases_match_meaningful_catalog_terms(strength, catalog_value):
+    item = program(recommended_academic_strengths=[catalog_value])
+    assert academic_match(student(academicStrengths=[strength]), item) == 1
+
+
+def test_missing_catalog_components_are_omitted_not_scored_as_zero():
+    item = program(tuition_per_year=None, sources={}, admission_routes=[], extracurricular=None)
+    result = recommend(student(budget=1_000_000), [item]).recommendations[0]
+    assert result.scores["financial"] is None
+    assert "financial" not in result.weights
+    assert sum(result.weights.values()) == pytest.approx(1)
 
 
 def test_repository_persists_cycles_and_excludes_demo_inactive(db_url):

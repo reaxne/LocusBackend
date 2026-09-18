@@ -41,6 +41,11 @@ class StudentProfile(Model):
     UNT: Nonnegative | None = None
     AET: Nonnegative | None = None
     extracurricular_interests: list[str] = Field(default_factory=list)
+    study_language: str | None = None
+    academic_performance: str | None = None
+    constraints: str | None = None
+    country: str | None = None
+    level: str | None = None
 
     @field_validator("interest", "city", "academic_strengths", "extracurricular_interests",
                      "funding", mode="before")
@@ -59,7 +64,8 @@ class StudentProfile(Model):
                 result.setdefault(normalize(clean), clean)
         return list(result.values())
 
-    @field_validator("SAT", "IELTS", "NUET", "UNT", "AET", "budget", "category", mode="before")
+    @field_validator("SAT", "IELTS", "NUET", "UNT", "AET", "budget", "category", "study_language",
+                     "academic_performance", "constraints", "country", "level", mode="before")
     @classmethod
     def empty_to_none(cls, value):
         return None if isinstance(value, str) and not value.strip() else value
@@ -229,6 +235,7 @@ class Recommendation(Model):
     match_score: Score
     eligibility: EligibilityResult
     scores: dict[str, Score | None]
+    score_breakdown: dict[str, Score | None]
     weights: dict[str, Score]
     financial: FinancialResult
     why_recommended: list[str]
@@ -250,6 +257,10 @@ class StudentSummary(Model):
     academic_strengths: list[str]
     constraints: list[str]
     category: str | None
+    study_language: str | None = None
+    academic_performance: str | None = None
+    country: str | None = None
+    level: str | None = None
 
 
 class ExcludedProgram(Model):

@@ -2,12 +2,12 @@ from datetime import date
 
 from recommendation.config import DEFAULT_CONFIG, ScoringConfig
 from recommendation.models import FinancialResult, Program, StudentProfile
-from recommendation.normalization import normalize
+from recommendation.normalization import concepts, language, level, normalize
 
 
 def academic_match(student: StudentProfile, program: Program) -> float | None:
-    required = {normalize(item) for item in program.recommended_academic_strengths if item.strip()}
-    strengths = {normalize(item) for item in student.academic_strengths}
+    required = {concept for item in program.recommended_academic_strengths for concept in concepts(item)}
+    strengths = {concept for item in student.academic_strengths for concept in concepts(item)}
     if not required or not strengths:
         return None
     return len(required & strengths) / len(required)
@@ -30,6 +30,8 @@ def hard_constraint_reasons(student: StudentProfile, program: Program, as_of: da
         reasons.append("The program admission cycle differs from the requested entry year.")
     if student.must_stay and city_match(student, program) != 1.0:
         reasons.append("The program city is outside the required cities or is unknown.")
+    if student.level and program.degree and level(student.level) != level(program.degree):
+        reasons.append("The program degree level differs from the requested level.")
     return reasons
 
 
@@ -86,9 +88,17 @@ def financial_match(student: StudentProfile, program: Program, as_of: date | Non
 def extracurricular_match(student: StudentProfile, program: Program) -> float | None:
     if not student.extracurricular_interests or not program.extracurricular:
         return None
-    wanted = {normalize(item) for item in student.extracurricular_interests}
-    offered = {normalize(item) for item in program.extracurricular}
+    wanted = {concept for item in student.extracurricular_interests for concept in concepts(item)}
+    offered = {concept for item in program.extracurricular for concept in concepts(item)}
     return len(wanted & offered) / len(wanted)
+
+
+def language_match(student: StudentProfile, program: Program) -> float | None:
+    if not student.study_language or normalize(student.study_language) == "any" or not program.languages:
+        return None
+    requested = language(student.study_language)
+    offered = {language(item) for item in program.languages}
+    return 1.0 if requested in offered else 0.0
 
 
 def calculate_weights(student: StudentProfile, available_components: set[str],
@@ -100,3 +110,10 @@ def calculate_weights(student: StudentProfile, available_components: set[str],
         weights["financial"] = config.constrained_financial_weight
     total = sum(weights.values())
     return {key: value / total for key, value in weights.items()} if total else {}
+
+
+def weighted_average(student: StudentProfile, components: dict[str, float | None],
+                     config: ScoringConfig = DEFAULT_CONFIG) -> tuple[float, dict[str, float]]:
+    """Average only comparable components and return their normalized weights."""
+    weights = calculate_weights(student, {key for key, value in components.items() if value is not None}, config)
+    return sum(components[key] * weight for key, weight in weights.items()), weights

@@ -1,86 +1,76 @@
-"""Replaceable text encoders with a bounded, content-keyed program cache."""
+"""Deterministic, collision-free matching of student interests to programs."""
 
-import hashlib
-import math
-from collections import OrderedDict
-from threading import RLock
-from typing import Protocol, Sequence
+from dataclasses import dataclass
 
 from recommendation.models import Program, StudentProfile
-from recommendation.normalization import tokens
+from recommendation.normalization import concepts
 
 
-class EmbeddingProvider(Protocol):
-    name: str
-
-    def encode(self, texts: Sequence[str]) -> list[list[float]]: ...
-
-
-class KeywordEmbeddingProvider:
-    """Offline bag-of-words fallback; lexical matching, not a neural semantic model."""
-
-    name = "deterministic_keyword_v1"
-
-    def __init__(self, dimensions: int = 2048):
-        self.dimensions = dimensions
-
-    def encode(self, texts: Sequence[str]) -> list[list[float]]:
-        vectors = []
-        for text in texts:
-            vector = [0.0] * self.dimensions
-            for token in set(tokens(text)):
-                index = int.from_bytes(hashlib.sha256(token.encode()).digest()[:8], "big") % self.dimensions
-                vector[index] = 1.0
-            vectors.append(vector)
-        return vectors
+FIELD_WEIGHTS = {
+    "name": 1.0,
+    "interests": 0.9,
+    "tags": 0.8,
+    "career_paths": 0.7,
+    "important_courses": 0.6,
+    "description": 0.4,
+}
 
 
-def cosine_similarity(left: list[float], right: list[float]) -> float:
-    if len(left) != len(right):
-        raise ValueError("Embedding dimensions differ")
-    norm = math.sqrt(sum(value * value for value in left) * sum(value * value for value in right))
-    if not norm:
-        return 0.0
-    return max(0.0, min(1.0, sum(a * b for a, b in zip(left, right)) / norm))
+@dataclass(frozen=True)
+class InterestMatch:
+    score: float | None
+    matched_interests: tuple[str, ...] = ()
 
 
-def program_text(program: Program) -> str:
-    return ". ".join(filter(None, [
-        program.name, program.description, *program.interests, *program.tags,
-        *program.important_courses, *program.career_paths,
-    ]))
+def _field_concepts(values: list[str] | tuple[str, ...] | str | None) -> set[str]:
+    if values is None:
+        return set()
+    if isinstance(values, str):
+        values = [values]
+    return {concept for value in values for concept in concepts(value)}
+
+
+def program_keywords(program: Program) -> dict[str, float]:
+    """Map each catalog keyword to its strongest explicit source field."""
+    fields = {
+        "name": program.name,
+        "interests": program.interests,
+        "tags": program.tags,
+        "career_paths": program.career_paths,
+        "important_courses": program.important_courses,
+        "description": program.description,
+    }
+    weights: dict[str, float] = {}
+    for field, value in fields.items():
+        for keyword in _field_concepts(value):
+            weights[keyword] = max(weights.get(keyword, 0), FIELD_WEIGHTS[field])
+    return weights
 
 
 class InterestMatcher:
-    def __init__(self, provider: EmbeddingProvider | None = None, cache_size: int = 4096):
-        self.provider = provider or KeywordEmbeddingProvider()
-        self.cache_size = cache_size
-        self._cache: OrderedDict[str, list[float]] = OrderedDict()
-        self._lock = RLock()
+    """Exact normalized keyword matching; no vectors, hashes, or fuzzy guesses."""
 
-    def _encode(self, texts: list[str]) -> list[list[float]]:
-        vectors = self.provider.encode(texts)
-        if len(vectors) != len(texts) or any(
-            not vector or any(not math.isfinite(value) for value in vector) for vector in vectors
-        ):
-            raise ValueError("Embedding provider returned invalid vectors")
-        return vectors
+    name = "deterministic_keyword_match_v2"
+
+    def match(self, student: StudentProfile, program: Program) -> InterestMatch:
+        if not student.interest:
+            return InterestMatch(None)
+        keywords = program_keywords(program)
+        if not keywords:
+            return InterestMatch(None)
+        matched: list[str] = []
+        scores: list[float] = []
+        for interest in student.interest:
+            interest_keywords = concepts(interest)
+            score = max((keywords.get(keyword, 0) for keyword in interest_keywords), default=0)
+            scores.append(score)
+            if score:
+                matched.append(interest)
+        return InterestMatch(sum(scores) / len(scores), tuple(matched))
+
+    def matches(self, student: StudentProfile, programs: list[Program]) -> dict[str, InterestMatch]:
+        return {program.id: self.match(student, program) for program in programs}
 
     def scores(self, student: StudentProfile, programs: list[Program]) -> dict[str, float | None]:
-        text = ". ".join([*student.interest, *student.extracurricular_interests])
-        if not text or not programs:
-            return {item.id: None for item in programs}
-        texts = [program_text(item) for item in programs]
-        # Serialize access to providers that are not thread-safe; batch only cache misses.
-        with self._lock:
-            missing = list(dict.fromkeys(item for item in texts if item not in self._cache))
-            fresh = dict(zip(missing, self._encode(missing))) if missing else {}
-            vectors = [fresh[item] if item in fresh else self._cache[item] for item in texts]
-            for item, vector in zip(texts, vectors):
-                self._cache[item] = vector
-                self._cache.move_to_end(item)
-            while len(self._cache) > self.cache_size:
-                self._cache.popitem(last=False)
-            student_vector = self._encode([text])[0]
-        return {item.id: cosine_similarity(student_vector, vector)
-                for item, vector in zip(programs, vectors)}
+        """Compatibility helper for callers that require only numeric scores."""
+        return {program_id: match.score for program_id, match in self.matches(student, programs).items()}
