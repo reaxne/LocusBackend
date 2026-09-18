@@ -1,7 +1,6 @@
 """All admission values below are fictional DEMO fixtures, not university facts."""
 
 from datetime import date
-import json
 from pathlib import Path
 import psycopg
 import subprocess

@@ -33,10 +33,6 @@ def hard_constraint_reasons(student: StudentProfile, program: Program, as_of: da
     return reasons
 
 
-def passes_hard_constraints(student: StudentProfile, program: Program, as_of: date) -> bool:
-    return not hard_constraint_reasons(student, program, as_of)
-
-
 def financial_match(student: StudentProfile, program: Program, as_of: date | None = None,
                     config: ScoringConfig = DEFAULT_CONFIG,
                     route_id: str | None = None) -> FinancialResult:

@@ -1,5 +1,4 @@
 """PostgreSQL persistence; no SQLite or file fallback."""
-import os
 from contextlib import contextmanager
 from pathlib import Path
 import psycopg

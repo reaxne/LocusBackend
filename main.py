@@ -25,7 +25,7 @@ from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
 from recommendation.recommender import Recommender, MAX_RECOMMENDATIONS
-from recommendation.ai import GemmaClient, AIUnavailable, MODEL, build_context, cache_key, compact_context
+from recommendation.ai import GemmaClient, AIUnavailable, build_context, cache_key, compact_context
 from recommendation.planning import prepare_plan
 from recommendation.prompts import VERSION as AI_PROMPT_VERSION
 from recommendation.ai_reuse import delta_context, merge_advice
