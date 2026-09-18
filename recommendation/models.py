@@ -208,6 +208,9 @@ class RoadmapTask(Model):
     target: float | None = None
     blocking: bool = False
     depends_on: list[str] = Field(default_factory=list)
+    how: list[str] = Field(default_factory=list)
+    timing: str = "В ближайшую неделю · рекомендация"
+    completion_criteria: str = "Результат шага записан и проверен."
 
 
 class RequirementsSummary(Model):
@@ -235,6 +238,10 @@ class Recommendation(Model):
     roadmap: list[RoadmapTask]
     next_action: RoadmapTask | None
     sources: dict[str, Source]
+    city: str | None = None
+    interests: list[str] = Field(default_factory=list)
+    languages: list[str] = Field(default_factory=list)
+    program_group: str | None = None
 
 
 class StudentSummary(Model):

@@ -23,19 +23,21 @@ class Recommender:
         self.config = config
 
     def recommend(self, student: StudentProfile, limit: int = 5,
-                  as_of: date | None = None) -> RecommendationResponse:
+                  as_of: date | None = None, program_ids: list[str] | None = None) -> RecommendationResponse:
         if not 1 <= limit <= 50:
             raise ValueError("limit must be between 1 and 50")
         as_of = as_of or date.today()
         candidates = []
         excluded = []
         for program in self.repository.get_programs_for_entry_year(student.entry_year):
+            if program_ids is not None and program.id not in program_ids:
+                continue
             reasons = hard_constraint_reasons(student, program, as_of)
-            if reasons:
+            if reasons and program_ids is None:
                 excluded.append(ExcludedProgram(program_id=program.id, reasons=reasons))
                 continue
             eligibility = check_eligibility(student, program, as_of, self.config)
-            if eligibility.status == "ineligible":
+            if eligibility.status == "ineligible" and program_ids is None:
                 excluded.append(ExcludedProgram(program_id=program.id, reasons=eligibility.warnings, eligibility=eligibility))
             else:
                 candidates.append((program, eligibility))
@@ -95,6 +97,8 @@ class Recommender:
                 scores=scores, weights=weights, financial=financial, why_recommended=reasons,
                 warnings=warnings, requirements=summary, missing_requirements=summary.missing,
                 roadmap=roadmap, next_action=get_next_action(roadmap, as_of), sources=program.sources,
+                city=program.city, interests=program.interests, languages=program.languages,
+                program_group=program.program_group,
             ))
         recommendations.sort(key=lambda item: (-item.match_score, item.program_id))
         constraints = []

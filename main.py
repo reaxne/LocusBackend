@@ -22,6 +22,11 @@ from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
 from recommendation.recommender import Recommender
+from recommendation.ai import GemmaClient, AIUnavailable, MODEL, build_context, cache_key
+from recommendation.planning import prepare_plan
+from recommendation.prompts import VERSION as AI_PROMPT_VERSION
+from recommendation.ai_reuse import delta_context, merge_advice
+from psycopg.types.json import Jsonb
 from recommendation.repository import ProgramRepository, PostgreSQLProgramRepository
 
 
@@ -251,6 +256,89 @@ def create_app(
         except ValidationError as exc:
             raise RequestValidationError(exc.errors(include_context=False)) from exc
         return recommender.recommend(profile, limit=limit)
+
+    class AIRequest(BaseModel):
+        model_config = ConfigDict(extra='forbid')
+        programIds: list[str] = Field(default_factory=list, max_length=6)
+        limit: int = Field(default=5, ge=1, le=6)
+        generateAI: bool = True
+
+    @application.post('/ai/recommendations', tags=['AI'])
+    @application.post('/ai/roadmap', tags=['AI'])
+    @application.post('/ai/profile', tags=['AI'])
+    def ai_plan(payload: AIRequest, request: Request, session: Annotated[dict, Depends(current_session)]):
+        purpose = request.url.path.rsplit('/', 1)[-1]
+        if request.headers.get('x-locus-user') not in (None, str(session['id'])):
+            raise HTTPException(409, 'Account changed. Reload before generating.')
+        record = database.get_survey_record(session['id'])
+        if record is None:
+            raise HTTPException(404, 'Save your questionnaire first')
+        if record['state_json'] is not None and record['state_json'].get('profile') is None:
+            raise HTTPException(409, 'Complete the questionnaire first')
+        try:
+            profile = StudentProfile.model_validate(record['answers_json'])
+        except ValidationError:
+            raise HTTPException(422, 'Saved questionnaire needs updating') from None
+        baseline = recommender.recommend(profile, limit=6 if payload.programIds else payload.limit,
+                                        program_ids=payload.programIds or None)
+        if payload.programIds:
+            requested = set(payload.programIds)
+            available = {p.program_id for p in baseline.recommendations}
+            if len(requested) != len(payload.programIds) or not requested <= available:
+                raise HTTPException(422, 'Select unique program IDs from your current matching results')
+            baseline.recommendations = [p for p in baseline.recommendations if p.program_id in requested]
+        baseline = prepare_plan(baseline, profile, record['state_json'])
+        result = baseline.model_dump(mode='json', by_alias=True)
+        result['ai'] = {'status': 'unavailable', 'model': None, 'cached': False,
+                        'purpose': purpose, 'promptVersion': AI_PROMPT_VERSION,
+                        'notice': 'AI coaching is planning advice; verify admissions facts with official sources.'}
+        if purpose == 'profile':
+            result['analysis'] = None
+        if not baseline.recommendations and purpose != 'profile':
+            result['ai']['reason'] = 'no_matching_programs'
+            return result
+        if not payload.generateAI:
+            result['ai']['reason'] = 'not_requested'
+            return result
+        context = build_context(profile, baseline, record['state_json'])
+        context['_purpose'] = purpose
+        try:
+            fingerprint = cache_key(context)
+        except AIUnavailable as exc:
+            result['ai']['reason'] = str(exc)
+            return result
+        with database.ai_request(session['id']) as db:
+            if db is None:
+                raise HTTPException(429, 'Generation already in progress. Try again shortly.', headers={'Retry-After': '20'})
+            previous = db.execute("SELECT *, updated_at > now() - interval '20 seconds' AS recent FROM ai_results WHERE user_id=%s AND purpose=%s",
+                                  (session['id'], purpose)).fetchone()
+            if previous and previous['cache_key'] == fingerprint and previous['result'].get('ai', {}).get('status') == 'generated':
+                cached = previous['result']
+                cached['ai']['cached'] = True
+                return cached
+            if previous and previous['recent']:
+                raise HTTPException(429, 'Please wait before generating again.', headers={'Retry-After': '20'})
+            try:
+                client = GemmaClient()
+                generation_context, reused = context, {}
+                if purpose == 'roadmap' and previous and previous['result'].get('ai', {}).get('promptVersion') == AI_PROMPT_VERSION:
+                    generation_context, reused = delta_context(context, previous['result'])
+                coaching = client.generate(generation_context)
+                if purpose == 'profile':
+                    result['analysis'] = coaching.model_dump()
+                elif purpose == 'roadmap':
+                    result['coaching'], result['ai']['reusedSteps'] = merge_advice(context, coaching.model_dump(), reused)
+                else:
+                    result['coaching'] = coaching.model_dump()
+                result['ai']['status'] = 'generated'
+                result['ai']['model'] = client.model
+            except AIUnavailable as exc:
+                result['ai']['reason'] = str(exc)
+            result['ai']['attempts'] = client.attempts
+            db.execute('''INSERT INTO ai_results(user_id,purpose,cache_key,result) VALUES (%s,%s,%s,%s)
+                ON CONFLICT(user_id,purpose) DO UPDATE SET cache_key=excluded.cache_key,
+                result=excluded.result,updated_at=now()''', (session['id'],purpose,fingerprint,Jsonb(result)))
+        return result
 
     return application
 

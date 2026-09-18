@@ -34,6 +34,21 @@ class Database:
             if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 1').fetchone():
                 db.execute((Path(__file__).parent / 'migrations/001_core.sql').read_text(encoding='utf-8'))
                 db.execute('INSERT INTO schema_migrations(version) VALUES (1)')
+            if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 2').fetchone():
+                db.execute((Path(__file__).parent / 'migrations/002_ai.sql').read_text(encoding='utf-8'))
+                db.execute('INSERT INTO schema_migrations(version) VALUES (2)')
+            if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 3').fetchone():
+                db.execute((Path(__file__).parent / 'migrations/003_ai_purposes.sql').read_text(encoding='utf-8'))
+                db.execute('INSERT INTO schema_migrations(version) VALUES (3)')
+
+    @contextmanager
+    def ai_request(self, user_id):
+        # Cross-process lock prevents concurrent generations for the same account.
+        with self._connect() as db:
+            locked = db.execute('SELECT pg_try_advisory_xact_lock(78004322, hashtext(%s)) AS locked',
+                                (str(user_id),)).fetchone()['locked']
+            yield db if locked else None
+
 
     def create_user(self, username, password_hash):
         try:

@@ -93,3 +93,61 @@ The utility opens SQLite read-only, preserves user IDs, password/token hashes an
 Set `TEST_DATABASE_URL` to a dedicated PostgreSQL test database and run `python -m pytest -q`. Each integration test creates and drops its own uniquely named schema. The frontend repository also provides `scripts/test_locus_backend.py --backend <this folder> --browser` to launch an isolated PostgreSQL cluster and run the backend suite plus browser integration tests. Do not point tests at production.
 
 `main.py` keeps the established routes; `database.py` owns transactions; `profile_schema.py` owns the frontend contract. The recommendation engine is unchanged. `PostgreSQLProgramRepository` is the catalog adapter; `SQLiteProgramRepository` remains only as an import alias for older code. The catalog importer uses `DATABASE_URL` or `--database <PostgreSQL URL>`. JSON catalog files are optional import inputs, not runtime persistence. No real catalog is fabricated by this update.
+# Gemma recommendations and roadmap coaching
+
+The backend reads the server-only `API_GEMMA` OpenRouter key from this folder's `.env`.
+Install `requirements.txt` and restart the backend; startup applies migration
+`002_ai.sql` automatically. The model is fixed to
+`google/gemma-4-26b-a4b-it:free`, with no paid-model fallback.
+
+After registering/signing in and saving a completed `/survey`, call either:
+
+* `POST /ai/recommendations` with `{"limit":5}` for the best current matches.
+* `POST /ai/roadmap` with `{"programIds":["actual-program-id","another-program-id"]}`
+  for up to six unique program IDs from current matching results.
+
+Both routes return the same planning bundle. Use the existing bearer authentication,
+or session cookies with the existing origin and `X-Locus-Request: 1` protections.
+Neither route accepts another user's ID or arbitrary profile content. Requests read
+the authenticated user's latest saved questionnaire. Unknown/nonmatching program
+IDs return 422; an incomplete questionnaire returns 409; a missing survey returns 404.
+
+The response preserves the existing `recommendations`, `roadmap`, `nextAction`,
+verified deadlines, requirements, and sources. On success, `ai.status` is `generated`
+and `coaching.programs` contains `program_id`, a personalized `explanation`, and
+`steps` with `task_id`, `why`, `how` (small actionable instructions), and
+`suggested_timing`. Join coaching by program/task IDs to the original result.
+Source links and deadlines come from the original deterministic tasks/requirements,
+not from generated text. Suggested timing is relative planning advice, not an
+application deadline. Each program retains its own roadmap and next action; this
+version does not merge tasks across programs or persist completion controls.
+
+`ai.status: unavailable` includes a safe `reason` such as `rate_limited`, `timeout`,
+`not_configured`, or `invalid_response`, alongside usable deterministic results.
+Free-provider availability is not guaranteed. Allow at least 60 seconds in the
+calling client's request timeout. Generation has a 55-second HTTP timeout.
+Only matching program and task IDs with validated JSON are accepted. AI prose is
+still advice, not independently verified admissions information.
+
+The latest response per account is cached in PostgreSQL `ai_results`. Profile,
+exam-goal, catalog, date, selection, model, and prompt-version changes invalidate the
+cache. A per-account database lock prevents concurrent generations, and a 20-second
+cooldown limits repeated changed/failed requests (429 with `Retry-After`). No generated
+responses are saved in files. Passwords, tokens, usernames, and unrelated profile
+fields are excluded from prompts. Educational answers and relevant exam goals are
+sent to OpenRouter and its model provider. There is no uploaded-portfolio analysis;
+portfolio advice uses saved interests and academic strengths.
+
+The existing `/recommendations` routes remain deterministic and compatible. The
+frontend now calls `/ai/roadmap` with `generateAI: false` after saving profile changes.
+This returns Russian preparation instructions without a provider call or AI cooldown.
+The AI button requests Gemma explanations in Russian with 3–7 actionable instructions
+per task. Personal exam goals add diagnostic, score-recording, weak-section and practice
+steps. Their IDs change when the relevant score, status, goal or section scores change.
+Selected programs are evaluated directly, including saved choices whose eligibility
+has changed; clients must inspect eligibility before applying. Catalog records must already
+be imported into PostgreSQL; missing facts remain unknown. See `catalogs/README.md`
+and `recommendation/README.md` for catalog maintenance.
+
+References: [requested model](https://openrouter.ai/google/gemma-4-26b-a4b-it:free),
+[OpenRouter API documentation](https://openrouter.ai/docs/api/reference/overview).
