@@ -1,0 +1,5133 @@
+[
+  {
+    "id": "kz-nu-cs",
+    "universityId": "kz-nu",
+    "universityName": "Nazarbayev University",
+    "name": "Bachelor of Science in Computer Science",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Разработка программ, алгоритмы и компьютерные системы.",
+    "interests": [
+      "программирование",
+      "информатика",
+      "бағдарламалау",
+      "computer science",
+      "software development"
+    ],
+    "tags": [
+      "it",
+      "cs"
+    ],
+    "careerPaths": [
+      "разработчик программного обеспечения",
+      "программист"
+    ],
+    "importantCourses": [
+      "Algorithms",
+      "Linear Algebra with Applications",
+      "Database Systems",
+      "Operating Systems"
+    ],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://scai.nu.edu.kz/kz/bsc-cs",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://scai.nu.edu.kz/kz/bsc-cs",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "important_courses": {
+        "url": "https://scai.nu.edu.kz/kz/bsc-cs",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-nu-biology",
+    "universityId": "kz-nu",
+    "universityName": "Nazarbayev University",
+    "name": "Bachelor of Science in Biological Sciences",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Живые организмы, клеточные процессы и биологические исследования.",
+    "interests": [
+      "биология",
+      "biology",
+      "биология ғылымдары",
+      "генетика",
+      "исследования"
+    ],
+    "tags": [
+      "natural_sciences",
+      "bio"
+    ],
+    "careerPaths": [
+      "специалист биологической лаборатории"
+    ],
+    "importantCourses": [
+      "Cell and molecular biology",
+      "Bioinformatics",
+      "Molecular genetics",
+      "Microbiology"
+    ],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://nu.edu.kz/sprogram/bachelor-of-science-in-biological-sciences/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://nu.edu.kz/sprogram/bachelor-of-science-in-biological-sciences/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "important_courses": {
+        "url": "https://nu.edu.kz/sprogram/bachelor-of-science-in-biological-sciences/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-journalism",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Журналистика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03201",
+    "programGroup": null,
+    "description": "Подготовка материалов для СМИ и работа с общественно значимой информацией.",
+    "interests": [
+      "журналистика",
+      "journalism",
+      "медиа",
+      "СМИ",
+      "жазу"
+    ],
+    "tags": [
+      "media",
+      "journalism"
+    ],
+    "careerPaths": [
+      "журналист",
+      "редактор"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Literature",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-sociology",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Социология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03101",
+    "programGroup": null,
+    "description": "Изучение общества, социальных групп и общественных процессов.",
+    "interests": [
+      "социология",
+      "sociology",
+      "қоғам",
+      "опросы",
+      "социальные исследования"
+    ],
+    "tags": [
+      "social_sciences",
+      "sociology"
+    ],
+    "careerPaths": [
+      "социолог",
+      "аналитик социальных исследований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-psychology",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Психология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03107",
+    "programGroup": null,
+    "description": "Поведение человека, психические процессы и психологические исследования.",
+    "interests": [
+      "психология",
+      "psychology",
+      "адам",
+      "поведение",
+      "помощь людям"
+    ],
+    "tags": [
+      "social_sciences",
+      "psychology"
+    ],
+    "careerPaths": [
+      "психолог — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-politics",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Политология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03106",
+    "programGroup": null,
+    "description": "Политические процессы, институты и публичное управление.",
+    "interests": [
+      "политология",
+      "political science",
+      "саясат",
+      "политика"
+    ],
+    "tags": [
+      "social_sciences",
+      "politics"
+    ],
+    "careerPaths": [
+      "политический аналитик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-design",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Дизайн",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02102",
+    "programGroup": null,
+    "description": "Визуальные коммуникации, графика и оформление цифровых и печатных материалов.",
+    "interests": [
+      "графический дизайн",
+      "дизайн",
+      "graphic design",
+      "иллюстрация"
+    ],
+    "tags": [
+      "architecture_design",
+      "graphic"
+    ],
+    "careerPaths": [
+      "графический дизайнер"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Drawing",
+      "Art"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-satbayev-geology",
+    "universityId": "kz-satbayev",
+    "universityName": "Satbayev University",
+    "name": "Геология и разведка месторождений полезных ископаемых",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Горные породы, строение Земли и поиск полезных ископаемых.",
+    "interests": [
+      "геология",
+      "geology",
+      "география",
+      "полезные ископаемые"
+    ],
+    "tags": [
+      "natural_sciences",
+      "geology"
+    ],
+    "careerPaths": [
+      "геолог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Geography",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://official.satbayev.university/ru/geology-oil-gas-business/gspemd",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-satbayev-hydrogeology",
+    "universityId": "kz-satbayev",
+    "universityName": "Satbayev University",
+    "name": "Гидрогеология и инженерная геология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Подземные воды, водные ресурсы и геологические условия строительства.",
+    "interests": [
+      "гидрогеология",
+      "вода",
+      "гидрология",
+      "hydrogeology",
+      "экология"
+    ],
+    "tags": [
+      "environment",
+      "hydro"
+    ],
+    "careerPaths": [
+      "гидрогеолог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Geography",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://satbayev.university/ru/specialties/gidrogeologiya-i-inzhenernaya-geologiya-b",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-satbayev-robotics",
+    "universityId": "kz-satbayev",
+    "universityName": "Satbayev University",
+    "name": "Робототехника и мехатроника",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Роботы, управление движением и автоматизация технических систем.",
+    "interests": [
+      "робототехника",
+      "robotics",
+      "мехатроника",
+      "автоматизация",
+      "электроника"
+    ],
+    "tags": [
+      "engineering",
+      "robot"
+    ],
+    "careerPaths": [
+      "инженер по автоматизации",
+      "инженер-робототехник"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://official.satbayev.university/ru/information-telecommunication-technologies",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-satbayev-architecture",
+    "universityId": "kz-satbayev",
+    "universityName": "Satbayev University",
+    "name": "Архитектура",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Проектирование зданий и городской среды.",
+    "interests": [
+      "архитектура",
+      "сәулет",
+      "architecture",
+      "черчение",
+      "проектирование"
+    ],
+    "tags": [
+      "architecture_design",
+      "architecture"
+    ],
+    "careerPaths": [
+      "архитектор-проектировщик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Drawing"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://satbayev.university/ru/undergraduate",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-software",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Software Engineering",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B06102",
+    "programGroup": "B057",
+    "description": "Разработка программ, алгоритмы и компьютерные системы.",
+    "interests": [
+      "программирование",
+      "информатика",
+      "бағдарламалау",
+      "computer science",
+      "software development"
+    ],
+    "tags": [
+      "it",
+      "cs"
+    ],
+    "careerPaths": [
+      "разработчик программного обеспечения",
+      "программист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-data",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Big Data Analysis",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B06103",
+    "programGroup": "B057",
+    "description": "Анализ данных, статистические модели и машинное обучение.",
+    "interests": [
+      "анализ данных",
+      "деректерді талдау",
+      "data science",
+      "machine learning",
+      "статистика"
+    ],
+    "tags": [
+      "it",
+      "data"
+    ],
+    "careerPaths": [
+      "аналитик данных",
+      "специалист по машинному обучению"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-cybersecurity",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Cybersecurity",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B06301",
+    "programGroup": "B058",
+    "description": "Защита информации, компьютерных систем и сетей.",
+    "interests": [
+      "кибербезопасность",
+      "ақпараттық қауіпсіздік",
+      "cybersecurity",
+      "защита информации"
+    ],
+    "tags": [
+      "it",
+      "cyber"
+    ],
+    "careerPaths": [
+      "специалист по информационной безопасности"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-electronics",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Electronic Engineering",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B07102",
+    "programGroup": "B063",
+    "description": "Электронные устройства, схемы и технические системы.",
+    "interests": [
+      "электроника",
+      "electronics",
+      "схемотехника",
+      "микроконтроллеры"
+    ],
+    "tags": [
+      "engineering",
+      "electronics"
+    ],
+    "careerPaths": [
+      "инженер-электронщик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-journalism",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Digital Journalism",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B03201",
+    "programGroup": "B042",
+    "description": "Подготовка материалов для СМИ и работа с общественно значимой информацией.",
+    "interests": [
+      "журналистика",
+      "journalism",
+      "медиа",
+      "СМИ",
+      "жазу"
+    ],
+    "tags": [
+      "media",
+      "journalism"
+    ],
+    "careerPaths": [
+      "журналист",
+      "редактор"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Literature",
+      "Communication"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kbtu-petroleum",
+    "universityId": "kz-kbtu",
+    "universityName": "Казахстанско-Британский технический университет",
+    "name": "Нефтегазовое дело",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B07201",
+    "programGroup": null,
+    "description": "Разработка месторождений, добыча и транспортировка нефти и газа.",
+    "interests": [
+      "нефть",
+      "газ",
+      "мұнай",
+      "petroleum engineering",
+      "бурение"
+    ],
+    "tags": [
+      "engineering",
+      "oil"
+    ],
+    "careerPaths": [
+      "инженер нефтегазовой отрасли"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kbtu-automation",
+    "universityId": "kz-kbtu",
+    "universityName": "Казахстанско-Британский технический университет",
+    "name": "Автоматизация и управление",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Роботы, управление движением и автоматизация технических систем.",
+    "interests": [
+      "робототехника",
+      "robotics",
+      "мехатроника",
+      "автоматизация",
+      "электроника"
+    ],
+    "tags": [
+      "engineering",
+      "robot"
+    ],
+    "careerPaths": [
+      "инженер по автоматизации",
+      "инженер-робототехник"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kbtu-information-systems",
+    "universityId": "kz-kbtu",
+    "universityName": "Казахстанско-Британский технический университет",
+    "name": "Информационные системы",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Разработка программ, алгоритмы и компьютерные системы.",
+    "interests": [
+      "программирование",
+      "информатика",
+      "бағдарламалау",
+      "computer science",
+      "software development"
+    ],
+    "tags": [
+      "it",
+      "cs"
+    ],
+    "careerPaths": [
+      "разработчик программного обеспечения",
+      "программист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kimep-finance",
+    "universityId": "kz-kimep",
+    "universityName": "Университет КИМЭП",
+    "name": "Финансы",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Финансовые решения, инвестиции и управление денежными потоками.",
+    "interests": [
+      "финансы",
+      "finance",
+      "қаржы",
+      "инвестиции",
+      "банки"
+    ],
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "careerPaths": [
+      "финансовый аналитик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kimep-accounting",
+    "universityId": "kz-kimep",
+    "universityName": "Университет КИМЭП",
+    "name": "Учет и аудит",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Учет операций, финансовая отчетность и аудит.",
+    "interests": [
+      "учет",
+      "аудит",
+      "accounting",
+      "бухгалтерия",
+      "есеп"
+    ],
+    "tags": [
+      "business",
+      "accounting"
+    ],
+    "careerPaths": [
+      "бухгалтер",
+      "аудитор — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kimep-marketing",
+    "universityId": "kz-kimep",
+    "universityName": "Университет КИМЭП",
+    "name": "Маркетинг",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Изучение потребителей, продвижение товаров и маркетинговые коммуникации.",
+    "interests": [
+      "маркетинг",
+      "marketing",
+      "реклама",
+      "бизнес",
+      "продажи"
+    ],
+    "tags": [
+      "business",
+      "marketing"
+    ],
+    "careerPaths": [
+      "маркетолог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kimep-international-relations",
+    "universityId": "kz-kimep",
+    "universityName": "Университет КИМЭП",
+    "name": "Международные отношения",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Международные отношения, дипломатия и межкультурное взаимодействие.",
+    "interests": [
+      "международные отношения",
+      "international relations",
+      "дипломатия",
+      "халықаралық қатынастар"
+    ],
+    "tags": [
+      "social_sciences",
+      "ir"
+    ],
+    "careerPaths": [
+      "аналитик международных отношений"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "English"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kimep-international-law",
+    "universityId": "kz-kimep",
+    "universityName": "Университет КИМЭП",
+    "name": "Международное право",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Правовые нормы, юридический анализ и защита прав.",
+    "interests": [
+      "право",
+      "law",
+      "құқық",
+      "юриспруденция",
+      "законы"
+    ],
+    "tags": [
+      "law",
+      "law"
+    ],
+    "careerPaths": [
+      "юрист — с учетом требований к выбранной практике"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-cs",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Компьютерные науки",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B06101",
+    "programGroup": "B057",
+    "description": "Разработка программ, алгоритмы и компьютерные системы.",
+    "interests": [
+      "программирование",
+      "информатика",
+      "бағдарламалау",
+      "computer science",
+      "software development"
+    ],
+    "tags": [
+      "it",
+      "cs"
+    ],
+    "careerPaths": [
+      "разработчик программного обеспечения",
+      "программист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-data",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Data Science",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B06112",
+    "programGroup": "B057",
+    "description": "Анализ данных, статистические модели и машинное обучение.",
+    "interests": [
+      "анализ данных",
+      "деректерді талдау",
+      "data science",
+      "machine learning",
+      "статистика"
+    ],
+    "tags": [
+      "it",
+      "data"
+    ],
+    "careerPaths": [
+      "аналитик данных",
+      "специалист по машинному обучению"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-security",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Компьютерная безопасность",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B06301",
+    "programGroup": "B058",
+    "description": "Защита информации, компьютерных систем и сетей.",
+    "interests": [
+      "кибербезопасность",
+      "ақпараттық қауіпсіздік",
+      "cybersecurity",
+      "защита информации"
+    ],
+    "tags": [
+      "it",
+      "cyber"
+    ],
+    "careerPaths": [
+      "специалист по информационной безопасности"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-fintech",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Финансовые технологии",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B04105",
+    "programGroup": "B046",
+    "description": "Финансовые сервисы и цифровые технологии для финансовых задач.",
+    "interests": [
+      "финтех",
+      "fintech",
+      "қаржы",
+      "финансы",
+      "цифровые сервисы"
+    ],
+    "tags": [
+      "business",
+      "fintech"
+    ],
+    "careerPaths": [
+      "аналитик финансовых технологий"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-journalism",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Цифровая журналистика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03202",
+    "programGroup": "B042",
+    "description": "Подготовка материалов для СМИ и работа с общественно значимой информацией.",
+    "interests": [
+      "журналистика",
+      "journalism",
+      "медиа",
+      "СМИ",
+      "жазу"
+    ],
+    "tags": [
+      "media",
+      "journalism"
+    ],
+    "careerPaths": [
+      "журналист",
+      "редактор"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Literature",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznmu-pharmacy",
+    "universityId": "kz-kaznmu",
+    "universityName": "Казахский национальный медицинский университет имени С. Д. Асфендиярова",
+    "name": "Фармация",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B10104",
+    "programGroup": null,
+    "description": "Лекарственные средства, их свойства и применение.",
+    "interests": [
+      "фармация",
+      "pharmacy",
+      "дәрі",
+      "лекарства",
+      "химия"
+    ],
+    "tags": [
+      "health",
+      "pharmacy"
+    ],
+    "careerPaths": [
+      "фармацевт — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Chemistry",
+      "Biology"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kaznmu.edu.kz/ru/образовательные-программы/бакалавриат/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznmu-dentistry",
+    "universityId": "kz-kaznmu",
+    "universityName": "Казахский национальный медицинский университет имени С. Д. Асфендиярова",
+    "name": "Стоматология (НИМО)",
+    "city": "Алматы",
+    "degree": "integrated_medical",
+    "programCode": "6B10118",
+    "programGroup": null,
+    "description": "Здоровье полости рта и стоматологическая помощь.",
+    "interests": [
+      "стоматология",
+      "dentistry",
+      "зубы",
+      "медицина"
+    ],
+    "tags": [
+      "health",
+      "dentistry"
+    ],
+    "careerPaths": [
+      "стоматолог — после выполнения профессиональных квалификационных требований"
+    ],
+    "importantCourses": [
+      "Терапевтическая стоматология",
+      "Хирургическая стоматология",
+      "Ортодонтия"
+    ],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kaznmu.edu.kz/ru/образовательные-программы/бакалавриат/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "important_courses": {
+        "url": "https://kaznmu.edu.kz/ru/образовательные-программы/бакалавриат/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-qmu-medicine",
+    "universityId": "kz-qmu",
+    "universityName": "Карагандинский медицинский университет",
+    "name": "Медицина",
+    "city": "Караганда",
+    "degree": "integrated_medical",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Здоровье человека, диагностика, профилактика и лечение заболеваний.",
+    "interests": [
+      "медицина",
+      "medicine",
+      "денсаулық",
+      "здоровье",
+      "врач"
+    ],
+    "tags": [
+      "health",
+      "medicine"
+    ],
+    "careerPaths": [
+      "врач — после выполнения профессиональных квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://qmu.edu.kz/ru/postupayushchim/vysshee-obrazovanie/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-qmu-pediatrics",
+    "universityId": "kz-qmu",
+    "universityName": "Карагандинский медицинский университет",
+    "name": "Педиатрия",
+    "city": "Караганда",
+    "degree": "integrated_medical",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Здоровье детей, профилактика и лечение детских заболеваний.",
+    "interests": [
+      "педиатрия",
+      "pediatrics",
+      "дети",
+      "медицина",
+      "балалар"
+    ],
+    "tags": [
+      "health",
+      "pediatrics"
+    ],
+    "careerPaths": [
+      "педиатр — после выполнения профессиональных квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://qmu.edu.kz/ru/postupayushchim/vysshee-obrazovanie/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-qmu-nursing",
+    "universityId": "kz-qmu",
+    "universityName": "Карагандинский медицинский университет",
+    "name": "Сестринское дело",
+    "city": "Караганда",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Уход за пациентами и организация сестринской помощи.",
+    "interests": [
+      "сестринское дело",
+      "nursing",
+      "мейіргер",
+      "уход за пациентами"
+    ],
+    "tags": [
+      "health",
+      "nursing"
+    ],
+    "careerPaths": [
+      "специалист сестринского дела"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://qmu.edu.kz/ru/postupayushchim/vysshee-obrazovanie/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznaru-agronomy",
+    "universityId": "kz-kaznaru",
+    "universityName": "Казахский национальный аграрный исследовательский университет",
+    "name": "Агрономия",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B08101",
+    "programGroup": null,
+    "description": "Растениеводство, выращивание сельскохозяйственных культур и агротехнологии.",
+    "interests": [
+      "агрономия",
+      "agronomy",
+      "ауыл шаруашылығы",
+      "растения",
+      "сельское хозяйство"
+    ],
+    "tags": [
+      "agriculture",
+      "agro"
+    ],
+    "careerPaths": [
+      "агроном"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznaru.edu.kz/ru/department/81",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznaru-bioengineering",
+    "universityId": "kz-kaznaru",
+    "universityName": "Казахский национальный аграрный исследовательский университет",
+    "name": "Биоинженерия",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B05103",
+    "programGroup": null,
+    "description": "Биологические процессы и их применение в технологиях.",
+    "interests": [
+      "биоинженерия",
+      "биотехнология",
+      "bioengineering",
+      "генетика"
+    ],
+    "tags": [
+      "natural_sciences",
+      "bioeng"
+    ],
+    "careerPaths": [
+      "биотехнолог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznaru.edu.kz/ru/department/81",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznaru-bioinformatics",
+    "universityId": "kz-kaznaru",
+    "universityName": "Казахский национальный аграрный исследовательский университет",
+    "name": "Биоинформатика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B05104",
+    "programGroup": null,
+    "description": "Применение вычислений и анализа данных к биологическим задачам.",
+    "interests": [
+      "биоинформатика",
+      "bioinformatics",
+      "генетика",
+      "анализ данных"
+    ],
+    "tags": [
+      "it",
+      "bioinfo"
+    ],
+    "careerPaths": [
+      "биоинформатик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznaru.edu.kz/ru/department/81",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznaru-veterinary",
+    "universityId": "kz-kaznaru",
+    "universityName": "Казахский национальный аграрный исследовательский университет",
+    "name": "Ветеринария",
+    "city": "Алматы",
+    "degree": "specialist",
+    "programCode": "6B09104",
+    "programGroup": null,
+    "description": "Здоровье животных и профилактика их заболеваний.",
+    "interests": [
+      "ветеринария",
+      "veterinary",
+      "животные",
+      "жануарлар"
+    ],
+    "tags": [
+      "agriculture",
+      "vet"
+    ],
+    "careerPaths": [
+      "ветеринарный специалист — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznaru.edu.kz/ru/op?degree=2",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznaru-logistics",
+    "universityId": "kz-kaznaru",
+    "universityName": "Казахский национальный аграрный исследовательский университет",
+    "name": "Логистика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B11302",
+    "programGroup": null,
+    "description": "Организация перевозок, поставок и движения товаров.",
+    "interests": [
+      "логистика",
+      "logistics",
+      "көлік",
+      "транспорт",
+      "поставки"
+    ],
+    "tags": [
+      "transport",
+      "logistics"
+    ],
+    "careerPaths": [
+      "логист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kaznaru.edu.kz/ru/department/84",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-abai-math-teaching",
+    "universityId": "kz-abai",
+    "universityName": "Казахский национальный педагогический университет имени Абая",
+    "name": "Математика (IP)",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B01501",
+    "programGroup": null,
+    "description": "Обучение математике и работа с математическими задачами.",
+    "interests": [
+      "математика",
+      "математика мұғалімі",
+      "mathematics",
+      "педагогика",
+      "учитель"
+    ],
+    "tags": [
+      "education",
+      "mathteach"
+    ],
+    "careerPaths": [
+      "учитель математики"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznpu.kz/ru/3131/page/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-abai-physics-teaching",
+    "universityId": "kz-abai",
+    "universityName": "Казахский национальный педагогический университет имени Абая",
+    "name": "Физика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B01504",
+    "programGroup": null,
+    "description": "Обучение физике, эксперименты и объяснение физических явлений.",
+    "interests": [
+      "физика",
+      "physics",
+      "педагогика",
+      "учитель"
+    ],
+    "tags": [
+      "education",
+      "phyteach"
+    ],
+    "careerPaths": [
+      "учитель физики"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Physics",
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznpu.kz/ru/3131/page/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-abai-cs-teaching",
+    "universityId": "kz-abai",
+    "universityName": "Казахский национальный педагогический университет имени Абая",
+    "name": "Информатика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B01507",
+    "programGroup": null,
+    "description": "Преподавание информатики и цифровых технологий.",
+    "interests": [
+      "информатика",
+      "computer science",
+      "педагогика",
+      "учитель",
+      "бағдарламалау"
+    ],
+    "tags": [
+      "education",
+      "csteach"
+    ],
+    "careerPaths": [
+      "учитель информатики"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Computer Science",
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznpu.kz/ru/3131/page/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-abai-informatics-robotics",
+    "universityId": "kz-abai",
+    "universityName": "Казахский национальный педагогический университет имени Абая",
+    "name": "Информатика и робототехника",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B01509",
+    "programGroup": null,
+    "description": "Преподавание информатики и цифровых технологий.",
+    "interests": [
+      "информатика",
+      "computer science",
+      "педагогика",
+      "учитель",
+      "бағдарламалау"
+    ],
+    "tags": [
+      "education",
+      "csteach"
+    ],
+    "careerPaths": [
+      "учитель информатики"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Computer Science",
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.kaznpu.kz/ru/3131/page/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-mnu-law",
+    "universityId": "kz-mnu",
+    "universityName": "Maqsut Narikbayev University",
+    "name": "Юриспруденция",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Правовые нормы, юридический анализ и защита прав.",
+    "interests": [
+      "право",
+      "law",
+      "құқық",
+      "юриспруденция",
+      "законы"
+    ],
+    "tags": [
+      "law",
+      "law"
+    ],
+    "careerPaths": [
+      "юрист — с учетом требований к выбранной практике"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://admission.mnu.kz/ru/programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-mnu-international-law",
+    "universityId": "kz-mnu",
+    "universityName": "Maqsut Narikbayev University",
+    "name": "Международное право",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Правовые нормы, юридический анализ и защита прав.",
+    "interests": [
+      "право",
+      "law",
+      "құқық",
+      "юриспруденция",
+      "законы"
+    ],
+    "tags": [
+      "law",
+      "law"
+    ],
+    "careerPaths": [
+      "юрист — с учетом требований к выбранной практике"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://admission.mnu.kz/ru/programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-mnu-psychology",
+    "universityId": "kz-mnu",
+    "universityName": "Maqsut Narikbayev University",
+    "name": "Психология",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Поведение человека, психические процессы и психологические исследования.",
+    "interests": [
+      "психология",
+      "psychology",
+      "адам",
+      "поведение",
+      "помощь людям"
+    ],
+    "tags": [
+      "social_sciences",
+      "psychology"
+    ],
+    "careerPaths": [
+      "психолог — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://admission.mnu.kz/ru/programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-mnu-translation",
+    "universityId": "kz-mnu",
+    "universityName": "Maqsut Narikbayev University",
+    "name": "Переводческое дело",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Письменный и устный перевод и межъязыковая коммуникация.",
+    "interests": [
+      "перевод",
+      "translation",
+      "аударма",
+      "языки",
+      "languages"
+    ],
+    "tags": [
+      "humanities",
+      "translation"
+    ],
+    "careerPaths": [
+      "переводчик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "English",
+      "Literature"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://admission.mnu.kz/ru/programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-mnu-finance",
+    "universityId": "kz-mnu",
+    "universityName": "Maqsut Narikbayev University",
+    "name": "Финансы",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Финансовые решения, инвестиции и управление денежными потоками.",
+    "interests": [
+      "финансы",
+      "finance",
+      "қаржы",
+      "инвестиции",
+      "банки"
+    ],
+    "tags": [
+      "business",
+      "finance"
+    ],
+    "careerPaths": [
+      "финансовый аналитик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://admission.mnu.kz/ru/programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-mnu-hospitality",
+    "universityId": "kz-mnu",
+    "universityName": "Maqsut Narikbayev University",
+    "name": "Гостеприимство",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Организация сервиса, работы гостиниц и ресторанов.",
+    "interests": [
+      "гостеприимство",
+      "hospitality",
+      "қонақжайлық",
+      "отели",
+      "рестораны"
+    ],
+    "tags": [
+      "hospitality",
+      "hospitality"
+    ],
+    "careerPaths": [
+      "менеджер гостиничного или ресторанного сервиса"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Communication",
+      "English"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://admission.mnu.kz/ru/programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-almau-management",
+    "universityId": "kz-almau",
+    "universityName": "Almaty Management University",
+    "name": "Менеджмент",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Управление организациями, командами и бизнес-процессами.",
+    "interests": [
+      "менеджмент",
+      "management",
+      "басқару",
+      "бизнес",
+      "предпринимательство"
+    ],
+    "tags": [
+      "business",
+      "management"
+    ],
+    "careerPaths": [
+      "менеджер проектов"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-almau-marketing",
+    "universityId": "kz-almau",
+    "universityName": "Almaty Management University",
+    "name": "Маркетинг",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Изучение потребителей, продвижение товаров и маркетинговые коммуникации.",
+    "interests": [
+      "маркетинг",
+      "marketing",
+      "реклама",
+      "бизнес",
+      "продажи"
+    ],
+    "tags": [
+      "business",
+      "marketing"
+    ],
+    "careerPaths": [
+      "маркетолог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-almau-logistics",
+    "universityId": "kz-almau",
+    "universityName": "Almaty Management University",
+    "name": "Логистика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Организация перевозок, поставок и движения товаров.",
+    "interests": [
+      "логистика",
+      "logistics",
+      "көлік",
+      "транспорт",
+      "поставки"
+    ],
+    "tags": [
+      "transport",
+      "logistics"
+    ],
+    "careerPaths": [
+      "логист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-almau-entrepreneurship",
+    "universityId": "kz-almau",
+    "universityName": "Almaty Management University",
+    "name": "Бизнес администрирование в области предпринимательства",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": null,
+    "programGroup": null,
+    "description": "Управление организациями, командами и бизнес-процессами.",
+    "interests": [
+      "менеджмент",
+      "management",
+      "басқару",
+      "бизнес",
+      "предпринимательство"
+    ],
+    "tags": [
+      "business",
+      "management"
+    ],
+    "careerPaths": [
+      "менеджер проектов"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kazgasa-architectural-design",
+    "universityId": "kz-kazgasa",
+    "universityName": "Международная образовательная корпорация (KazGASA)",
+    "name": "Архитектурный дизайн",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02121",
+    "programGroup": null,
+    "description": "Художественное проектирование интерьеров и предметно-пространственной среды.",
+    "interests": [
+      "архитектурный дизайн",
+      "interior design",
+      "интерьер",
+      "дизайн среды"
+    ],
+    "tags": [
+      "architecture_design",
+      "archdesign"
+    ],
+    "careerPaths": [
+      "дизайнер архитектурной среды"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Drawing",
+      "Art"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kazgasa.kz/fakultet-dizajna/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kazgasa-graphic-design",
+    "universityId": "kz-kazgasa",
+    "universityName": "Международная образовательная корпорация (KazGASA)",
+    "name": "Графический дизайн",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02122",
+    "programGroup": null,
+    "description": "Визуальные коммуникации, графика и оформление цифровых и печатных материалов.",
+    "interests": [
+      "графический дизайн",
+      "дизайн",
+      "graphic design",
+      "иллюстрация"
+    ],
+    "tags": [
+      "architecture_design",
+      "graphic"
+    ],
+    "careerPaths": [
+      "графический дизайнер"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Drawing",
+      "Art"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kazgasa.kz/fakultet-dizajna/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kazgasa-industrial-design",
+    "universityId": "kz-kazgasa",
+    "universityName": "Международная образовательная корпорация (KazGASA)",
+    "name": "Промышленный дизайн",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02123",
+    "programGroup": null,
+    "description": "Проектирование формы, удобства и внешнего вида предметов.",
+    "interests": [
+      "промышленный дизайн",
+      "industrial design",
+      "дизайн",
+      "конструирование"
+    ],
+    "tags": [
+      "architecture_design",
+      "industrial"
+    ],
+    "careerPaths": [
+      "промышленный дизайнер"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Drawing",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kazgasa.kz/fakultet-dizajna/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kazgasa-fashion",
+    "universityId": "kz-kazgasa",
+    "universityName": "Международная образовательная корпорация (KazGASA)",
+    "name": "Дизайн моды",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02124",
+    "programGroup": null,
+    "description": "Создание одежды, работа с формой, материалами и модой.",
+    "interests": [
+      "мода",
+      "fashion design",
+      "дизайн одежды",
+      "сән"
+    ],
+    "tags": [
+      "architecture_design",
+      "fashion"
+    ],
+    "careerPaths": [
+      "дизайнер одежды"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Drawing",
+      "Art"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kazgasa.kz/fakultet-dizajna/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznai-acting",
+    "universityId": "kz-kaznai",
+    "universityName": "Казахская национальная академия искусств имени Темирбека Жургенова",
+    "name": "Актерское искусство",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02192",
+    "programGroup": null,
+    "description": "Актерское мастерство и создание сценического образа.",
+    "interests": [
+      "театр",
+      "актерское искусство",
+      "acting",
+      "сцена",
+      "өнер"
+    ],
+    "tags": [
+      "arts",
+      "acting"
+    ],
+    "careerPaths": [
+      "актер"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Art",
+      "Literature"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kaznai.kz/ru/bilim-beru-ba-darlamalary-akter-sheb/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2024
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznai-directing",
+    "universityId": "kz-kaznai",
+    "universityName": "Казахская национальная академия искусств имени Темирбека Жургенова",
+    "name": "Режиссура театра",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B02114",
+    "programGroup": null,
+    "description": "Постановка спектаклей и художественная работа с исполнителями.",
+    "interests": [
+      "режиссура",
+      "directing",
+      "театр",
+      "сценарии",
+      "өнер"
+    ],
+    "tags": [
+      "arts",
+      "directing"
+    ],
+    "careerPaths": [
+      "театральный режиссер"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Art",
+      "Literature"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://kaznai.kz/ru/bilim-beru-ba-darlamalary-akter-sheb/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2024
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-ektu-energy",
+    "universityId": "kz-ektu",
+    "universityName": "Восточно-Казахстанский технический университет имени Д. Серикбаева",
+    "name": "Электроэнергетика",
+    "city": "Усть-Каменогорск",
+    "degree": "bachelor",
+    "programCode": "6B07104",
+    "programGroup": null,
+    "description": "Электрическая энергия, оборудование и энергетические системы.",
+    "interests": [
+      "энергетика",
+      "электричество",
+      "energy",
+      "электроэнергетика"
+    ],
+    "tags": [
+      "engineering",
+      "energy"
+    ],
+    "careerPaths": [
+      "инженер-энергетик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-ektu-geology",
+    "universityId": "kz-ektu",
+    "universityName": "Восточно-Казахстанский технический университет имени Д. Серикбаева",
+    "name": "Геология и разведка месторождений полезных ископаемых",
+    "city": "Усть-Каменогорск",
+    "degree": "bachelor",
+    "programCode": "6B07204",
+    "programGroup": null,
+    "description": "Горные породы, строение Земли и поиск полезных ископаемых.",
+    "interests": [
+      "геология",
+      "geology",
+      "география",
+      "полезные ископаемые"
+    ],
+    "tags": [
+      "natural_sciences",
+      "geology"
+    ],
+    "careerPaths": [
+      "геолог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Geography",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-ektu-architecture",
+    "universityId": "kz-ektu",
+    "universityName": "Восточно-Казахстанский технический университет имени Д. Серикбаева",
+    "name": "Архитектура",
+    "city": "Усть-Каменогорск",
+    "degree": "bachelor",
+    "programCode": "6B07301",
+    "programGroup": null,
+    "description": "Проектирование зданий и городской среды.",
+    "interests": [
+      "архитектура",
+      "сәулет",
+      "architecture",
+      "черчение",
+      "проектирование"
+    ],
+    "tags": [
+      "architecture_design",
+      "architecture"
+    ],
+    "careerPaths": [
+      "архитектор-проектировщик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Drawing"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-ektu-water",
+    "universityId": "kz-ektu",
+    "universityName": "Восточно-Казахстанский технический университет имени Д. Серикбаева",
+    "name": "Водные ресурсы и водопользование",
+    "city": "Усть-Каменогорск",
+    "degree": "bachelor",
+    "programCode": "6B08601",
+    "programGroup": null,
+    "description": "Водные ресурсы, их использование и управление водными системами.",
+    "interests": [
+      "водные ресурсы",
+      "water resources",
+      "су",
+      "экология",
+      "водоснабжение"
+    ],
+    "tags": [
+      "environment",
+      "water"
+    ],
+    "careerPaths": [
+      "специалист по водным ресурсам"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-ektu-forestry",
+    "universityId": "kz-ektu",
+    "universityName": "Восточно-Казахстанский технический университет имени Д. Серикбаева",
+    "name": "Лесные ресурсы и лесоводство",
+    "city": "Усть-Каменогорск",
+    "degree": "bachelor",
+    "programCode": "6B08301",
+    "programGroup": null,
+    "description": "Лесные экосистемы, лесоводство и управление лесными ресурсами.",
+    "interests": [
+      "лес",
+      "forestry",
+      "орман",
+      "экология",
+      "природа"
+    ],
+    "tags": [
+      "environment",
+      "forest"
+    ],
+    "careerPaths": [
+      "специалист лесного хозяйства"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-zhubanov-primary-education",
+    "universityId": "kz-zhubanov",
+    "universityName": "Актюбинский региональный университет имени К. Жубанова",
+    "name": "Педагогика и методика начального обучения",
+    "city": "Актобе",
+    "degree": "bachelor",
+    "programCode": "6B01301",
+    "programGroup": null,
+    "description": "Обучение, развитие учащихся и педагогическая работа.",
+    "interests": [
+      "педагогика",
+      "education",
+      "білім беру",
+      "обучение",
+      "учитель"
+    ],
+    "tags": [
+      "education",
+      "education"
+    ],
+    "careerPaths": [
+      "педагог"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Communication",
+      "Literature"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-zhubanov-psychology",
+    "universityId": "kz-zhubanov",
+    "universityName": "Актюбинский региональный университет имени К. Жубанова",
+    "name": "Психология",
+    "city": "Актобе",
+    "degree": "bachelor",
+    "programCode": "6B03101",
+    "programGroup": null,
+    "description": "Поведение человека, психические процессы и психологические исследования.",
+    "interests": [
+      "психология",
+      "psychology",
+      "адам",
+      "поведение",
+      "помощь людям"
+    ],
+    "tags": [
+      "social_sciences",
+      "psychology"
+    ],
+    "careerPaths": [
+      "психолог — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-zhubanov-petroleum",
+    "universityId": "kz-zhubanov",
+    "universityName": "Актюбинский региональный университет имени К. Жубанова",
+    "name": "Нефтегазовое дело",
+    "city": "Актобе",
+    "degree": "bachelor",
+    "programCode": "6B07202",
+    "programGroup": null,
+    "description": "Разработка месторождений, добыча и транспортировка нефти и газа.",
+    "interests": [
+      "нефть",
+      "газ",
+      "мұнай",
+      "petroleum engineering",
+      "бурение"
+    ],
+    "tags": [
+      "engineering",
+      "oil"
+    ],
+    "careerPaths": [
+      "инженер нефтегазовой отрасли"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-zhubanov-sport",
+    "universityId": "kz-zhubanov",
+    "universityName": "Актюбинский региональный университет имени К. Жубанова",
+    "name": "Физическая культура и спорт",
+    "city": "Актобе",
+    "degree": "bachelor",
+    "programCode": "6B01404",
+    "programGroup": null,
+    "description": "Физическое воспитание, спортивная подготовка и тренерская работа.",
+    "interests": [
+      "спорт",
+      "sport",
+      "дене шынықтыру",
+      "тренировки"
+    ],
+    "tags": [
+      "sport",
+      "sport"
+    ],
+    "careerPaths": [
+      "тренер",
+      "преподаватель физической культуры"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Physical Education",
+      "Biology"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-zhubanov-dance",
+    "universityId": "kz-zhubanov",
+    "universityName": "Актюбинский региональный университет имени К. Жубанова",
+    "name": "Хореография",
+    "city": "Актобе",
+    "degree": "bachelor",
+    "programCode": "6B02101",
+    "programGroup": null,
+    "description": "Танец, сценическое движение и хореографическое искусство.",
+    "interests": [
+      "хореография",
+      "choreography",
+      "танцы",
+      "би",
+      "өнер"
+    ],
+    "tags": [
+      "arts",
+      "dance"
+    ],
+    "careerPaths": [
+      "артист танца",
+      "хореограф"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Art",
+      "Physical Education"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-auezov-textile",
+    "universityId": "kz-auezov",
+    "universityName": "Южно-Казахстанский университет имени М. Ауэзова",
+    "name": "Технология и проектирование текстильных материалов",
+    "city": "Шымкент",
+    "degree": "bachelor",
+    "programCode": "6B07260",
+    "programGroup": null,
+    "description": "Материалы и технологии текстильного производства.",
+    "interests": [
+      "текстиль",
+      "textile",
+      "материалы",
+      "производство",
+      "технология"
+    ],
+    "tags": [
+      "engineering",
+      "textile"
+    ],
+    "careerPaths": [
+      "технолог текстильного производства"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Chemistry",
+      "Physics"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-auezov-food",
+    "universityId": "kz-auezov",
+    "universityName": "Южно-Казахстанский университет имени М. Ауэзова",
+    "name": "Технология молока и молочных продуктов",
+    "city": "Шымкент",
+    "degree": "bachelor",
+    "programCode": "6B07242",
+    "programGroup": null,
+    "description": "Технологии переработки пищевого сырья и производства продуктов.",
+    "interests": [
+      "пищевая промышленность",
+      "food technology",
+      "питание",
+      "технология продуктов"
+    ],
+    "tags": [
+      "engineering",
+      "food"
+    ],
+    "careerPaths": [
+      "технолог пищевого производства"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Chemistry",
+      "Biology"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-auezov-water",
+    "universityId": "kz-auezov",
+    "universityName": "Южно-Казахстанский университет имени М. Ауэзова",
+    "name": "Водные ресурсы и водопользование",
+    "city": "Шымкент",
+    "degree": "bachelor",
+    "programCode": "6B08610",
+    "programGroup": null,
+    "description": "Водные ресурсы, их использование и управление водными системами.",
+    "interests": [
+      "водные ресурсы",
+      "water resources",
+      "су",
+      "экология",
+      "водоснабжение"
+    ],
+    "tags": [
+      "environment",
+      "water"
+    ],
+    "careerPaths": [
+      "специалист по водным ресурсам"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-auezov-agronomy",
+    "universityId": "kz-auezov",
+    "universityName": "Южно-Казахстанский университет имени М. Ауэзова",
+    "name": "Агрономия",
+    "city": "Шымкент",
+    "degree": "bachelor",
+    "programCode": "6B08110",
+    "programGroup": null,
+    "description": "Растениеводство, выращивание сельскохозяйственных культур и агротехнологии.",
+    "interests": [
+      "агрономия",
+      "agronomy",
+      "ауыл шаруашылығы",
+      "растения",
+      "сельское хозяйство"
+    ],
+    "tags": [
+      "agriculture",
+      "agro"
+    ],
+    "careerPaths": [
+      "агроном"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-auezov-transport-logistics",
+    "universityId": "kz-auezov",
+    "universityName": "Южно-Казахстанский университет имени М. Ауэзова",
+    "name": "Транспортная логистика",
+    "city": "Шымкент",
+    "degree": "bachelor",
+    "programCode": "6B11312",
+    "programGroup": null,
+    "description": "Организация перевозок, поставок и движения товаров.",
+    "interests": [
+      "логистика",
+      "logistics",
+      "көлік",
+      "транспорт",
+      "поставки"
+    ],
+    "tags": [
+      "transport",
+      "logistics"
+    ],
+    "careerPaths": [
+      "логист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-history",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "История",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B02203",
+    "programGroup": "B034",
+    "description": "Исторические источники, прошлое обществ и культурное наследие.",
+    "interests": [
+      "история",
+      "history",
+      "тарих",
+      "архивы"
+    ],
+    "tags": [
+      "humanities",
+      "history"
+    ],
+    "careerPaths": [
+      "историк",
+      "специалист архива"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Literature"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-archeology",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Археология, этнология и антропология",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B02208",
+    "programGroup": "B134",
+    "description": "Материальное наследие, археологические исследования и культуры народов.",
+    "interests": [
+      "археология",
+      "archeology",
+      "этнология",
+      "антропология",
+      "история"
+    ],
+    "tags": [
+      "humanities",
+      "archeology"
+    ],
+    "careerPaths": [
+      "археолог",
+      "специалист музея"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-international-relations",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Международные отношения",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B03102",
+    "programGroup": "B140",
+    "description": "Международные отношения, дипломатия и межкультурное взаимодействие.",
+    "interests": [
+      "международные отношения",
+      "international relations",
+      "дипломатия",
+      "халықаралық қатынастар"
+    ],
+    "tags": [
+      "social_sciences",
+      "ir"
+    ],
+    "careerPaths": [
+      "аналитик международных отношений"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "English"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-law",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Юриспруденция",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B04201",
+    "programGroup": "B049",
+    "description": "Правовые нормы, юридический анализ и защита прав.",
+    "interests": [
+      "право",
+      "law",
+      "құқық",
+      "юриспруденция",
+      "законы"
+    ],
+    "tags": [
+      "law",
+      "law"
+    ],
+    "careerPaths": [
+      "юрист — с учетом требований к выбранной практике"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-biology",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Биология",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B05107",
+    "programGroup": "B050",
+    "description": "Живые организмы, клеточные процессы и биологические исследования.",
+    "interests": [
+      "биология",
+      "biology",
+      "биология ғылымдары",
+      "генетика",
+      "исследования"
+    ],
+    "tags": [
+      "natural_sciences",
+      "bio"
+    ],
+    "careerPaths": [
+      "специалист биологической лаборатории"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iuth-tourism-hospitality",
+    "universityId": "kz-iuth",
+    "universityName": "Международный университет туризма и гостеприимства",
+    "name": "Организация индустрии туризма и гостеприимства",
+    "city": "Туркестан",
+    "degree": "bachelor",
+    "programCode": "6B11101",
+    "programGroup": null,
+    "description": "Организация сервиса, работы гостиниц и ресторанов.",
+    "interests": [
+      "гостеприимство",
+      "hospitality",
+      "қонақжайлық",
+      "отели",
+      "рестораны"
+    ],
+    "tags": [
+      "hospitality",
+      "hospitality"
+    ],
+    "careerPaths": [
+      "менеджер гостиничного или ресторанного сервиса"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Communication",
+      "English"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iuth.edu.kz/ru/category/obrazovatelnye-programmy-zhana/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iuth-sport-tourism",
+    "universityId": "kz-iuth",
+    "universityName": "Международный университет туризма и гостеприимства",
+    "name": "Спортивный туризм",
+    "city": "Туркестан",
+    "degree": "bachelor",
+    "programCode": "6B11106",
+    "programGroup": null,
+    "description": "Организация активных путешествий и спортивных туристских маршрутов.",
+    "interests": [
+      "спортивный туризм",
+      "active tourism",
+      "туризм",
+      "походы",
+      "спорт"
+    ],
+    "tags": [
+      "hospitality",
+      "sporttour"
+    ],
+    "careerPaths": [
+      "организатор активного туризма"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Geography",
+      "Physical Education"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iuth.edu.kz/ru/category/obrazovatelnye-programmy-zhana/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iuth-international-tourism",
+    "universityId": "kz-iuth",
+    "universityName": "Международный университет туризма и гостеприимства",
+    "name": "Международный и внутренний туризм",
+    "city": "Туркестан",
+    "degree": "bachelor",
+    "programCode": "6B11102",
+    "programGroup": null,
+    "description": "Туристские продукты, маршруты и организация путешествий.",
+    "interests": [
+      "туризм",
+      "tourism",
+      "саяхат",
+      "путешествия",
+      "география"
+    ],
+    "tags": [
+      "hospitality",
+      "tourism"
+    ],
+    "careerPaths": [
+      "специалист по туризму"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Geography",
+      "English"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": null,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iuth.edu.kz/ru/vysshie-shkoly/turizm-i-gostepriimstvo/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-sociology",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Социология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03101",
+    "programGroup": null,
+    "description": "Изучение общества, социальных групп и общественных процессов.",
+    "interests": [
+      "социология",
+      "sociology",
+      "қоғам",
+      "опросы",
+      "социальные исследования"
+    ],
+    "tags": [
+      "social_sciences",
+      "sociology"
+    ],
+    "careerPaths": [
+      "социолог",
+      "аналитик социальных исследований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_paid_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 70,
+            "source": {
+              "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-psychology",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Психология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03107",
+    "programGroup": null,
+    "description": "Поведение человека, психические процессы и психологические исследования.",
+    "interests": [
+      "психология",
+      "psychology",
+      "адам",
+      "поведение",
+      "помощь людям"
+    ],
+    "tags": [
+      "social_sciences",
+      "psychology"
+    ],
+    "careerPaths": [
+      "психолог — с учетом квалификационных требований"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_paid_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 70,
+            "source": {
+              "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-kaznu-politics",
+    "universityId": "kz-kaznu",
+    "universityName": "Казахский национальный университет имени аль-Фараби",
+    "name": "Политология",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03106",
+    "programGroup": null,
+    "description": "Политические процессы, институты и публичное управление.",
+    "interests": [
+      "политология",
+      "political science",
+      "саясат",
+      "политика"
+    ],
+    "tags": [
+      "social_sciences",
+      "politics"
+    ],
+    "careerPaths": [
+      "политический аналитик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_paid_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 70,
+            "source": {
+              "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-software",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Software Engineering",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B06102",
+    "programGroup": "B057",
+    "description": "Разработка программ, алгоритмы и компьютерные системы.",
+    "interests": [
+      "программирование",
+      "информатика",
+      "бағдарламалау",
+      "computer science",
+      "software development"
+    ],
+    "tags": [
+      "it",
+      "cs"
+    ],
+    "careerPaths": [
+      "разработчик программного обеспечения",
+      "программист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": 2500000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-data",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Big Data Analysis",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B06103",
+    "programGroup": "B057",
+    "description": "Анализ данных, статистические модели и машинное обучение.",
+    "interests": [
+      "анализ данных",
+      "деректерді талдау",
+      "data science",
+      "machine learning",
+      "статистика"
+    ],
+    "tags": [
+      "it",
+      "data"
+    ],
+    "careerPaths": [
+      "аналитик данных",
+      "специалист по машинному обучению"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": 2500000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-cybersecurity",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Cybersecurity",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B06301",
+    "programGroup": "B058",
+    "description": "Защита информации, компьютерных систем и сетей.",
+    "interests": [
+      "кибербезопасность",
+      "ақпараттық қауіпсіздік",
+      "cybersecurity",
+      "защита информации"
+    ],
+    "tags": [
+      "it",
+      "cyber"
+    ],
+    "careerPaths": [
+      "специалист по информационной безопасности"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": 2500000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-electronics",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Electronic Engineering",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B07102",
+    "programGroup": "B063",
+    "description": "Электронные устройства, схемы и технические системы.",
+    "interests": [
+      "электроника",
+      "electronics",
+      "схемотехника",
+      "микроконтроллеры"
+    ],
+    "tags": [
+      "engineering",
+      "electronics"
+    ],
+    "careerPaths": [
+      "инженер-электронщик"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Physics"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": 2500000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-aitu-journalism",
+    "universityId": "kz-aitu",
+    "universityName": "Astana IT University",
+    "name": "Digital Journalism",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B03201",
+    "programGroup": "B042",
+    "description": "Подготовка материалов для СМИ и работа с общественно значимой информацией.",
+    "interests": [
+      "журналистика",
+      "journalism",
+      "медиа",
+      "СМИ",
+      "жазу"
+    ],
+    "tags": [
+      "media",
+      "journalism"
+    ],
+    "careerPaths": [
+      "журналист",
+      "редактор"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Literature",
+      "Communication"
+    ],
+    "languages": [
+      "English"
+    ],
+    "tuitionPerYear": 2500000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "languages": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://astanait.edu.kz/ru/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-cs",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Компьютерные науки",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B06101",
+    "programGroup": "B057",
+    "description": "Разработка программ, алгоритмы и компьютерные системы.",
+    "interests": [
+      "программирование",
+      "информатика",
+      "бағдарламалау",
+      "computer science",
+      "software development"
+    ],
+    "tags": [
+      "it",
+      "cs"
+    ],
+    "careerPaths": [
+      "разработчик программного обеспечения",
+      "программист"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": 1479000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-data",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Data Science",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B06112",
+    "programGroup": "B057",
+    "description": "Анализ данных, статистические модели и машинное обучение.",
+    "interests": [
+      "анализ данных",
+      "деректерді талдау",
+      "data science",
+      "machine learning",
+      "статистика"
+    ],
+    "tags": [
+      "it",
+      "data"
+    ],
+    "careerPaths": [
+      "аналитик данных",
+      "специалист по машинному обучению"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": 1479000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-security",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Компьютерная безопасность",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B06301",
+    "programGroup": "B058",
+    "description": "Защита информации, компьютерных систем и сетей.",
+    "interests": [
+      "кибербезопасность",
+      "ақпараттық қауіпсіздік",
+      "cybersecurity",
+      "защита информации"
+    ],
+    "tags": [
+      "it",
+      "cyber"
+    ],
+    "careerPaths": [
+      "специалист по информационной безопасности"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": 1479000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-fintech",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Финансовые технологии",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B04105",
+    "programGroup": "B046",
+    "description": "Финансовые сервисы и цифровые технологии для финансовых задач.",
+    "interests": [
+      "финтех",
+      "fintech",
+      "қаржы",
+      "финансы",
+      "цифровые сервисы"
+    ],
+    "tags": [
+      "business",
+      "fintech"
+    ],
+    "careerPaths": [
+      "аналитик финансовых технологий"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Mathematics",
+      "Computer Science"
+    ],
+    "languages": [],
+    "tuitionPerYear": 1479000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-iitu-journalism",
+    "universityId": "kz-iitu",
+    "universityName": "Международный университет информационных технологий",
+    "name": "Цифровая журналистика",
+    "city": "Алматы",
+    "degree": "bachelor",
+    "programCode": "6B03202",
+    "programGroup": "B042",
+    "description": "Подготовка материалов для СМИ и работа с общественно значимой информацией.",
+    "interests": [
+      "журналистика",
+      "journalism",
+      "медиа",
+      "СМИ",
+      "жазу"
+    ],
+    "tags": [
+      "media",
+      "journalism"
+    ],
+    "careerPaths": [
+      "журналист",
+      "редактор"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Literature",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": 1299000,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      },
+      "tuition_per_year": {
+        "url": "https://iitu.edu.kz/ru/applicants/bachelor/",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-history",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "История",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B02203",
+    "programGroup": "B034",
+    "description": "Исторические источники, прошлое обществ и культурное наследие.",
+    "interests": [
+      "история",
+      "history",
+      "тарих",
+      "архивы"
+    ],
+    "tags": [
+      "humanities",
+      "history"
+    ],
+    "careerPaths": [
+      "историк",
+      "специалист архива"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Literature"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 105,
+            "source": {
+              "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-archeology",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Археология, этнология и антропология",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B02208",
+    "programGroup": "B134",
+    "description": "Материальное наследие, археологические исследования и культуры народов.",
+    "interests": [
+      "археология",
+      "archeology",
+      "этнология",
+      "антропология",
+      "история"
+    ],
+    "tags": [
+      "humanities",
+      "archeology"
+    ],
+    "careerPaths": [
+      "археолог",
+      "специалист музея"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Geography"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 95,
+            "source": {
+              "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-international-relations",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Международные отношения",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B03102",
+    "programGroup": "B140",
+    "description": "Международные отношения, дипломатия и межкультурное взаимодействие.",
+    "interests": [
+      "международные отношения",
+      "international relations",
+      "дипломатия",
+      "халықаралық қатынастар"
+    ],
+    "tags": [
+      "social_sciences",
+      "ir"
+    ],
+    "careerPaths": [
+      "аналитик международных отношений"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "English"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 115,
+            "source": {
+              "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-law",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Юриспруденция",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B04201",
+    "programGroup": "B049",
+    "description": "Правовые нормы, юридический анализ и защита прав.",
+    "interests": [
+      "право",
+      "law",
+      "құқық",
+      "юриспруденция",
+      "законы"
+    ],
+    "tags": [
+      "law",
+      "law"
+    ],
+    "careerPaths": [
+      "юрист — с учетом требований к выбранной практике"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "History",
+      "Communication"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 100,
+            "source": {
+              "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  },
+  {
+    "id": "kz-enu-biology",
+    "universityId": "kz-enu",
+    "universityName": "Евразийский национальный университет имени Л. Н. Гумилева",
+    "name": "Биология",
+    "city": "Астана",
+    "degree": "bachelor",
+    "programCode": "6B05107",
+    "programGroup": "B050",
+    "description": "Живые организмы, клеточные процессы и биологические исследования.",
+    "interests": [
+      "биология",
+      "biology",
+      "биология ғылымдары",
+      "генетика",
+      "исследования"
+    ],
+    "tags": [
+      "natural_sciences",
+      "bio"
+    ],
+    "careerPaths": [
+      "специалист биологической лаборатории"
+    ],
+    "importantCourses": [],
+    "recommendedAcademicStrengths": [
+      "Biology",
+      "Chemistry"
+    ],
+    "languages": [],
+    "tuitionPerYear": null,
+    "stateGrantAvailable": null,
+    "scholarships": null,
+    "dormitoryAvailable": null,
+    "extracurricular": null,
+    "admissionYear": 2026,
+    "admissionRoutes": [
+      {
+        "id": "unt_partial",
+        "requirements": {
+          "UNT": {
+            "minimum": 100,
+            "source": {
+              "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+              "verifiedAt": "2026-09-17",
+              "academicYear": 2026
+            }
+          }
+        },
+        "requirementsComplete": false,
+        "source": {
+          "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+          "verifiedAt": "2026-09-17",
+          "academicYear": 2026
+        },
+        "allowsRetakes": false
+      }
+    ],
+    "deadlines": [],
+    "sources": {
+      "program_catalog": {
+        "url": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+        "verifiedAt": "2026-09-17",
+        "academicYear": 2026
+      }
+    },
+    "active": true,
+    "isDemo": false
+  }
+]
