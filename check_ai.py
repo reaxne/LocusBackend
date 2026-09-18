@@ -4,6 +4,7 @@ Run: python check_ai.py [--purpose roadmap|recommendations|profile|all]
 """
 import argparse
 import json
+import time
 from settings import load_environment
 from recommendation.ai import AIUnavailable
 from recommendation.free_ai import FreeAIClient
@@ -23,12 +24,14 @@ def main():
                        'roadmap': [{'id': 'synthetic-project', 'title': 'Учебный проект',
                                     'reason': 'Необязательное развитие интересов.'}]}]}}
         client = FreeAIClient()
+        started = time.monotonic()
         try:
             client.generate(context, purpose)
             status = 'generated_and_validated'
         except AIUnavailable as exc:
             status = str(exc)
         print(json.dumps({'purpose': purpose, 'status': status, 'model': client.model,
+                          'durationMs': round((time.monotonic()-started)*1000),
                           'attempts': client.attempts}, ensure_ascii=False), flush=True)
 
 

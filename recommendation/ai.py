@@ -62,3 +62,23 @@ def build_context(profile, baseline, state):
 def cache_key(context):
     from recommendation.free_ai import model_chain
     return hashlib.sha256(json.dumps([model_chain(), PROMPT_VERSION, context], sort_keys=True).encode()).hexdigest()
+
+
+def compact_context(context, purpose):
+    """Remove duplicate summaries and irrelevant tasks, preserving verified facts."""
+    import copy
+    result = copy.deepcopy(context)
+    results = result.get('results', {})
+    results.pop('excludedPrograms', None)
+    results.pop('studentSummary', None)
+    for program in results.get('recommendations', []):
+        for key in ('nextAction', 'missingRequirements', 'weights', 'scores'):
+            program.pop(key, None)
+        if purpose != 'roadmap':
+            program['roadmap'] = []
+        if purpose == 'profile':
+            for key in list(program):
+                if key not in ('programId','program','university','requirements','warnings'):
+                    del program[key]
+            program['roadmap'] = []
+    return result

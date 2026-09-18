@@ -6,12 +6,15 @@ import secrets
 import time
 import os
 import json
+import asyncio
+import queue
+from uuid import UUID, uuid4
 from contextlib import asynccontextmanager
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, ValidationError, field_validator
@@ -22,10 +25,11 @@ from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
 from recommendation.recommender import Recommender
-from recommendation.ai import GemmaClient, AIUnavailable, MODEL, build_context, cache_key
+from recommendation.ai import GemmaClient, AIUnavailable, MODEL, build_context, cache_key, compact_context
 from recommendation.planning import prepare_plan
 from recommendation.prompts import VERSION as AI_PROMPT_VERSION
 from recommendation.ai_reuse import delta_context, merge_advice
+from recommendation.telemetry import Job, Cancelled, current_job, emit, check
 from psycopg.types.json import Jsonb
 from recommendation.repository import ProgramRepository, PostgreSQLProgramRepository
 
@@ -120,7 +124,7 @@ def create_app(
     application = FastAPI(title="Locus Auth API", version="1.0.0", lifespan=lifespan)
     origins = json.loads(os.getenv('ALLOWED_ORIGINS', '["http://127.0.0.1:5173","http://localhost:5173","http://127.0.0.1:3000","http://localhost:3000"]'))
     application.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True,
-        allow_methods=['GET','POST'], allow_headers=['Content-Type','Authorization','X-Locus-Request','X-Locus-User'])
+        allow_methods=['GET','POST'], allow_headers=['Content-Type','Authorization','X-Locus-Request','X-Locus-User','X-Request-ID'])
 
     @application.middleware('http')
     async def browser_security(request: Request, call_next):
@@ -263,10 +267,8 @@ def create_app(
         limit: int = Field(default=5, ge=1, le=6)
         generateAI: bool = True
 
-    @application.post('/ai/recommendations', tags=['AI'])
-    @application.post('/ai/roadmap', tags=['AI'])
-    @application.post('/ai/profile', tags=['AI'])
-    def ai_plan(payload: AIRequest, request: Request, session: Annotated[dict, Depends(current_session)]):
+    def build_ai_plan(payload, request, session):
+        check()
         purpose = request.url.path.rsplit('/', 1)[-1]
         if request.headers.get('x-locus-user') not in (None, str(session['id'])):
             raise HTTPException(409, 'Account changed. Reload before generating.')
@@ -281,6 +283,7 @@ def create_app(
             raise HTTPException(422, 'Saved questionnaire needs updating') from None
         baseline = recommender.recommend(profile, limit=6 if payload.programIds else payload.limit,
                                         program_ids=payload.programIds or None)
+        emit('matched')
         if payload.programIds:
             requested = set(payload.programIds)
             available = {p.program_id for p in baseline.recommendations}
@@ -288,12 +291,17 @@ def create_app(
                 raise HTTPException(422, 'Select unique program IDs from your current matching results')
             baseline.recommendations = [p for p in baseline.recommendations if p.program_id in requested]
         baseline = prepare_plan(baseline, profile, record['state_json'])
+        emit('prepared')
+        check()
         result = baseline.model_dump(mode='json', by_alias=True)
         result['ai'] = {'status': 'unavailable', 'model': None, 'cached': False,
                         'purpose': purpose, 'promptVersion': AI_PROMPT_VERSION,
                         'notice': 'AI coaching is planning advice; verify admissions facts with official sources.'}
         if purpose == 'profile':
             result['analysis'] = None
+        job = current_job.get()
+        if job and purpose == 'roadmap':
+            job.events.put({'type': 'baseline', 'data': json.loads(json.dumps(result))})
         if not baseline.recommendations and purpose != 'profile':
             result['ai']['reason'] = 'no_matching_programs'
             return result
@@ -315,6 +323,7 @@ def create_app(
             if previous and previous['cache_key'] == fingerprint and previous['result'].get('ai', {}).get('status') == 'generated':
                 cached = previous['result']
                 cached['ai']['cached'] = True
+                emit('cache_hit')
                 return cached
             if previous and previous['recent']:
                 raise HTTPException(429, 'Please wait before generating again.', headers={'Retry-After': '20'})
@@ -323,6 +332,9 @@ def create_app(
                 generation_context, reused = context, {}
                 if purpose == 'roadmap' and previous and previous['result'].get('ai', {}).get('promptVersion') == AI_PROMPT_VERSION:
                     generation_context, reused = delta_context(context, previous['result'])
+                before_bytes = len(json.dumps(generation_context).encode())
+                generation_context = compact_context(generation_context, purpose)
+                emit('context_ready', originalBytes=before_bytes, contextBytes=len(json.dumps(generation_context).encode()))
                 coaching = client.generate(generation_context)
                 if purpose == 'profile':
                     result['analysis'] = coaching.model_dump()
@@ -334,11 +346,73 @@ def create_app(
                 result['ai']['model'] = client.model
             except AIUnavailable as exc:
                 result['ai']['reason'] = str(exc)
+                emit('unavailable', reason=str(exc))
             result['ai']['attempts'] = client.attempts
+            check()
             db.execute('''INSERT INTO ai_results(user_id,purpose,cache_key,result) VALUES (%s,%s,%s,%s)
                 ON CONFLICT(user_id,purpose) DO UPDATE SET cache_key=excluded.cache_key,
                 result=excluded.result,updated_at=now()''', (session['id'],purpose,fingerprint,Jsonb(result)))
         return result
+
+    @application.post('/ai/requests/{request_id}/cancel', status_code=204)
+    def cancel_ai(request_id: UUID, session: Annotated[dict, Depends(current_session)]):
+        with database._connect() as db:
+            # A tombstone also handles cancellation arriving before registration.
+            db.execute('''INSERT INTO ai_requests(id,user_id,purpose,cancelled,ended_at)
+                VALUES (%s,%s,'cancelled',TRUE,now()) ON CONFLICT(id) DO UPDATE
+                SET cancelled=TRUE WHERE ai_requests.user_id=excluded.user_id''', (str(request_id),session['id']))
+
+    @application.post('/ai/recommendations', tags=['AI'])
+    @application.post('/ai/roadmap', tags=['AI'])
+    @application.post('/ai/profile', tags=['AI'])
+    async def ai_plan(payload: AIRequest, request: Request, session: Annotated[dict, Depends(current_session)]):
+        try:
+            request_id = str(UUID(request.headers.get('x-request-id', str(uuid4()))))
+        except ValueError:
+            raise HTTPException(422, 'Invalid request ID') from None
+        job = Job(database, request_id, session['id'], request.url.path.rsplit('/',1)[-1])
+        def work():
+            token = current_job.set(job)
+            try:
+                job.register()
+                result = build_ai_plan(payload, request, session)
+                job.check()
+                job.finish('completed')
+                return result
+            except Cancelled:
+                job.finish('cancelled')
+                raise HTTPException(409, 'Request cancelled') from None
+            except Exception as exc:
+                job.emit('error', reason=type(exc).__name__, status=getattr(exc, 'status_code', 500))
+                job.finish('failed')
+                raise
+            finally:
+                current_job.reset(token)
+        if 'application/x-ndjson' not in request.headers.get('accept',''):
+            result = await asyncio.to_thread(work)
+            return JSONResponse(result, headers={'X-Request-ID':request_id})
+        async def stream():
+            task = asyncio.create_task(asyncio.to_thread(work))
+            try:
+                while not task.done() or not job.events.empty():
+                    try:
+                        event = job.events.get_nowait()
+                        yield json.dumps(event, ensure_ascii=False) + '\n'
+                    except queue.Empty:
+                        await asyncio.sleep(0.05)
+                result = await task
+                yield json.dumps({'type':'result','data':result}, ensure_ascii=False) + '\n'
+            except HTTPException as exc:
+                yield json.dumps({'type':'error','status':exc.status_code,'requestId':request_id}) + '\n'
+            except asyncio.CancelledError:
+                raise
+            except Exception:
+                yield json.dumps({'type':'error','status':500,'requestId':request_id}) + '\n'
+            finally:
+                job.stop.set()
+                # Retrieve worker exceptions even after a disconnected consumer.
+                task.add_done_callback(lambda done: None if done.cancelled() else done.exception())
+        return StreamingResponse(stream(), media_type='application/x-ndjson', headers={'X-Request-ID':request_id,'X-Accel-Buffering':'no'})
 
     return application
 

@@ -40,6 +40,9 @@ class Database:
             if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 3').fetchone():
                 db.execute((Path(__file__).parent / 'migrations/003_ai_purposes.sql').read_text(encoding='utf-8'))
                 db.execute('INSERT INTO schema_migrations(version) VALUES (3)')
+            if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 4').fetchone():
+                db.execute((Path(__file__).parent / 'migrations/004_ai_requests.sql').read_text(encoding='utf-8'))
+                db.execute('INSERT INTO schema_migrations(version) VALUES (4)')
 
     @contextmanager
     def ai_request(self, user_id):

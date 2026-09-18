@@ -10,6 +10,7 @@ import httpx
 from pydantic import Field
 from recommendation.ai import AIUnavailable, Coaching, StrictModel
 from recommendation.prompts import PROMPTS
+from recommendation.telemetry import current_job, emit, check
 
 DEFAULT_MODELS = ('google/gemma-4-26b-a4b-it:free', 'qwen/qwen3.8-27b:free',
                   'deepseek/deepseek-v4-flash-0731:free', 'openrouter/free')
@@ -83,7 +84,26 @@ class FreeAIClient:
         self.model = None
 
     def generate(self, context, purpose='roadmap'):
-        return asyncio.run(self._generate(context, purpose))
+        return asyncio.run(self._cancellable(context, purpose))
+
+    async def _cancellable(self, context, purpose):
+        job = current_job.get()
+        if not job:
+            return await self._generate(context, purpose)
+        async def monitor():
+            while True:
+                await asyncio.to_thread(job.check)
+                await asyncio.sleep(0.25)
+        generation = asyncio.create_task(self._generate(context, purpose))
+        cancellation = asyncio.create_task(monitor())
+        try:
+            done, _ = await asyncio.wait([generation, cancellation], return_when=asyncio.FIRST_COMPLETED)
+            if cancellation in done: await cancellation
+            return await generation
+        finally:
+            generation.cancel()
+            cancellation.cancel()
+            await asyncio.gather(generation, cancellation, return_exceptions=True)
 
     async def _generate(self, context, purpose):
         key = os.getenv('API_GEMMA', '').strip()
@@ -104,6 +124,9 @@ class FreeAIClient:
             output_schema['$defs']['ProfileInsight']['properties']['evidence_fields']['items']['enum'] = fields(context)
         started = self.clock()
         for index, model in enumerate(models):
+            check()
+            attempt_started = self.clock()
+            emit('model', model=model, attempt=index + 1)
             remaining = TOTAL_TIMEOUT - (self.clock() - started)
             if remaining <= 1:
                 break
@@ -112,6 +135,8 @@ class FreeAIClient:
             budget = min(ATTEMPT_TIMEOUT, remaining - reserve)
             reason = 'invalid_response'
             try:
+                job = current_job.get()
+                if job: job.debug('prompt', {'model':model,'instructions':PROMPTS[purpose],'schema':output_schema,'context':context})
                 async with asyncio.timeout(budget):
                     async with httpx.AsyncClient(timeout=httpx.Timeout(budget, connect=min(5, budget)), transport=self.transport) as client:
                         response = await client.post('https://openrouter.ai/api/v1/chat/completions',
@@ -122,11 +147,16 @@ class FreeAIClient:
                                                {'role': 'user', 'content': json.dumps({'schema': output_schema, 'context': context}, ensure_ascii=False)}]})
                 if response.status_code == 401:
                     self.attempts.append({'model': model, 'status': 'authentication_error'})
+                    emit('model_failed', model=model, reason='authentication_error', durationMs=round((self.clock()-attempt_started)*1000))
                     raise AIUnavailable('authentication_error')
                 if response.status_code != 200:
                     reason = 'rate_limited' if response.status_code == 429 else 'provider_error'
                     raise ValueError('Provider unavailable')
                 payload = response.json()
+                usage = payload.get('usage') or {}
+                emit('validating', model=model, durationMs=round((self.clock()-attempt_started)*1000),
+                     tokens={key:usage[key] for key in ('prompt_tokens','completion_tokens','total_tokens') if isinstance(usage.get(key),int)})
+                if job: job.debug('response', payload)
                 choice = payload['choices'][0]
                 if choice.get('finish_reason') != 'stop':
                     reason = 'incomplete_response'
@@ -138,6 +168,7 @@ class FreeAIClient:
                 validate_result(result, context, purpose)
                 self.model = payload.get('model') or model
                 self.attempts.append({'model': model, 'status': 'generated'})
+                emit('validated', model=self.model, status='generated')
                 return result
             except (httpx.TimeoutException, TimeoutError):
                 reason = 'timeout'
@@ -146,4 +177,5 @@ class FreeAIClient:
             except (ValueError, KeyError, IndexError, TypeError, AttributeError):
                 pass
             self.attempts.append({'model': model, 'status': reason})
+            emit('model_failed', model=model, reason=reason, durationMs=round((self.clock()-attempt_started)*1000))
         raise AIUnavailable('all_free_models_unavailable')
