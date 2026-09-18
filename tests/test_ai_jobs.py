@@ -68,6 +68,32 @@ def test_cancel_stops_worker_and_never_caches_late_result(db_url, monkeypatch):
         assert client.post('/ai/roadmap', json={}, headers=headers).json()['ai']['status']=='generated'
 
 
+def test_identical_generation_cannot_run_concurrently(db_url, monkeypatch):
+    entered = threading.Event()
+    release = threading.Event()
+    calls = 0
+    def controlled(self, context):
+        nonlocal calls
+        calls += 1
+        entered.set()
+        assert release.wait(5)
+        return Coaching.model_validate(advice(context))
+    monkeypatch.setattr(GemmaClient, 'generate', controlled)
+    with TestClient(create_app(db_url, program_repository=MemoryRepository([program()]))) as client:
+        db = Database(db_url)
+        _, headers = account(client, db, 'concurrentjob')
+        with ThreadPoolExecutor() as pool:
+            first = pool.submit(client.post, '/ai/roadmap', json={'programIds':['demo-robotics']},
+                                headers={**headers,'X-Request-ID':str(uuid4())})
+            assert entered.wait(5)
+            duplicate = client.post('/ai/roadmap', json={'programIds':['demo-robotics']},
+                                    headers={**headers,'X-Request-ID':str(uuid4())})
+            assert duplicate.status_code == 429
+            release.set()
+            assert first.result(timeout=5).status_code == 200
+        assert calls == 1
+
+
 def test_cancel_before_start_and_owner_isolation(db_url):
     with TestClient(create_app(db_url, program_repository=MemoryRepository([program()]))) as client:
         db = Database(db_url)
@@ -136,3 +162,91 @@ def test_cancellation_closes_provider_request(monkeypatch):
         assert time.monotonic()-started < 3
     finally:
         current_job.reset(token)
+
+
+def test_persisted_roadmap_status_progress_and_owner_isolation(db_url, monkeypatch):
+    monkeypatch.setattr(GemmaClient, 'generate', lambda self, context: Coaching.model_validate(advice(context)))
+    with TestClient(create_app(db_url, program_repository=MemoryRepository([program()]))) as client:
+        db = Database(db_url)
+        user, headers = account(client, db, 'roadmapowner')
+        _, other_headers = account(client, db, 'roadmapother')
+        preferences = client.post('/roadmap/preferences', headers=headers, json={
+            'timezone':'Asia/Almaty','availableHoursPerWeek':4,
+            'achievements':['Robotics club finalist']})
+        assert preferences.status_code == 200
+        generated = client.post('/ai/roadmap', headers=headers,
+                                json={'programIds':['demo-robotics']}).json()
+        assert generated['ai']['status'] == 'generated'
+        assert generated['roadmapPlan']['achievementsUsed'] == 1
+        saved = client.get('/roadmap', headers=headers)
+        assert saved.status_code == 200
+        assert client.get('/roadmap', headers=other_headers).status_code == 404
+        revision = saved.json()['revision']
+        plan = saved.json()['plan']
+        step_id = plan['nextActionId']
+        updated = client.post(f'/roadmap/steps/{step_id}', headers=headers,
+                              json={'revision':revision,'status':'completed'})
+        assert updated.status_code == 200
+        assert next(item for item in updated.json()['plan']['steps'] if item['id'] == step_id)['status'] == 'completed'
+        assert client.post(f'/roadmap/steps/{step_id}', headers=other_headers,
+                           json={'revision':revision,'status':'completed'}).status_code == 404
+        with db._connect() as connection:
+            assert connection.execute('SELECT user_id FROM roadmap_plans').fetchone()['user_id'] == user
+
+
+def test_request_status_and_failed_regeneration_preserves_plan(db_url, monkeypatch):
+    monkeypatch.setattr(GemmaClient, 'generate', lambda self, context: Coaching.model_validate(advice(context)))
+    with TestClient(create_app(db_url, program_repository=MemoryRepository([program()]))) as client:
+        db = Database(db_url)
+        _, headers = account(client, db, 'preserveplan')
+        request_id = str(uuid4())
+        first = client.post('/ai/roadmap', headers={**headers,'X-Request-ID':request_id},
+                            json={'programIds':['demo-robotics']})
+        assert first.status_code == 200
+        assert client.get(f'/ai/requests/{request_id}', headers=headers).json()['stage'] == 'completed'
+        original = client.get('/roadmap', headers=headers).json()
+        from recommendation.ai import AIUnavailable
+        monkeypatch.setattr(GemmaClient, 'generate', lambda self, context: (_ for _ in ()).throw(AIUnavailable('test_failure')))
+        changed = student(interest=['Cybersecurity']).model_dump(mode='json', by_alias=True)
+        db.save_survey(db.get_user('preserveplan')['id'], changed)
+        with db._connect() as connection:
+            connection.execute("UPDATE ai_results SET updated_at=now()-interval '21 seconds'")
+        failed = client.post('/ai/roadmap', headers=headers,
+                             json={'programIds':['demo-robotics']})
+        assert failed.status_code == 503
+        assert failed.json()['detail']['code'] == 'test_failure'
+        assert failed.json()['detail']['previousPlanPreserved'] is True
+        failed_request_id = failed.json()['detail']['requestId']
+        assert client.get(f'/ai/requests/{failed_request_id}', headers=headers).json()['stage'] == 'failed'
+        after = client.get('/roadmap', headers=headers).json()
+        assert after['revision'] == original['revision']
+        assert after['plan'] == original['plan']
+        monkeypatch.setattr(GemmaClient, 'generate', lambda self, context: Coaching.model_validate(advice(context)))
+        retried = client.post('/ai/roadmap', headers=headers,
+                              json={'programIds':['demo-robotics']})
+        assert retried.status_code == 200
+        assert retried.json()['ai']['status'] == 'generated'
+
+
+def test_streamed_ai_failure_ends_with_error_and_failed_job(db_url, monkeypatch):
+    from recommendation.ai import AIUnavailable
+    monkeypatch.setattr(GemmaClient, 'generate',
+                        lambda self, context: (_ for _ in ()).throw(AIUnavailable('all_free_models_failed')))
+    with TestClient(create_app(db_url, program_repository=MemoryRepository([program()]))) as client:
+        db = Database(db_url)
+        _, headers = account(client, db, 'streamfailure')
+        request_id = str(uuid4())
+        response = client.post('/ai/roadmap', json={'programIds':['demo-robotics']},
+            headers={**headers,'Accept':'application/x-ndjson','X-Request-ID':request_id})
+        events = [json.loads(line) for line in response.text.splitlines()]
+        assert any(item['type'] == 'baseline' for item in events)
+        assert events[-1] == {
+            'type':'error','status':503,'requestId':request_id,
+            'code':'all_free_models_failed',
+            'message':'Free AI models did not return a valid response. Retry the request.',
+            'retryable':True,'previousPlanPreserved':False,'fallbackAvailable':True,
+            'attempts':[],
+        }
+        assert not any(item.get('stage') == 'completed' for item in events)
+        state = client.get(f'/ai/requests/{request_id}', headers=headers).json()
+        assert state['stage'] == 'failed'

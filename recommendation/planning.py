@@ -16,7 +16,7 @@ GUIDES = {
 }
 
 
-def prepare_plan(response, profile, state):
+def prepare_plan(response, profile, state, as_of=None):
     saved = (state or {}).get('profile') or {}
     # A change of exam score/goal invalidates corresponding manual completion IDs.
     exam_data = {name: {'score': getattr(profile, name),
@@ -26,8 +26,6 @@ def prepare_plan(response, profile, state):
                  for name in ('SAT', 'IELTS', 'NUET', 'UNT', 'AET')}
     for match in response.recommendations:
         for task in match.roadmap:
-            if task.source is None:
-                task.source = next(iter(match.sources.values()), None)
             if task.id in GUIDES:
                 task.title, task.reason, task.how = GUIDES[task.id]
                 task.description = task.how[0]
@@ -69,7 +67,7 @@ def prepare_plan(response, profile, state):
         for task in match.roadmap:
             task.id = mapping.get(task.id, task.id)
             task.depends_on = [mapping.get(item, item) for item in task.depends_on]
-        match.next_action = get_next_action(match.roadmap)
+        match.next_action = get_next_action(match.roadmap, as_of)
     return response
 
 

@@ -102,10 +102,11 @@ def test_ai_auth_saved_profile_cache_and_regeneration(db_url, monkeypatch):
         db.save_survey(user_id, student(grade=9).model_dump(mode='json', by_alias=True))
         with db._connect() as connection:
             connection.execute("UPDATE ai_results SET updated_at=now()-interval '30 seconds'")
-        fallback = client.post('/ai/roadmap', json={}, headers=headers).json()
-        assert fallback['ai']['reason'] == 'rate_limited'
-        assert fallback['recommendations'][0]['roadmap']
-        assert 'coaching' not in fallback
+        fallback = client.post('/ai/roadmap', json={}, headers=headers)
+        assert fallback.status_code == 503
+        assert fallback.json()['detail']['code'] == 'rate_limited'
+        assert fallback.json()['detail']['retryable'] is True
+        assert fallback.json()['detail']['fallbackAvailable'] is True
 
 
 def test_missing_key(monkeypatch):

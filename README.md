@@ -27,7 +27,7 @@ Copy-Item .env.example .env
 .venv/Scripts/python -m uvicorn main:app --env-file .env --host 127.0.0.1 --port 8000
 ```
 
-`DATABASE_URL` must use `postgresql://USER:PASSWORD@HOST:PORT/DATABASE`; URL-encode special characters in credentials. There is no file-storage fallback. `.env` contains configuration only. The startup initializer applies `migrations/001_core.sql` once, tracking the version in `schema_migrations` under a PostgreSQL advisory lock. Add reviewed numbered migrations and corresponding initializer steps for future schema changes; do not change an already-applied migration.
+`DATABASE_URL` must use `postgresql://USER:PASSWORD@HOST:PORT/DATABASE`; URL-encode special characters in credentials. There is no file-storage fallback. `.env` contains configuration only. The startup initializer applies numbered migrations once, tracking versions in `schema_migrations` under a PostgreSQL advisory lock. Add reviewed numbered migrations and corresponding initializer steps for future schema changes; do not change an already-applied migration.
 
 Set `ALLOWED_ORIGINS` to a JSON array of exact frontend origins. `COOKIE_SECURE=false` is for local HTTP only; it defaults to true for HTTPS. Production must provide HTTPS. On Railway, attach a PostgreSQL service and supply `DATABASE_URL`; the old `/data` SQLite volume is no longer the active data store. `PORT` is still respected by the Docker command.
 
@@ -93,12 +93,14 @@ The utility opens SQLite read-only, preserves user IDs, password/token hashes an
 Set `TEST_DATABASE_URL` to a dedicated PostgreSQL test database and run `python -m pytest -q`. Each integration test creates and drops its own uniquely named schema. The frontend repository also provides `scripts/test_locus_backend.py --backend <this folder> --browser` to launch an isolated PostgreSQL cluster and run the backend suite plus browser integration tests. Do not point tests at production.
 
 `main.py` keeps the established routes; `database.py` owns transactions; `profile_schema.py` owns the frontend contract. The recommendation engine is unchanged. `PostgreSQLProgramRepository` is the catalog adapter; `SQLiteProgramRepository` remains only as an import alias for older code. The catalog importer uses `DATABASE_URL` or `--database <PostgreSQL URL>`. JSON catalog files are optional import inputs, not runtime persistence. No real catalog is fabricated by this update.
-# Gemma recommendations and roadmap coaching
+# OpenRouter recommendations, profile analysis, and roadmap coaching
 
 The backend reads the server-only `API_GEMMA` OpenRouter key from this folder's `.env`.
-Install `requirements.txt` and restart the backend; startup applies migration
-`002_ai.sql` automatically. The model is fixed to
-`google/gemma-4-26b-a4b-it:free`, with no paid-model fallback.
+Install `requirements.txt` and restart the backend; startup applies migrations
+automatically. `AI_FREE_MODELS` contains an ordered, free-only fallback chain:
+NEX N2.5 Mini, DeepSeek V4 Flash, NVIDIA Nemotron 3 Super, then OpenRouter's free router.
+The backend rejects configured model IDs that are not marked `:free` (except the
+free router), and the request also caps provider prices at zero.
 
 After registering/signing in and saving a completed `/survey`, call either:
 
@@ -119,17 +121,28 @@ and `coaching.programs` contains `program_id`, a personalized `explanation`, and
 `suggested_timing`. Join coaching by program/task IDs to the original result.
 Source links and deadlines come from the original deterministic tasks/requirements,
 not from generated text. Suggested timing is relative planning advice, not an
-application deadline. Each program retains its own roadmap and next action; this
-version does not merge tasks across programs or persist completion controls.
+application deadline. A successful `/ai/roadmap` response also contains
+`roadmapPlan`: one validated plan that deduplicates shared exams/documents while
+keeping university-specific applications and official deadlines separate. It stores
+dependencies, effort, priority, status, detailed instructions, completion criteria,
+fact basis and sources. The plan is persisted only after local validation succeeds.
 
-`ai.status: unavailable` includes a safe `reason` such as `rate_limited`, `timeout`,
-`not_configured`, or `invalid_response`, alongside usable deterministic results.
-Free-provider availability is not guaranteed. Allow at least 60 seconds in the
-calling client's request timeout. Generation has a 55-second HTTP timeout.
+When every provider attempt fails, the API returns retryable HTTP 503 (or an NDJSON
+`error` event) with a safe code such as `all_free_models_failed` or
+`overall_timeout_exhausted`. The request row ends in `failed`, never `completed`.
+The streamed deterministic baseline remains usable, and an earlier validated plan
+is preserved in PostgreSQL. Free-provider availability is not guaranteed. Clients
+allow 95 seconds and the production proxy allows 90 seconds; generation itself has
+a 60-second total budget. The backend divides that budget across the remaining
+models (normally about 14–15 seconds each) and will not start an attempt with less
+than 10 seconds available. `attempt_timeout` describes only that attempt and does
+not mark a model permanently unavailable.
 Only matching program and task IDs with validated JSON are accepted. AI prose is
 still advice, not independently verified admissions information.
 
-The latest response per account is cached in PostgreSQL `ai_results`. Profile,
+The latest response per account is cached in PostgreSQL `ai_results`. The validated
+plan, revision and completion state are stored in `roadmap_plans` and
+`roadmap_step_progress`; preferences are stored in `roadmap_preferences`. Profile,
 exam-goal, catalog, date, selection, model, and prompt-version changes invalidate the
 cache. A per-account database lock prevents concurrent generations, and a 20-second
 cooldown limits repeated changed/failed requests (429 with `Retry-After`). No generated
@@ -138,10 +151,27 @@ fields are excluded from prompts. Educational answers and relevant exam goals ar
 sent to OpenRouter and its model provider. There is no uploaded-portfolio analysis;
 portfolio advice uses saved interests and academic strengths.
 
+Roadmap API:
+
+* `GET /roadmap` returns the authenticated user's latest validated plan and revision.
+* `GET/POST /roadmap/preferences` reads or writes IANA timezone, weekly available
+  hours, and achievement summaries used for planning.
+* `POST /roadmap/steps/{stepId}` with `{revision,status}` changes a step. A dependent
+  step cannot be completed before prerequisites; reopening a prerequisite resets
+  completed dependents. A stale revision returns 409.
+* `GET /ai/requests/{requestId}` returns the owner's current stage and safe timings.
+* `POST /ai/requests/{requestId}/cancel` cancels the owner's active request.
+
+Failed, invalid or cancelled regeneration never replaces the last validated plan.
+Regeneration restores completion only for stable step IDs; changed requirements,
+exam goals or selected programs invalidate only affected IDs. Past official dates
+are blocked rather than presented as future actions. Unknown dates are explicit
+planning suggestions and have `needsVerification: true`.
+
 The existing `/recommendations` routes remain deterministic and compatible. The
 frontend now calls `/ai/roadmap` with `generateAI: false` after saving profile changes.
 This returns Russian preparation instructions without a provider call or AI cooldown.
-The AI button requests Gemma explanations in Russian with 3–7 actionable instructions
+The AI button requests explanations in Russian with 3–7 actionable instructions
 per task. Personal exam goals add diagnostic, score-recording, weak-section and practice
 steps. Their IDs change when the relevant score, status, goal or section scores change.
 Selected programs are evaluated directly, including saved choices whose eligibility
@@ -149,8 +179,16 @@ has changed; clients must inspect eligibility before applying. Catalog records m
 be imported into PostgreSQL; missing facts remain unknown. See `catalogs/README.md`
 and `recommendation/README.md` for catalog maintenance.
 
-References: [requested model](https://openrouter.ai/google/gemma-4-26b-a4b-it:free),
-[OpenRouter API documentation](https://openrouter.ai/docs/api/reference/overview).
+Every generation disables model reasoning, requests strict JSON Schema output, and
+still performs local Pydantic and domain validation. This prevents hidden reasoning
+from consuming the profile-analysis output budget and rejects incomplete responses.
+The schema is sent once through `response_format`; `require_parameters` prevents
+routing to a provider that cannot accept it.
+
+References: [DeepSeek](https://openrouter.ai/deepseek/deepseek-v4-flash-0731),
+[NEX N2.5 Mini](https://openrouter.ai/nex-agi/nex-n2.5-mini:free),
+[NVIDIA Nemotron 3 Super](https://openrouter.ai/nvidia/nemotron-3-super-120b-a12b:free), and
+[OpenRouter structured output](https://openrouter.ai/docs/guides/features/structured-outputs).
 # Диагностика AI и отмена запросов
 
 Frontend использует существующие `/ai/roadmap`, `/ai/recommendations`, `/ai/profile`.
@@ -170,8 +208,9 @@ PostgreSQL, не меняя пользовательские профили. О�
 Логгер `locus.ai` пишет JSON в stderr: UTC-время, requestId, purpose, stage,
 elapsedMs, модель/попытку, durationMs, безопасный код ошибки и доступные сведения
 о токенах. Этапы `matched`, `prepared`, `context_ready`, `model`, `validating`,
-`validated`, `cache_hit`, `completed/failed/cancelled` позволяют отделить поиск,
-подготовку, вызов модели и проверку. Имена пользователей, анкеты, cookie и ключи
+`validated`, `saved`, `budget_exhausted`, `generation_failed`, `cache_hit`,
+`completed/failed/cancelled` позволяют отделить поиск,
+подготовку, вызов модели, проверку и сохранение. Имена пользователей, анкеты, cookie и ключи
 в эти логи не включаются. При ошибке провайдера его сырой текст не логируется.
 
 Полные подготовленные контексты/инструкции/схемы и ответы включаются **только**

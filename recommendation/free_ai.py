@@ -12,10 +12,22 @@ from recommendation.ai import AIUnavailable, Coaching, StrictModel
 from recommendation.prompts import PROMPTS
 from recommendation.telemetry import current_job, emit, check
 
-DEFAULT_MODELS = ('google/gemma-4-26b-a4b-it:free', 'qwen/qwen3.8-27b:free',
-                  'deepseek/deepseek-v4-flash-0731:free', 'openrouter/free')
+DEFAULT_MODELS = ('nex-agi/nex-n2.5-mini:free',
+                  'deepseek/deepseek-v4-flash-0731:free',
+                  'nvidia/nemotron-3-super-120b-a12b:free', 'openrouter/free')
 TOTAL_TIMEOUT = 60
-ATTEMPT_TIMEOUT = 45
+ATTEMPT_TIMEOUT = 18
+MIN_ATTEMPT_TIMEOUT = 10
+TRANSITION_RESERVE = 0.5
+
+
+def attempt_budget(remaining: float, attempts_left: int) -> float | None:
+    """Give every remaining model a useful window instead of starving fallbacks."""
+    if attempts_left < 1:
+        return None
+    usable = remaining - TRANSITION_RESERVE * (attempts_left - 1)
+    budget = min(ATTEMPT_TIMEOUT, usable / attempts_left)
+    return budget if budget >= MIN_ATTEMPT_TIMEOUT else None
 
 
 def model_chain():
@@ -43,6 +55,19 @@ class ProfileAnalysis(StrictModel):
 def russian(text):
     if not isinstance(text, str) or not re.search('[а-яА-ЯёЁ]', text) or len(text) > 1800 or '://' in text:
         raise ValueError('Invalid Russian text')
+
+
+def grounded_text(text, context):
+    """Reject new calendar dates and admission guarantees in generated prose."""
+    source = json.dumps(context, ensure_ascii=False)
+    for value in re.findall(r'\b(?:20\d{2}-\d{2}-\d{2}|\d{1,2}\.\d{1,2}\.20\d{2})\b', text):
+        normalized = value if '-' in value else '-'.join(reversed(value.split('.')))
+        if normalized not in source:
+            raise ValueError('Ungrounded calendar date')
+    lowered = text.lower()
+    if any(value in lowered for value in ('гарантирует поступление', 'гарантия поступления',
+                                           'точно поступите', 'точно поступишь')):
+        raise ValueError('Admission guarantee')
 
 
 def validate_result(result, context, purpose):
@@ -74,6 +99,7 @@ def validate_result(result, context, purpose):
         for step in program.steps:
             for text in [step.why, *step.how]:
                 russian(text)
+                grounded_text(text, context)
 
 
 class FreeAIClient:
@@ -122,35 +148,55 @@ class FreeAIClient:
                         elif item is not None and item != '' and item != []: found.append(path)
                 return found
             output_schema['$defs']['ProfileInsight']['properties']['evidence_fields']['items']['enum'] = fields(context)
+        output_tokens = 2200 if purpose == 'profile' else 12000
         started = self.clock()
         for index, model in enumerate(models):
             check()
-            attempt_started = self.clock()
-            emit('model', model=model, attempt=index + 1)
             remaining = TOTAL_TIMEOUT - (self.clock() - started)
-            if remaining <= 1:
-                break
             remaining_models = len(models) - index
-            reserve = min(5, remaining / remaining_models) * (remaining_models - 1)
-            budget = min(ATTEMPT_TIMEOUT, remaining - reserve)
+            budget = attempt_budget(remaining, remaining_models)
+            if budget is None:
+                self.attempts.append({'model': model, 'status': 'skipped_insufficient_time'})
+                emit('budget_exhausted', model=model, attempt=index + 1,
+                     remainingMs=max(0, round(remaining * 1000)),
+                     minimumAttemptMs=round(MIN_ATTEMPT_TIMEOUT * 1000))
+                break
+            attempt_started = self.clock()
+            allocation = round(budget * 1000)
+            emit('model', model=model, attempt=index + 1, allocatedMs=allocation,
+                 remainingMs=max(0, round(remaining * 1000)), totalBudgetMs=TOTAL_TIMEOUT * 1000)
             reason = 'invalid_response'
             try:
                 job = current_job.get()
                 if job: job.debug('prompt', {'model':model,'instructions':PROMPTS[purpose],'schema':output_schema,'context':context})
                 async with asyncio.timeout(budget):
-                    async with httpx.AsyncClient(timeout=httpx.Timeout(budget, connect=min(5, budget)), transport=self.transport) as client:
+                    async with httpx.AsyncClient(timeout=httpx.Timeout(
+                            budget, connect=min(5, budget), read=budget,
+                            write=min(10, budget), pool=min(5, budget)), transport=self.transport) as client:
                         response = await client.post('https://openrouter.ai/api/v1/chat/completions',
                             headers={'Authorization': f'Bearer {key}'},
-                            json={'model': model, 'temperature': 0.2, 'max_tokens': 5000 if purpose == 'profile' else 12000,
-                                  'provider': {'max_price': {'prompt': 0, 'completion': 0}},
+                            json={'model': model, 'temperature': 0.2, 'max_tokens': output_tokens,
+                                  'reasoning': {'enabled': False},
+                                  'response_format': {'type': 'json_schema', 'json_schema': {
+                                      'name': 'profile_analysis' if purpose == 'profile' else 'admission_coaching',
+                                      'strict': True, 'schema': output_schema}},
+                                  'provider': {'max_price': {'prompt': 0, 'completion': 0},
+                                               'require_parameters': True},
                                   'messages': [{'role': 'system', 'content': PROMPTS[purpose]},
-                                               {'role': 'user', 'content': json.dumps({'schema': output_schema, 'context': context}, ensure_ascii=False)}]})
+                                               {'role': 'user', 'content': json.dumps({'context': context}, ensure_ascii=False)}]})
                 if response.status_code == 401:
                     self.attempts.append({'model': model, 'status': 'authentication_error'})
-                    emit('model_failed', model=model, reason='authentication_error', durationMs=round((self.clock()-attempt_started)*1000))
+                    emit('model_failed', model=model, reason='authentication_error',
+                         allocatedMs=allocation,
+                         remainingMs=max(0, round((TOTAL_TIMEOUT-(self.clock()-started))*1000)),
+                         durationMs=round((self.clock()-attempt_started)*1000),
+                         failureScope='configuration')
                     raise AIUnavailable('authentication_error')
                 if response.status_code != 200:
-                    reason = 'rate_limited' if response.status_code == 429 else 'provider_error'
+                    reason = ('rate_limited' if response.status_code == 429 else
+                              'provider_timeout' if response.status_code in (408, 504) else
+                              'provider_unavailable' if response.status_code >= 500 else
+                              'provider_rejected')
                     raise ValueError('Provider unavailable')
                 payload = response.json()
                 usage = payload.get('usage') or {}
@@ -162,6 +208,9 @@ class FreeAIClient:
                     reason = 'incomplete_response'
                     raise ValueError('Incomplete output')
                 content = choice['message']['content'].strip()
+                if not content:
+                    reason = 'empty_response'
+                    raise ValueError('Empty output')
                 if content.startswith('```json') and content.endswith('```'):
                     content = content[7:-3].strip()
                 result = schema.model_validate_json(content)
@@ -171,11 +220,17 @@ class FreeAIClient:
                 emit('validated', model=self.model, status='generated')
                 return result
             except (httpx.TimeoutException, TimeoutError):
-                reason = 'timeout'
+                reason = 'attempt_timeout'
             except httpx.HTTPError:
                 reason = 'network_error'
             except (ValueError, KeyError, IndexError, TypeError, AttributeError):
                 pass
             self.attempts.append({'model': model, 'status': reason})
-            emit('model_failed', model=model, reason=reason, durationMs=round((self.clock()-attempt_started)*1000))
-        raise AIUnavailable('all_free_models_unavailable')
+            emit('model_failed', model=model, reason=reason, allocatedMs=allocation,
+                 remainingMs=max(0, round((TOTAL_TIMEOUT-(self.clock()-started))*1000)),
+                 durationMs=round((self.clock()-attempt_started)*1000), failureScope='attempt')
+        remaining = TOTAL_TIMEOUT - (self.clock() - started)
+        reason = 'overall_timeout_exhausted' if remaining < MIN_ATTEMPT_TIMEOUT else 'all_free_models_failed'
+        emit('generation_failed', reason=reason, remainingMs=max(0, round(remaining*1000)),
+             attempted=len([item for item in self.attempts if not item['status'].startswith('skipped_')]))
+        raise AIUnavailable(reason)

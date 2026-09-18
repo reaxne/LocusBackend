@@ -16,6 +16,10 @@ class SurveyConflict(Exception):
     pass
 
 
+class RoadmapConflict(Exception):
+    pass
+
+
 class Database:
     def __init__(self, url: str | None = None):
         self.url = database_url(url)
@@ -43,6 +47,9 @@ class Database:
             if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 4').fetchone():
                 db.execute((Path(__file__).parent / 'migrations/004_ai_requests.sql').read_text(encoding='utf-8'))
                 db.execute('INSERT INTO schema_migrations(version) VALUES (4)')
+            if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 5').fetchone():
+                db.execute((Path(__file__).parent / 'migrations/005_roadmap_plans.sql').read_text(encoding='utf-8'))
+                db.execute('INSERT INTO schema_migrations(version) VALUES (5)')
 
     @contextmanager
     def ai_request(self, user_id):
@@ -121,3 +128,70 @@ class Database:
 
     def get_program_record(self, program_id, year):
         return next((row for row in self.get_program_records(year) if row['id'] == program_id), None)
+
+    def get_roadmap_preferences(self, user_id):
+        with self._connect() as db:
+            return db.execute('''SELECT timezone,available_hours_per_week,achievements
+                FROM roadmap_preferences WHERE user_id=%s''', (user_id,)).fetchone()
+
+    def save_roadmap_preferences(self, user_id, value):
+        with self._connect() as db:
+            return db.execute('''INSERT INTO roadmap_preferences
+                (user_id,timezone,available_hours_per_week,achievements) VALUES (%s,%s,%s,%s)
+                ON CONFLICT(user_id) DO UPDATE SET timezone=excluded.timezone,
+                available_hours_per_week=excluded.available_hours_per_week,
+                achievements=excluded.achievements,updated_at=now()
+                RETURNING timezone,available_hours_per_week,achievements,updated_at''',
+                (user_id,value['timezone'],value.get('available_hours_per_week'),
+                 Jsonb(value.get('achievements', [])))).fetchone()
+
+    def get_roadmap_plan(self, user_id):
+        with self._connect() as db:
+            return db.execute('''SELECT revision,request_id,input_hash,plan_json,generated_at,updated_at
+                FROM roadmap_plans WHERE user_id=%s''', (user_id,)).fetchone()
+
+    def get_roadmap_progress(self, user_id, db=None):
+        if db is not None:
+            rows = db.execute('''SELECT step_id,status,completed_at FROM roadmap_step_progress
+                WHERE user_id=%s''', (user_id,)).fetchall()
+            return {row['step_id']: row for row in rows}
+        with self._connect() as connection:
+            rows = connection.execute('''SELECT step_id,status,completed_at FROM roadmap_step_progress
+                WHERE user_id=%s''', (user_id,)).fetchall()
+        return {row['step_id']: row for row in rows}
+
+    def save_roadmap_plan(self, db, user_id, request_id, input_hash, plan):
+        active_ids = [step['id'] for step in plan['steps']]
+        db.execute('''DELETE FROM roadmap_step_progress WHERE user_id=%s
+            AND NOT (step_id = ANY(%s))''', (user_id,active_ids))
+        return db.execute('''INSERT INTO roadmap_plans
+            (user_id,request_id,input_hash,plan_json,generated_at) VALUES (%s,%s,%s,%s,%s)
+            ON CONFLICT(user_id) DO UPDATE SET revision=roadmap_plans.revision+1,
+            request_id=excluded.request_id,input_hash=excluded.input_hash,
+            plan_json=excluded.plan_json,generated_at=excluded.generated_at,updated_at=now()
+            RETURNING revision''',
+            (user_id,request_id,input_hash,Jsonb(plan),plan['generatedAt'])).fetchone()['revision']
+
+    def update_roadmap_step(self, user_id, expected_revision, plan, changes):
+        with self._connect() as db:
+            db.execute('SELECT pg_advisory_xact_lock(78004322, hashtext(%s))', (str(user_id),))
+            row = db.execute('SELECT revision FROM roadmap_plans WHERE user_id=%s FOR UPDATE',
+                             (user_id,)).fetchone()
+            if row is None:
+                raise KeyError('roadmap')
+            if row['revision'] != expected_revision:
+                raise RoadmapConflict('Roadmap changed in another tab')
+            revision = expected_revision + 1
+            for step_id, change in changes.items():
+                db.execute('''INSERT INTO roadmap_step_progress(user_id,step_id,status,completed_at)
+                    VALUES (%s,%s,%s,%s) ON CONFLICT(user_id,step_id) DO UPDATE
+                    SET status=excluded.status,completed_at=excluded.completed_at,updated_at=now()''',
+                    (user_id,step_id,change['status'],change['completed_at']))
+            db.execute('''UPDATE roadmap_plans SET revision=%s,plan_json=%s,updated_at=now()
+                WHERE user_id=%s''', (revision,Jsonb(plan),user_id))
+            return revision
+
+    def get_ai_request(self, user_id, request_id):
+        with self._connect() as db:
+            return db.execute('''SELECT id,purpose,stage,cancelled,started_at,ended_at,metrics
+                FROM ai_requests WHERE id=%s AND user_id=%s''', (request_id,user_id)).fetchone()

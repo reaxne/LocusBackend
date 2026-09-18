@@ -13,6 +13,7 @@ def generate_roadmap(student: StudentProfile, program: Program, eligibility: Eli
                   if item.route == eligibility.best_admission_route), None)
 
     def add(task_id, title, description, reason, **kwargs):
+        explicit_source = kwargs.pop('source', None)
         deadlines = [item for item in program.deadlines
                      if program.admission_year == student.entry_year and item.task_type == task_id
                      and item.route_id in (None, eligibility.best_admission_route)
@@ -22,7 +23,7 @@ def generate_roadmap(student: StudentProfile, program: Program, eligibility: Eli
             id=task_id, title=title, description=description, reason=reason,
             deadline=deadline.date if deadline else None,
             deadline_status="verified" if deadline else "unknown",
-            source=deadline.source if deadline else None, **kwargs,
+            source=deadline.source if deadline else explicit_source, **kwargs,
         ))
 
     unverified_tasks = []
@@ -54,11 +55,12 @@ def generate_roadmap(student: StudentProfile, program: Program, eligibility: Eli
             status = "completed" if done else "todo"
             add(prep_id, f"Prepare for {exam}",
                 "Review the exam format and plan preparation for the required score.", reason,
-                status=status, priority="high", target=requirement.required_value, blocking=not done)
+                status=status, priority="high", target=requirement.required_value, blocking=not done,
+                source=requirement.source)
             add(exam_id, f"Take {exam}" if requirement.status != "failed" else f"Retake {exam}",
                 "Confirm test availability and submit a qualifying result to the university.", reason,
                 status=status, priority="high", target=requirement.required_value, blocking=not done,
-                depends_on=[prep_id])
+                depends_on=[prep_id], source=requirement.source)
             exam_task_ids.append(exam_id)
     add("prepare_documents", "Prepare application documents",
         "Obtain the official document checklist and prepare the requested materials; the checklist is not stored here.",

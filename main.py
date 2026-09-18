@@ -19,7 +19,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, ValidationError, field_validator
 
-from database import Database, UsernameAlreadyRegistered, SurveyConflict
+from database import Database, UsernameAlreadyRegistered, SurveyConflict, RoadmapConflict
 from settings import load_environment
 from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
@@ -32,6 +32,9 @@ from recommendation.ai_reuse import delta_context, merge_advice
 from recommendation.telemetry import Job, Cancelled, current_job, emit, check
 from psycopg.types.json import Jsonb
 from recommendation.repository import ProgramRepository, PostgreSQLProgramRepository
+from recommendation.roadmap_plan import (
+    RoadmapPreferences, build_roadmap_plan, change_step_status, local_today,
+)
 
 
 PASSWORD_ITERATIONS = 600_000
@@ -266,8 +269,76 @@ def create_app(
         programIds: list[str] = Field(default_factory=list, max_length=6)
         limit: int = Field(default=5, ge=1, le=6)
         generateAI: bool = True
+        timezone: str | None = None
+        availableHoursPerWeek: float | None = Field(default=None, ge=.5, le=40)
+        achievements: list[str] | None = Field(default=None, max_length=20)
+
+    class RoadmapStepUpdate(BaseModel):
+        model_config = ConfigDict(extra='forbid')
+        revision: int = Field(ge=1)
+        status: str
+
+        @field_validator('status')
+        @classmethod
+        def valid_status(cls, value):
+            if value not in ('todo', 'in_progress', 'completed'):
+                raise ValueError('Status must be todo, in_progress, or completed')
+            return value
+
+    def roadmap_response(record):
+        return {'revision': record['revision'], 'requestId': str(record['request_id']),
+                'generatedAt': record['generated_at'].isoformat(),
+                'updatedAt': record['updated_at'].isoformat(), 'plan': record['plan_json']}
+
+    @application.get('/roadmap/preferences', tags=['roadmap'])
+    def get_roadmap_preferences(session: Annotated[dict, Depends(current_session)]):
+        row = database.get_roadmap_preferences(session['id'])
+        value = row or RoadmapPreferences().model_dump()
+        return RoadmapPreferences.model_validate(value).model_dump(mode='json', by_alias=True)
+
+    @application.post('/roadmap/preferences', tags=['roadmap'])
+    def save_roadmap_preferences(payload: RoadmapPreferences,
+                                 session: Annotated[dict, Depends(current_session)]):
+        row = database.save_roadmap_preferences(session['id'], payload.model_dump())
+        return RoadmapPreferences.model_validate({key: row[key] for key in
+            ('timezone','available_hours_per_week','achievements')}).model_dump(mode='json', by_alias=True)
+
+    @application.get('/roadmap', tags=['roadmap'])
+    def get_roadmap(session: Annotated[dict, Depends(current_session)]):
+        record = database.get_roadmap_plan(session['id'])
+        if record is None:
+            raise HTTPException(404, 'Roadmap has not been generated yet')
+        return roadmap_response(record)
+
+    @application.post('/roadmap/steps/{step_id}', tags=['roadmap'])
+    def update_roadmap_step(step_id: str, payload: RoadmapStepUpdate,
+                            session: Annotated[dict, Depends(current_session)]):
+        record = database.get_roadmap_plan(session['id'])
+        if record is None:
+            raise HTTPException(404, 'Roadmap has not been generated yet')
+        try:
+            plan, changes = change_step_status(record['plan_json'], step_id, payload.status)
+            revision = database.update_roadmap_step(
+                session['id'], payload.revision, plan.model_dump(mode='json', by_alias=True), changes)
+        except KeyError:
+            raise HTTPException(404, 'Roadmap step not found') from None
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from None
+        except RoadmapConflict:
+            raise HTTPException(409, 'Roadmap changed in another tab') from None
+        return {'revision': revision, 'plan': plan.model_dump(mode='json', by_alias=True)}
+
+    @application.get('/ai/requests/{request_id}', tags=['AI'])
+    def get_ai_request(request_id: UUID, session: Annotated[dict, Depends(current_session)]):
+        record = database.get_ai_request(session['id'], str(request_id))
+        if record is None:
+            raise HTTPException(404, 'AI request not found')
+        return {**record, 'id': str(record['id']),
+                'started_at': record['started_at'].isoformat(),
+                'ended_at': record['ended_at'].isoformat() if record['ended_at'] else None}
 
     def build_ai_plan(payload, request, session):
+        preparation_started = time.monotonic()
         check()
         purpose = request.url.path.rsplit('/', 1)[-1]
         if request.headers.get('x-locus-user') not in (None, str(session['id'])):
@@ -281,17 +352,33 @@ def create_app(
             profile = StudentProfile.model_validate(record['answers_json'])
         except ValidationError:
             raise HTTPException(422, 'Saved questionnaire needs updating') from None
+        stored_preferences = database.get_roadmap_preferences(session['id']) or {}
+        preference_value = {**RoadmapPreferences().model_dump(), **stored_preferences}
+        if payload.timezone is not None:
+            preference_value['timezone'] = payload.timezone
+        if payload.availableHoursPerWeek is not None:
+            preference_value['available_hours_per_week'] = payload.availableHoursPerWeek
+        if payload.achievements is not None:
+            preference_value['achievements'] = payload.achievements
+        try:
+            preferences = RoadmapPreferences.model_validate(preference_value)
+        except ValidationError as exc:
+            raise RequestValidationError(exc.errors(include_context=False)) from exc
+        if any(value is not None for value in (payload.timezone, payload.availableHoursPerWeek,
+                                                payload.achievements)):
+            database.save_roadmap_preferences(session['id'], preferences.model_dump())
+        as_of = local_today(preferences)
         baseline = recommender.recommend(profile, limit=6 if payload.programIds else payload.limit,
-                                        program_ids=payload.programIds or None)
-        emit('matched')
+                                        program_ids=payload.programIds or None, as_of=as_of)
+        emit('matched', durationMs=round((time.monotonic()-preparation_started)*1000, 2))
         if payload.programIds:
             requested = set(payload.programIds)
             available = {p.program_id for p in baseline.recommendations}
             if len(requested) != len(payload.programIds) or not requested <= available:
                 raise HTTPException(422, 'Select unique program IDs from your current matching results')
             baseline.recommendations = [p for p in baseline.recommendations if p.program_id in requested]
-        baseline = prepare_plan(baseline, profile, record['state_json'])
-        emit('prepared')
+        baseline = prepare_plan(baseline, profile, record['state_json'], as_of)
+        emit('prepared', durationMs=round((time.monotonic()-preparation_started)*1000, 2))
         check()
         result = baseline.model_dump(mode='json', by_alias=True)
         result['ai'] = {'status': 'unavailable', 'model': None, 'cached': False,
@@ -308,13 +395,18 @@ def create_app(
         if not payload.generateAI:
             result['ai']['reason'] = 'not_requested'
             return result
-        context = build_context(profile, baseline, record['state_json'])
+        context = build_context(profile, baseline, record['state_json'], preferences, as_of)
         context['_purpose'] = purpose
         try:
             fingerprint = cache_key(context)
         except AIUnavailable as exc:
-            result['ai']['reason'] = str(exc)
-            return result
+            previous_plan = database.get_roadmap_plan(session['id']) if purpose == 'roadmap' else None
+            raise HTTPException(503, detail={
+                'code': str(exc), 'message': 'AI configuration is unavailable. Retry after it is corrected.',
+                'retryable': str(exc) != 'invalid_free_model_configuration',
+                'requestId': current_job.get().id, 'previousPlanPreserved': bool(previous_plan),
+                'fallbackAvailable': bool(baseline.recommendations),
+            }, headers={'Retry-After': '10'}) from None
         with database.ai_request(session['id']) as db:
             if db is None:
                 raise HTTPException(429, 'Generation already in progress. Try again shortly.', headers={'Retry-After': '20'})
@@ -323,6 +415,11 @@ def create_app(
             if previous and previous['cache_key'] == fingerprint and previous['result'].get('ai', {}).get('status') == 'generated':
                 cached = previous['result']
                 cached['ai']['cached'] = True
+                saved_plan = db.execute('SELECT revision,plan_json FROM roadmap_plans WHERE user_id=%s',
+                                        (session['id'],)).fetchone()
+                if purpose == 'roadmap' and saved_plan:
+                    cached['roadmapPlan'] = saved_plan['plan_json']
+                    cached['roadmapRevision'] = saved_plan['revision']
                 emit('cache_hit')
                 return cached
             if previous and previous['recent']:
@@ -349,9 +446,47 @@ def create_app(
                 emit('unavailable', reason=str(exc))
             result['ai']['attempts'] = client.attempts
             check()
-            db.execute('''INSERT INTO ai_results(user_id,purpose,cache_key,result) VALUES (%s,%s,%s,%s)
-                ON CONFLICT(user_id,purpose) DO UPDATE SET cache_key=excluded.cache_key,
-                result=excluded.result,updated_at=now()''', (session['id'],purpose,fingerprint,Jsonb(result)))
+            if result['ai']['status'] == 'generated':
+                if purpose == 'roadmap':
+                    validation_started = time.monotonic()
+                    try:
+                        plan = build_roadmap_plan(
+                            result, profile, record['state_json'], preferences,
+                            database.get_roadmap_progress(session['id'], db), payload.programIds,
+                            current_job.get().id, fingerprint, client.model, as_of)
+                    except (ValidationError, ValueError) as exc:
+                        emit('validation_failed', reason=type(exc).__name__)
+                        raise HTTPException(502, 'AI roadmap could not be validated; previous plan was preserved') from None
+                    emit('validated', durationMs=round((time.monotonic()-validation_started)*1000, 2),
+                         stepCount=len(plan.steps))
+                    result['roadmapPlan'] = plan.model_dump(mode='json', by_alias=True)
+                check()
+                save_started = time.monotonic()
+                db.execute('''INSERT INTO ai_results(user_id,purpose,cache_key,result) VALUES (%s,%s,%s,%s)
+                    ON CONFLICT(user_id,purpose) DO UPDATE SET cache_key=excluded.cache_key,
+                    result=excluded.result,updated_at=now()''', (session['id'],purpose,fingerprint,Jsonb(result)))
+                if purpose == 'roadmap':
+                    revision = database.save_roadmap_plan(
+                        db, session['id'], current_job.get().id, fingerprint, result['roadmapPlan'])
+                    result['roadmapRevision'] = revision
+                    db.execute('UPDATE ai_results SET result=%s WHERE user_id=%s AND purpose=%s',
+                               (Jsonb(result),session['id'],purpose))
+                emit('saved', durationMs=round((time.monotonic()-save_started)*1000, 2))
+            else:
+                previous_plan = db.execute('SELECT revision,plan_json FROM roadmap_plans WHERE user_id=%s',
+                                           (session['id'],)).fetchone()
+                reason = result['ai'].get('reason', 'all_free_models_failed')
+                retryable = reason not in ('authentication_error', 'invalid_free_model_configuration',
+                                           'not_configured')
+                raise HTTPException(503, detail={
+                    'code': reason,
+                    'message': ('Free AI models did not return a valid response. Retry the request.'
+                                if retryable else 'AI configuration must be corrected before retrying.'),
+                    'retryable': retryable, 'requestId': current_job.get().id,
+                    'previousPlanPreserved': bool(previous_plan),
+                    'fallbackAvailable': bool(baseline.recommendations),
+                    'attempts': result['ai'].get('attempts', []),
+                }, headers={'Retry-After': '10'})
         return result
 
     @application.post('/ai/requests/{request_id}/cancel', status_code=204)
@@ -383,8 +518,12 @@ def create_app(
                 job.finish('cancelled')
                 raise HTTPException(409, 'Request cancelled') from None
             except Exception as exc:
-                job.emit('error', reason=type(exc).__name__, status=getattr(exc, 'status_code', 500))
-                job.finish('failed')
+                detail = getattr(exc, 'detail', None)
+                reason = detail.get('code') if isinstance(detail, dict) else type(exc).__name__
+                retryable = detail.get('retryable') if isinstance(detail, dict) else False
+                job.emit('error', reason=reason, status=getattr(exc, 'status_code', 500),
+                         retryable=retryable)
+                job.finish('failed', reason=reason, retryable=retryable)
                 raise
             finally:
                 current_job.reset(token)
@@ -403,7 +542,9 @@ def create_app(
                 result = await task
                 yield json.dumps({'type':'result','data':result}, ensure_ascii=False) + '\n'
             except HTTPException as exc:
-                yield json.dumps({'type':'error','status':exc.status_code,'requestId':request_id}) + '\n'
+                detail = exc.detail if isinstance(exc.detail, dict) else {'message': str(exc.detail)}
+                yield json.dumps({'type':'error','status':exc.status_code,'requestId':request_id,
+                                  **detail}, ensure_ascii=False) + '\n'
             except asyncio.CancelledError:
                 raise
             except Exception:

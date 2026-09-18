@@ -62,6 +62,10 @@ class Job:
         logger.info(json.dumps(data, ensure_ascii=False))
         self.timings[stage] = elapsed
         self.events.put({'type': 'stage', **data})
+        if self.registered:
+            with self.database._connect() as db:
+                db.execute('UPDATE ai_requests SET stage=%s,metrics=%s WHERE id=%s',
+                           (stage,Jsonb(self.timings),self.id))
 
     def debug(self, kind, payload):
         if os.getenv('APP_ENV') != 'development' or os.getenv('AI_DEBUG_PAYLOADS') != 'true':
@@ -76,8 +80,8 @@ class Job:
             db.execute('INSERT INTO ai_debug_payloads(request_id,kind,payload) VALUES (%s,%s,%s)',
                        (self.id,kind,Jsonb(scrub(payload))))
 
-    def finish(self, status):
-        self.emit(status)
+    def finish(self, status, **metrics):
+        self.emit(status, **metrics)
         if not self.registered: return
         with self.database._connect() as db:
             db.execute('UPDATE ai_requests SET stage=%s, ended_at=now(),metrics=%s WHERE id=%s',

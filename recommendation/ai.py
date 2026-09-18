@@ -6,7 +6,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 from recommendation.prompts import VERSION
 
-MODEL = "google/gemma-4-26b-a4b-it:free"
+MODEL = "nex-agi/nex-n2.5-mini:free"
 PROMPT_VERSION = VERSION
 
 
@@ -51,12 +51,17 @@ class GemmaClient:
             self.model, self.attempts = client.model, client.attempts
 
 
-def build_context(profile, baseline, state):
+def build_context(profile, baseline, state, preferences=None, as_of=None):
     # Deliberate allowlist: no account identity, password, token, or unrelated state.
     saved = (state or {}).get("profile") or {}
-    return {"student": profile.model_dump(mode="json", by_alias=True),
+    result = {"student": profile.model_dump(mode="json", by_alias=True),
             "planning": {key: saved[key] for key in ("examGoals", "ieltsSectionScores", "exams", "academicPerformance", "studyLanguage") if key in saved},
             "results": baseline.model_dump(mode="json", by_alias=True)}
+    if preferences is not None:
+        result['capacity'] = preferences.model_dump(mode='json', by_alias=True)
+    if as_of is not None:
+        result['currentDate'] = as_of.isoformat()
+    return result
 
 
 def cache_key(context):
