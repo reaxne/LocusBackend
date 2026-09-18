@@ -17,14 +17,23 @@ def advice(context):
                         for p in context['results']['recommendations']]}
 
 
+def wire_advice(body):
+    context = json.loads(body['messages'][1]['content'])['context']
+    return {'steps': [{**step, 'why': 'Этот шаг помогает подготовиться к поступлению.',
+                      'how': ['Откройте официальный источник.', 'Проверьте условия своего набора.',
+                              'Запишите результат проверки.']} for step in context['steps']]}
+
+
 def test_client_uses_exact_free_model_and_validates_response(monkeypatch):
     monkeypatch.setenv('API_GEMMA', 'test-key')
+    monkeypatch.setenv('AI_FREE_MODELS', MODEL)
+    monkeypatch.delenv('AI_MODEL', raising=False)
     context = build_context(student(), recommend(), None)
     def handler(request):
         body = json.loads(request.content)
         assert body['model'] == MODEL
         assert request.headers['authorization'] == 'Bearer test-key'
-        return httpx.Response(200, json={'choices': [{'finish_reason': 'stop', 'message': {'content': json.dumps(advice(context))}}]})
+        return httpx.Response(200, json={'choices': [{'finish_reason': 'stop', 'message': {'content': json.dumps(wire_advice(body))}}]})
     result = GemmaClient(httpx.MockTransport(handler)).generate(context)
     assert result.programs[0].steps
 

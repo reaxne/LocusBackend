@@ -1,17 +1,17 @@
 # Program recommendations
 
-This package extends the existing FastAPI/SQLite backend. There are no real
-university admission records bundled with it. The production API starts with an
-empty catalog and returns an empty recommendation list with a warning.
+This package extends the FastAPI backend. The default API reads the bundled
+`catalogs/kazakhstan_programs.json` directly through `JSONProgramRepository`.
+PostgreSQL stores accounts, surveys, and saved plans; no catalog import is required.
 
 ## API and existing surveys
 
 Both endpoints require the existing `Authorization: Bearer <access_token>` header:
 
-- `POST /recommendations?limit=5` accepts a **direct StudentProfile object**.
-- `GET /recommendations?limit=5` uses the authenticated user's saved `/survey`.
+- `POST /recommendations?limit=4` accepts a **direct StudentProfile object**.
+- `GET /recommendations?limit=4` uses the authenticated user's saved `/survey`.
 
-`limit` is 1–50, default 5. POST evaluates without changing the saved survey.
+`limit` defaults to 4. Values 1–50 remain accepted for compatibility, but automatic recommendations return at most the four highest-ranked programs. POST evaluates without changing the saved survey.
 GET returns 404 if no survey exists and 422 if its answers cannot be normalized.
 The existing `/survey` storage contract remains unchanged. This matters because
 old surveys allowed arbitrary JSON values, including objects where a recommendation
@@ -20,7 +20,7 @@ now requires a number. Correct those answers before requesting recommendations.
 Example JavaScript, using the same survey answer object as the existing frontend:
 
 ```javascript
-const response = await fetch(`${apiBaseUrl}/recommendations?limit=5`, {
+const response = await fetch(`${apiBaseUrl}/recommendations?limit=4`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -54,8 +54,9 @@ Ties are resolved by program ID. OpenAPI schemas are available at `/docs`.
 
 1. `models.py` validates a normalized view of the existing questionnaire and
    defines program, provenance, eligibility, roadmap, and response schemas.
-2. `repository.py` retrieves programs in a single SQLite query through the existing
-   `Database` abstraction. All SQL stays in `database.py`.
+2. `repository.py` loads and validates the JSON catalog once at application creation.
+   Restart the backend after catalog edits. A PostgreSQL adapter remains available
+   for explicitly injected repositories; all SQL stays in `database.py`.
 3. `scoring.py` applies hard city/cycle constraints and computes independent fits.
 4. `eligibility.py` evaluates admission routes deterministically.
 5. `embeddings.py` matches interests against program text and caches program vectors.
@@ -64,8 +65,8 @@ Ties are resolved by program ID. OpenAPI schemas are available at `/docs`.
    chooses a useful unfinished task whose prerequisites are complete.
 
 No LLM is used. A `Recommender` and its matcher are created once per application,
-not once per request. Routes are synchronous, matching the existing SQLite API
-conventions and allowing FastAPI to run them in its worker thread pool.
+not once per request. Routes are synchronous, allowing FastAPI to run them in its
+worker thread pool.
 
 ## Eligibility and planning policy
 
@@ -163,25 +164,17 @@ and no new runtime dependencies were added.
 
 ## Catalog and provenance
 
-The SQLite `programs` table is created alongside the existing tables without
-altering stored users/sessions/surveys. Records are keyed by program ID and admission
-year; unknown year is represented internally by 0. Retrieval prefers a specific
-cycle over an unknown-cycle record for the same ID. `active: false` and `isDemo: true`
-records are excluded by the production repository. No data is automatically seeded.
+The default repository loads `catalogs/kazakhstan_programs.json`, independently
+of the process working directory. It prefers the requested admission year over a
+generic record and excludes inactive/demo records. Missing or invalid files fail
+application creation instead of silently producing an empty catalog. Returned
+records are copies of the validated snapshot. See `../catalogs/README.md` for data
+coverage and limitations; restart the backend after editing the file.
 
-Curators provide a JSON array matching `Program` (camelCase or snake_case fields).
-See `../examples/programs.demo.json` for a **fictional, clearly marked** shape
-example. Do not relabel these sample requirements as real university facts.
-The importer is an administrative command, not a public write endpoint:
-
-```powershell
-.\.venv\Scripts\python.exe -m recommendation.import_catalog path/to/verified-programs.json
-```
-
-Use `--database path/to/auth.db` or `DATABASE_PATH` to target the server's database.
-Validation of the whole file precedes an atomic batch upsert. Omitted records are
-not deleted; import a record with `active: false` to deactivate it. Importing the
-demo file is safe for examples: demo rows remain excluded from production results.
+For custom integrations only, `PostgreSQLProgramRepository` can be supplied to
+`create_app(program_repository=...)`. The optional catalog importer targets
+`DATABASE_URL` or `--database <PostgreSQL URL>`; it does not update the default
+JSON-backed API. Demo examples remain available in `../examples/programs.demo.json`.
 
 Sources use `url`, `verifiedAt` (ISO date), and `academicYear`. Each exam requirement
 has its own source; routes also need a source and `requirementsComplete: true`
@@ -212,7 +205,7 @@ FastAPI TestClient. They cover route AND/OR behavior, source validity, constrain
 funding, score ordering, reweighting, roadmaps, persistence, API validation, and
 embedding caching, alongside the original authentication/survey tests.
 
-No verified production catalog is provided. Category/quota policies, subject
+The bundled catalog has partial admission data. Category/quota policies, subject
 combinations, language certificates beyond the modeled exams, competition for
 grants, tuition inflation, test scheduling, and individual scholarship conditions
 require verified data and further rule modeling. Financial options indicate paths

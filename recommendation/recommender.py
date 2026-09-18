@@ -14,6 +14,8 @@ from recommendation.scoring import (
     financial_match, hard_constraint_reasons,
 )
 
+MAX_RECOMMENDATIONS = 4
+
 
 class Recommender:
     def __init__(self, repository: ProgramRepository, matcher: InterestMatcher | None = None,
@@ -22,10 +24,14 @@ class Recommender:
         self.matcher = matcher or InterestMatcher(cache_size=config.embedding_cache_size)
         self.config = config
 
-    def recommend(self, student: StudentProfile, limit: int = 5,
+    def recommend(self, student: StudentProfile, limit: int = MAX_RECOMMENDATIONS,
                   as_of: date | None = None, program_ids: list[str] | None = None) -> RecommendationResponse:
         if not 1 <= limit <= 50:
             raise ValueError("limit must be between 1 and 50")
+        # Bound automatic suggestions even for older clients requesting more.
+        # Explicit roadmap selections retain all requested programs.
+        if program_ids is None:
+            limit = min(limit, MAX_RECOMMENDATIONS)
         as_of = as_of or date.today()
         candidates = []
         excluded = []

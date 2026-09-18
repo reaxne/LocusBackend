@@ -26,7 +26,9 @@
 
 ## Загрузка в существующий backend
 
-Для чтения JSON без импорта каталога в базу используйте `JSONProgramRepository`:
+API по умолчанию читает `catalogs/kazakhstan_programs.json` через `JSONProgramRepository`. Импорт в PostgreSQL не нужен. Этот источник используется как обычными рекомендациями, так и AI-маршрутами. Файл загружается при создании приложения; после изменения каталога перезапустите backend. Docker-образ включает папку `catalogs`.
+
+Для отдельного использования:
 
 ```python
 from recommendation.repository import JSONProgramRepository
@@ -41,7 +43,7 @@ recommender = Recommender(repository)
 Конструктор также принимает путь к любому из двух файлов, например
 `JSONProgramRepository("catalogs/kazakhstan_universities.json")`.
 Путь по умолчанию привязан к расположению проекта; явно переданный относительный
-путь — к рабочему каталогу процесса. Для API передайте репозиторий в
+путь — к рабочему каталогу процесса. Для выбора другого файла передайте репозиторий в
 `create_app(program_repository=repository)`. Авторизация и анкеты API по-прежнему
 используют PostgreSQL.
 
@@ -52,7 +54,8 @@ recommender = Recommender(repository)
 Версия точного года выбирается перед фильтрацией `active`/`isDemo`, поэтому
 отключенная годовая версия не заменяется общей записью. Список упорядочен по `id`.
 
-Из корня проекта, при настроенном `DATABASE_URL`:
+Необязательный импорт для явно подключённого `PostgreSQLProgramRepository`
+(на стандартный API с JSON-каталогом не влияет), из корня проекта при настроенном `DATABASE_URL`:
 
 ```powershell
 .\.venv\Scripts\python.exe -m recommendation.import_catalog catalogs/kazakhstan_programs.json

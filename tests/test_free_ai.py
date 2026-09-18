@@ -5,7 +5,7 @@ import pytest
 from recommendation.free_ai import FreeAIClient, ProfileAnalysis, attempt_budget, model_chain
 from recommendation.ai import AIUnavailable, build_context
 from recommendation.prompts import PROMPTS
-from test_ai import advice
+from test_ai import advice, wire_advice
 from test_recommendations import recommend, student
 
 
@@ -35,18 +35,18 @@ def test_falls_back_after_unusable_response(monkeypatch, failure):
             if failure.isdigit(): return httpx.Response(int(failure))
             if failure == 'timeout': raise httpx.ReadTimeout('private', request=request)
             if failure == 'bad_json': return httpx.Response(200, json={'unexpected': True})
-            invalid = advice(context)
+            invalid = wire_advice(body)
             if failure == 'english':
-                invalid['programs'][0]['explanation'] = 'English only'
+                invalid['steps'][0]['why'] = 'English only'
             elif failure == 'invented_date':
-                invalid['programs'][0]['steps'][0]['how'][0] = 'Подайте документы до 2099-12-31.'
+                invalid['steps'][0]['how'][0] = 'Подайте документы до 2099-12-31.'
             else:
-                invalid['programs'][0]['steps'][0]['why'] = 'Это гарантирует поступление.'
+                invalid['steps'][0]['why'] = 'Это гарантирует поступление.'
             return response(invalid)
-        return response(advice(context))
+        return response(wire_advice(json.loads(request.content)))
     client = FreeAIClient(httpx.MockTransport(handler))
     assert client.generate(context).programs
-    assert calls == ['first:free', 'second:free']
+    assert calls[:2] == ['first:free', 'second:free' if failure in ('429', '503', '403', 'timeout') else 'first:free']
     assert client.model == 'working:free'
     assert client.attempts[-1]['status'] == 'generated'
 
@@ -61,7 +61,7 @@ def test_invalid_key_stops_without_leaking_secrets(monkeypatch):
     monkeypatch.setenv('API_GEMMA', 'secret')
     client = FreeAIClient(httpx.MockTransport(lambda request: httpx.Response(401, text='secret')))
     with pytest.raises(AIUnavailable, match='authentication_error'):
-        client.generate({})
+        client.generate({}, 'profile')
     assert len(client.attempts) == 1
 
 
@@ -104,10 +104,12 @@ def test_wall_clock_timeout_cancels_slow_model_and_tries_next(monkeypatch):
     monkeypatch.setattr(module, 'MIN_ATTEMPT_TIMEOUT', 0.02)
     monkeypatch.setattr(module, 'TRANSITION_RESERVE', 0.001)
     context = build_context(student(), recommend(), None)
+    # Exercise one batch: later batches share the same overall time budget.
+    context['results']['recommendations'][0]['roadmap'] = context['results']['recommendations'][0]['roadmap'][:1]
     async def handler(request):
         if json.loads(request.content)['model'] == 'slow:free':
             await asyncio.sleep(1)
-        return response(advice(context))
+        return response(wire_advice(json.loads(request.content)))
     client = FreeAIClient(httpx.MockTransport(handler))
     assert client.generate(context).programs
     assert client.attempts[0]['status'] == 'attempt_timeout'

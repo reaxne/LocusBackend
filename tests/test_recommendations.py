@@ -215,10 +215,16 @@ def test_unavailable_component_reweighted():
     assert result.match_score == pytest.approx(sum(result.scores[key] * value for key, value in result.weights.items()))
 
 
-def test_sorted_descending_default_top_five_and_stable_ties():
+def test_sorted_descending_default_top_four_and_stable_ties():
     items = [program(id=str(index), tuition_per_year=1000000 * (index + 1)) for index in range(8)]
     result = recommend(programs=items).recommendations
-    assert len(result) == 5
+    assert len(result) == 4
+    engine = Recommender(MemoryRepository(items))
+    all_ranked = engine.recommend(student(), limit=50, as_of=AS_OF,
+                                  program_ids=[item.id for item in items]).recommendations
+    assert len(all_ranked) == 8
+    assert result == all_ranked[:4]
+    assert engine.recommend(student(), limit=50, as_of=AS_OF).recommendations == result
     assert [item.match_score for item in result] == sorted([item.match_score for item in result], reverse=True)
     tied = recommend(programs=[program(id="b"), program(id="a")]).recommendations
     assert [item.program_id for item in tied] == ["a", "b"]
@@ -398,7 +404,7 @@ def test_api_invalid_profiles_and_limits(api):
 
 
 def test_api_empty_production_catalog(db_url):
-    with TestClient(create_app(db_url)) as client:
+    with TestClient(create_app(db_url, program_repository=MemoryRepository([]))) as client:
         credentials = {"username": "alice", "password": "strong-password-123"}
         client.post("/auth/register", json=credentials)
         token = client.post("/auth/login", json=credentials).json()["access_token"]

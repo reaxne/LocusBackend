@@ -206,7 +206,15 @@ def test_request_status_and_failed_regeneration_preserves_plan(db_url, monkeypat
         assert client.get(f'/ai/requests/{request_id}', headers=headers).json()['stage'] == 'completed'
         original = client.get('/roadmap', headers=headers).json()
         from recommendation.ai import AIUnavailable
-        monkeypatch.setattr(GemmaClient, 'generate', lambda self, context: (_ for _ in ()).throw(AIUnavailable('test_failure')))
+        import httpx
+        from recommendation.free_ai import FreeAIClient
+        monkeypatch.setenv('API_GEMMA', 'test')
+        monkeypatch.setenv('AI_FREE_MODELS', 'test:free')
+        monkeypatch.delenv('AI_MODEL', raising=False)
+        invalid = httpx.MockTransport(lambda request: httpx.Response(200, json={
+            'choices': [{'finish_reason': 'stop', 'message': {'content': '{"steps": []}'}}]}))
+        monkeypatch.setattr(GemmaClient, 'generate',
+                            lambda self, context: FreeAIClient(invalid).generate(context))
         changed = student(interest=['Cybersecurity']).model_dump(mode='json', by_alias=True)
         db.save_survey(db.get_user('preserveplan')['id'], changed)
         with db._connect() as connection:
@@ -214,7 +222,8 @@ def test_request_status_and_failed_regeneration_preserves_plan(db_url, monkeypat
         failed = client.post('/ai/roadmap', headers=headers,
                              json={'programIds':['demo-robotics']})
         assert failed.status_code == 503
-        assert failed.json()['detail']['code'] == 'test_failure'
+        assert failed.json()['detail']['code'] == 'invalid_response'
+        assert failed.json()['detail']['retryable'] is True
         assert failed.json()['detail']['previousPlanPreserved'] is True
         failed_request_id = failed.json()['detail']['requestId']
         assert client.get(f'/ai/requests/{failed_request_id}', headers=headers).json()['stage'] == 'failed'
@@ -243,7 +252,7 @@ def test_streamed_ai_failure_ends_with_error_and_failed_job(db_url, monkeypatch)
         assert events[-1] == {
             'type':'error','status':503,'requestId':request_id,
             'code':'all_free_models_failed',
-            'message':'Free AI models did not return a valid response. Retry the request.',
+            'message':'AI models did not return a valid response. Retry the request.',
             'retryable':True,'previousPlanPreserved':False,'fallbackAvailable':True,
             'attempts':[],
         }

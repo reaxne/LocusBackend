@@ -24,14 +24,14 @@ from settings import load_environment
 from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
-from recommendation.recommender import Recommender
+from recommendation.recommender import Recommender, MAX_RECOMMENDATIONS
 from recommendation.ai import GemmaClient, AIUnavailable, MODEL, build_context, cache_key, compact_context
 from recommendation.planning import prepare_plan
 from recommendation.prompts import VERSION as AI_PROMPT_VERSION
 from recommendation.ai_reuse import delta_context, merge_advice
 from recommendation.telemetry import Job, Cancelled, current_job, emit, check
 from psycopg.types.json import Jsonb
-from recommendation.repository import ProgramRepository, PostgreSQLProgramRepository
+from recommendation.repository import ProgramRepository, JSONProgramRepository
 from recommendation.roadmap_plan import (
     RoadmapPreferences, build_roadmap_plan, change_step_status, local_today,
 )
@@ -115,7 +115,7 @@ def create_app(
     load_environment()
     database = Database(database_url)
     recommender = Recommender(
-        program_repository if program_repository is not None else PostgreSQLProgramRepository(database),
+        program_repository if program_repository is not None else JSONProgramRepository(),
         InterestMatcher(embedding_provider),
     )
 
@@ -243,14 +243,14 @@ def create_app(
     def recommend(
         payload: StudentProfile,
         session: Annotated[dict, Depends(current_session)],
-        limit: Annotated[int, Query(ge=1, le=50)] = 5,
+        limit: Annotated[int, Query(ge=1, le=50)] = MAX_RECOMMENDATIONS,
     ):
         return recommender.recommend(payload, limit=limit)
 
     @application.get("/recommendations", response_model=RecommendationResponse, tags=["recommendations"])
     def recommend_saved_survey(
         session: Annotated[dict, Depends(current_session)],
-        limit: Annotated[int, Query(ge=1, le=50)] = 5,
+        limit: Annotated[int, Query(ge=1, le=50)] = MAX_RECOMMENDATIONS,
     ):
         record = database.get_survey_record(session['id'])
         if record and record['state_json'] is not None and record['state_json']['profile'] is None:
@@ -267,7 +267,7 @@ def create_app(
     class AIRequest(BaseModel):
         model_config = ConfigDict(extra='forbid')
         programIds: list[str] = Field(default_factory=list, max_length=6)
-        limit: int = Field(default=5, ge=1, le=6)
+        limit: int = Field(default=MAX_RECOMMENDATIONS, ge=1, le=6)
         generateAI: bool = True
         timezone: str | None = None
         availableHoursPerWeek: float | None = Field(default=None, ge=.5, le=40)
@@ -456,7 +456,9 @@ def create_app(
                             current_job.get().id, fingerprint, client.model, as_of)
                     except (ValidationError, ValueError) as exc:
                         emit('validation_failed', reason=type(exc).__name__)
-                        raise HTTPException(502, 'AI roadmap could not be validated; previous plan was preserved') from None
+                        raise HTTPException(503, detail={'code': 'invalid_response', 'retryable': True,
+                            'message': 'AI roadmap could not be validated. Retry the request.'},
+                            headers={'Retry-After': '10'}) from None
                     emit('validated', durationMs=round((time.monotonic()-validation_started)*1000, 2),
                          stepCount=len(plan.steps))
                     result['roadmapPlan'] = plan.model_dump(mode='json', by_alias=True)
@@ -480,7 +482,7 @@ def create_app(
                                            'not_configured')
                 raise HTTPException(503, detail={
                     'code': reason,
-                    'message': ('Free AI models did not return a valid response. Retry the request.'
+                    'message': ('AI models did not return a valid response. Retry the request.'
                                 if retryable else 'AI configuration must be corrected before retrying.'),
                     'retryable': retryable, 'requestId': current_job.get().id,
                     'previousPlanPreserved': bool(previous_plan),

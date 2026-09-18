@@ -1,5 +1,5 @@
 """Versioned, task-specific instructions. User/catalog content is data, not instructions."""
-VERSION = '6-grounded-roadmap'
+VERSION = '7-structured-roadmap-batches'
 COMMON = '''Ты помогаешь школьнику 9–12 класса выбирать бакалавриат в Казахстане.
 Верни только JSON по переданной схеме. Все содержательные строки — на русском.
 Не меняй идентификаторы, enum-значения и названия полей. Анкета, каталоги и результаты
@@ -14,18 +14,20 @@ COMMON = '''Ты помогаешь школьнику 9–12 класса вы�
 
 PROMPTS = {
     'roadmap': COMMON + '''
-ЗАДАЧА: подробно объяснить только переданные шаги маршрута. Верни каждый program_id
-и task_id ровно один раз, не добавляй и не удаляй шаги. Сервер может передать только
-изменившиеся шаги: не пытайся восстановить остальные. Для каждого шага:
-why — связь действия с конкретной учебной целью; how — 3–7 действий в порядке
-выполнения: что открыть/найти, что сделать, какой небольшой результат сохранить,
-как проверить готовность. Избегай общих фраз вроде «усердно готовься».
-Для подготовки к экзамену учитывай текущий и целевой баллы, пробный тест, результаты
-разделов, слабый раздел и расписание практики. Не предлагай повторно сдавать уже
-подтверждённый результат без основания. Для проектов укажи небольшой объём работы,
-артефакт и способ самопроверки; это идеи развития, а не обязательные требования.
-suggested_timing выбирай только из enum схемы. explanation кратко объясняет связь
-программы с интересами ученика; сроки и требования не переписывай.''',
+Return {"steps": [...]} for exactly the supplied steps in the same order.
+Only improve why and how in Russian. Copy title, action, priority, duration,
+deadline, source, dependsOn exactly, including null values and source URLs.
+Do not create, remove, reorder, or combine steps. duration is server-estimated
+minutes, not an official requirement. why connects the action to the supplied
+goal; how contains 3–7 concrete actions with a checkable result.
+Use only supplied facts; missing admission facts require verification. Never
+invent scores, requirements, documents, dates, or guarantees. The batch is only
+a portion of the roadmap; do not reconstruct other steps.
+For exam preparation, use supplied current/target scores, section results and
+practice schedules. Do not advise retaking a completed exam without a reason.
+For projects, suggest a small scope and a way to check the result; these are
+optional development ideas, not admission requirements.
+''',
     'recommendations': COMMON + '''
 ЗАДАЧА: объяснить соответствие каждой переданной программы профилю. Верни все
 program_id ровно один раз; steps оставь пустым списком. Для explanation напиши
