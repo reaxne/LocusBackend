@@ -26,6 +26,32 @@
 
 ## Загрузка в существующий backend
 
+Для чтения JSON без импорта каталога в базу используйте `JSONProgramRepository`:
+
+```python
+from recommendation.repository import JSONProgramRepository
+from recommendation.recommender import Recommender
+
+repository = JSONProgramRepository()  # catalogs/kazakhstan_programs.json
+programs = repository.get_programs_for_entry_year(2027)
+program = repository.get_program_by_id("kz-iitu-cs", 2026)
+recommender = Recommender(repository)
+```
+
+Конструктор также принимает путь к любому из двух файлов, например
+`JSONProgramRepository("catalogs/kazakhstan_universities.json")`.
+Путь по умолчанию привязан к расположению проекта; явно переданный относительный
+путь — к рабочему каталогу процесса. Для API передайте репозиторий в
+`create_app(program_repository=repository)`. Авторизация и анкеты API по-прежнему
+используют PostgreSQL.
+
+Файл читается и полностью проверяется при создании объекта. Для обновления данных
+создайте новый объект. Ошибки JSON, схемы или дубликаты `(id, admissionYear)`
+вызывают `ValueError` с путем к файлу; отсутствие файла — `FileNotFoundError`.
+Методы возвращают копии `Program`; изменение результата не меняет каталог.
+Версия точного года выбирается перед фильтрацией `active`/`isDemo`, поэтому
+отключенная годовая версия не заменяется общей записью. Список упорядочен по `id`.
+
 Из корня проекта, при настроенном `DATABASE_URL`:
 
 ```powershell

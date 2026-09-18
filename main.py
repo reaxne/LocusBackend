@@ -22,7 +22,7 @@ from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import EmbeddingProvider, InterestMatcher
 from recommendation.models import RecommendationResponse, StudentProfile
 from recommendation.recommender import Recommender
-from recommendation.repository import ProgramRepository, PostgreSQLProgramRepository
+from recommendation.repository import ProgramRepository, JSONProgramRepository
 
 
 PASSWORD_ITERATIONS = 600_000
@@ -103,7 +103,7 @@ def create_app(
     load_environment()
     database = Database(database_url)
     recommender = Recommender(
-        program_repository if program_repository is not None else PostgreSQLProgramRepository(database),
+        JSONProgramRepository(),
         InterestMatcher(embedding_provider),
     )
 
