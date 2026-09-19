@@ -28,21 +28,21 @@ def generate_roadmap(student: StudentProfile, program: Program, eligibility: Eli
 
     unverified_tasks = []
     if eligibility.status == "unknown":
-        add("verify_requirements", "Confirm admission requirements",
-            "Ask the university to confirm the complete admission route and deadlines for your entry year.",
-            "Admission information is missing or unverified.", blocking=True, priority="high")
+        add("verify_requirements", "Уточнить требования поступления",
+            "Запросите у университета полный маршрут поступления и сроки для вашего года набора.",
+            "Информация о поступлении отсутствует или не подтверждена.", blocking=True, priority="high")
         unverified_tasks.append("verify_requirements")
     if not any(item.task_type == "apply_university" and item.verified(student.entry_year, as_of)
                and program.admission_year == student.entry_year
                and item.route_id in (None, eligibility.best_admission_route) for item in program.deadlines):
-        add("verify_deadlines", "Confirm the application deadline",
-            "Check the official admissions schedule before planning exam dates or submitting an application.",
-            "There is no verified application deadline for the selected route.", priority="high")
+        add("verify_deadlines", "Проверить срок подачи заявления",
+            "Проверьте официальный календарь приёма до планирования экзаменов и подачи заявления.",
+            "Для выбранного маршрута нет подтверждённого срока подачи заявления.", priority="high")
         unverified_tasks.append("verify_deadlines")
     if student.grade <= 10 or not student.interest:
-        add("choose_direction", "Explore your study direction",
-            "Compare the curriculum and careers with your interests before choosing a program.",
-            f"You are planning from grade {student.grade} for entry in {student.entry_year}.")
+        add("choose_direction", "Изучить направление обучения",
+            "Сравните учебный план и будущие профессии со своими интересами до выбора программы.",
+            f"Вы планируете поступление после {student.grade} класса в {student.entry_year} году.")
     exam_task_ids = []
     if route:
         for requirement in route.requirements:
@@ -50,35 +50,35 @@ def generate_roadmap(student: StudentProfile, program: Program, eligibility: Eli
                 continue
             exam = requirement.exam
             done = requirement.status == "passed"
-            reason = f"The {route.route} route requires {exam} >= {requirement.required_value:g}."
+            reason = f"По выбранному маршруту требуется результат {exam} не ниже {requirement.required_value:g}."
             prep_id, exam_id = f"prepare_{exam.lower()}", f"take_{exam.lower()}"
             status = "completed" if done else "todo"
-            add(prep_id, f"Prepare for {exam}",
-                "Review the exam format and plan preparation for the required score.", reason,
+            add(prep_id, f"Подготовиться к {exam}",
+                "Изучите формат экзамена и составьте план подготовки к требуемому результату.", reason,
                 status=status, priority="high", target=requirement.required_value, blocking=not done,
                 source=requirement.source)
-            add(exam_id, f"Take {exam}" if requirement.status != "failed" else f"Retake {exam}",
-                "Confirm test availability and submit a qualifying result to the university.", reason,
+            add(exam_id, f"Сдать {exam}" if requirement.status != "failed" else f"Пересдать {exam}",
+                "Проверьте доступность экзамена и передайте в университет подходящий результат.", reason,
                 status=status, priority="high", target=requirement.required_value, blocking=not done,
                 depends_on=[prep_id], source=requirement.source)
             exam_task_ids.append(exam_id)
-    add("prepare_documents", "Prepare application documents",
-        "Obtain the official document checklist and prepare the requested materials; the checklist is not stored here.",
-        "Application preparation is needed before submission.")
-    add("apply_university", "Apply to the university",
-        "Confirm the current application process and submit through the official admissions channel.",
-        f"Submit an application for {program.name} for entry in {student.entry_year}.",
+    add("prepare_documents", "Подготовить документы для поступления",
+        "Получите официальный список документов и подготовьте запрошенные материалы.",
+        "Перед подачей заявления нужно подготовить документы.")
+    add("apply_university", "Подать заявление в университет",
+        "Уточните текущий порядок подачи и отправьте заявление через официальный канал приёма.",
+        f"Подайте заявление на программу для поступления в {student.entry_year} году.",
         depends_on=["prepare_documents", *exam_task_ids, *unverified_tasks])
     for option in financial.funding_options:
         task_id = "apply_state_grant" if option == "state_grant" else "apply_scholarship"
-        add(task_id, "Apply for state grant funding" if option == "state_grant" else "Apply for a scholarship",
-            "Verify the funding rules, coverage, competition, and application process; an award is not guaranteed.",
-            "This funding path matches your preference" + (" and tuition exceeds your budget." if financial.funding_dependent else "."),
+        add(task_id, "Подать заявку на государственный грант" if option == "state_grant" else "Подать заявку на стипендию",
+            "Проверьте правила финансирования, покрытие, конкурс и порядок подачи; получение выплаты не гарантировано.",
+            "Этот вариант финансирования соответствует вашим предпочтениям" + (" и стоимость обучения выше вашего бюджета." if financial.funding_dependent else "."),
             priority="high" if financial.funding_dependent else "medium")
     if student.extracurricular_interests:
-        add("portfolio_activity", "Develop a project in your area of interest",
-            "Choose a small project or activity related to: " + ", ".join(student.extracurricular_interests) + ".",
-            "Optional exploration of your interests; this is not a stated admission requirement.", priority="low")
+        add("portfolio_activity", "Сделать проект по интересующему направлению",
+            "Выберите небольшой проект или занятие, связанное с вашими интересами.",
+            "Это дополнительный способ развить интересы, а не подтверждённое требование поступления.", priority="low")
     return tasks
 
 

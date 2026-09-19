@@ -9,6 +9,7 @@ from recommendation.models import (
 from recommendation.normalization import concepts
 from recommendation.repository import ProgramRepository
 from recommendation.roadmap import generate_roadmap, get_next_action
+from recommendation.localization import localize_response, text, values
 from recommendation.scoring import (
     academic_match, city_match, extracurricular_match, financial_match,
     hard_constraint_reasons, language_match, weighted_average,
@@ -65,40 +66,40 @@ class Recommender:
             reasons = []
             warnings = [*eligibility.warnings, *financial.warnings]
             if interest_matches[program.id].matched_interests:
-                reasons.append("Matches interest: " + ", ".join(interest_matches[program.id].matched_interests) + ".")
+                reasons.append("Программа соответствует интересам: " + ", ".join(values(interest_matches[program.id].matched_interests)) + ".")
             if scores["academic"]:
                 matches = [item for item in program.recommended_academic_strengths
                            if concepts(item) & {concept for value in student.academic_strengths for concept in concepts(value)}]
-                reasons.append("Matching recommended academic strengths: " + ", ".join(matches) + ".")
+                reasons.append("Соответствующие рекомендуемые академические навыки: " + ", ".join(values(matches)) + ".")
             if scores["city"] == 1:
-                reasons.append("The program is in one of your preferred cities.")
+                reasons.append("Программа находится в одном из предпочитаемых вами городов.")
             elif scores["city"] is not None:
-                warnings.append("The program is outside your preferred cities; relocation is optional in your profile.")
+                warnings.append("Программа находится вне предпочитаемых городов; в анкете допускается переезд.")
             if scores["language"] == 1:
-                reasons.append("The program offers your preferred study language.")
+                reasons.append("Программа предлагает предпочитаемый вами язык обучения.")
             elif student.study_language and scores["language"] is None:
-                warnings.append("The program language is unavailable, so language preference was not scored.")
+                warnings.append("Язык обучения программы не указан, поэтому языковое предпочтение не учтено в оценке.")
             if eligibility.eligible and best:
-                reasons.append(f"Your results satisfy the verified {best.route} admission route.")
+                reasons.append("Ваши результаты соответствуют подтверждённому маршруту поступления.")
             if financial.within_budget:
-                reasons.append("Verified annual tuition is within your preferred budget.")
+                reasons.append("Подтверждённая годовая стоимость обучения укладывается в ваш бюджет.")
             if financial.funding_options:
-                reasons.append("Verified funding paths match your selection: " + ", ".join(financial.funding_options) + ".")
+                reasons.append("Подтверждённые варианты финансирования соответствуют вашему выбору.")
             if student.category:
-                warnings.append("Your category is preserved but not used: verified category-specific rules are not modeled.")
+                warnings.append("Категория сохранена, но не участвует в оценке: подтверждённые правила для категорий не внесены в каталог.")
             if student.academic_performance and student.academic_performance != "unknown":
-                warnings.append("Academic performance is preserved but not scored because the catalog has no comparable entry criteria.")
+                warnings.append("Академическая успеваемость сохранена, но не участвует в оценке: в каталоге нет сопоставимых критериев.")
             if student.constraints:
-                warnings.append("Free-text constraints are preserved but not scored because the catalog has no structured fields for them.")
+                warnings.append("Дополнительные условия сохранены, но не участвуют в оценке: в каталоге нет структурированных полей для них.")
             if student.country and student.country.casefold() != "kazakhstan":
-                warnings.append("Country is preserved but not scored because the catalog has no country field.")
+                warnings.append("Страна сохранена, но не участвует в оценке: в каталоге нет поля страны.")
             if program.is_demo:
-                warnings.append("DEMO program: fictional data for testing or examples only.")
+                warnings.append("Демонстрационная программа: вымышленные данные предназначены только для тестирования.")
             if not weights:
-                warnings.append("Insufficient profile or program information to calculate compatibility; score is zero.")
+                warnings.append("Недостаточно данных анкеты или программы для расчёта соответствия; оценка равна нулю.")
             unavailable = [key for key, value in scores.items() if value is None]
             if unavailable:
-                warnings.append("Components without usable data are omitted from ranking: " + ", ".join(unavailable) + ".")
+                warnings.append("Компоненты без пригодных данных не учтены в ранжировании.")
             requirements = best.requirements if best else []
             summary = RequirementsSummary(
                 completed=[item for item in requirements if item.status == "passed"],
@@ -129,12 +130,12 @@ class Recommender:
         recommendations.sort(key=lambda item: (-item.match_score, item.program_id))
         constraints = []
         if student.budget is not None:
-            constraints.append(f"Preferred annual tuition budget: {student.budget} KZT")
+            constraints.append(f"Предпочтительный годовой бюджет на обучение: {student.budget} тенге")
         if student.city:
-            constraints.append(("Must stay in: " if student.must_stay else "Preferred cities: ") + ", ".join(student.city))
+            constraints.append(("Необходимо остаться в городе: " if student.must_stay else "Предпочитаемые города: ") + ", ".join(student.city))
         if student.constraints:
-            constraints.append("Additional constraints: " + student.constraints)
-        return RecommendationResponse(
+            constraints.append("Дополнительные условия сохранены в анкете.")
+        return localize_response(RecommendationResponse(
             student_summary=StudentSummary(
                 target_entry_year=student.entry_year, main_interests=student.interest,
                 academic_strengths=student.academic_strengths, constraints=constraints, category=student.category,
@@ -144,5 +145,5 @@ class Recommender:
             recommendations=recommendations[:limit], evaluated_at=as_of,
             matching_method=self.matcher.name,
             excluded_programs=excluded,
-            warnings=[] if recommendations else ["No matching programs are available. The catalog may be empty, outside this cycle, or excluded by your constraints and admission requirements."],
-        )
+            warnings=[] if recommendations else ["Нет подходящих программ. Каталог может быть пустым, относиться к другому году набора или не соответствовать условиям анкеты."],
+        ))

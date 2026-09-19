@@ -48,22 +48,22 @@ def check_eligibility(
         states = {item.status for item in requirements}
         if (cutoff is not None and cutoff < as_of) or student.entry_year < as_of.year:
             state = "ineligible"
-            warnings.append("The admission cycle or verified application deadline has passed.")
+            warnings.append("Цикл поступления или подтверждённый срок подачи заявления уже прошёл.")
         elif not complete or "unknown" in states:
             state = "unknown"
-            warnings.append("The complete admission requirements are not verified for this entry year.")
+            warnings.append("Полные требования поступления для этого года набора не подтверждены.")
         elif not states or states == {"passed"}:
             state = "eligible_now"
         elif enough_time and ("failed" not in states or route.allows_retakes):
             state = "potentially_eligible"
             warnings.append(
-                "Eligibility is provisional: complete the outstanding exams and verify test availability."
+                "Соответствие предварительное: сдайте недостающие экзамены и проверьте их доступность."
             )
             if cutoff is None:
-                warnings.append("The application deadline is unknown; planning uses the future entry year.")
+                warnings.append("Срок подачи заявления неизвестен; планирование использует будущий год поступления.")
         else:
             state = "ineligible"
-            warnings.append("Exam requirements are unmet and the configured preparation window or retake policy is not satisfied.")
+            warnings.append("Требования к экзаменам не выполнены, а срок подготовки или правила пересдачи не позволяют продолжить.")
         score = None
         if state == "eligible_now" and requirements:
             score = sum(exam_fit(item.student_value, item.required_value, config)
@@ -79,10 +79,10 @@ def check_eligibility(
     ))
     best = ordered[0] if ordered else None
     state = best.status if best else "unknown"
-    warnings = list(best.warnings) if best else ["No admission routes are available; confirm requirements with the university."]
+    warnings = list(best.warnings) if best else ["Нет доступных маршрутов поступления; уточните требования у университета."]
     if student.entry_year < as_of.year or (program.admission_year is not None and not cycle_known):
         state = "ineligible"
-        warnings.append("This program does not match the requested active admission cycle.")
+        warnings.append("Программа не соответствует запрошенному активному году набора.")
     return EligibilityResult(
         eligible=state == "eligible_now", status=state, available_routes=results,
         best_admission_route=best.route if best else None,

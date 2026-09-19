@@ -167,7 +167,7 @@ def test_failed_exam_can_only_be_planned_when_retakes_explicitly_allowed():
     item = program(admission_routes=[sat])
     result = recommend(student(IELTS=5), [item]).recommendations[0]
     assert result.eligibility.status == "potentially_eligible"
-    assert any(task.title == "Retake IELTS" for task in result.roadmap)
+    assert any(task.title == "Пересдать IELTS" for task in result.roadmap)
 
 
 def test_financial_within_budget():
@@ -180,9 +180,9 @@ def test_financial_within_budget():
 def test_above_budget_with_grant_retained_and_not_guaranteed():
     result = recommend().recommendations[0]
     assert result.financial.funding_dependent
-    assert result.financial.funding_options == ["state_grant"]
+    assert result.financial.funding_options == ["государственный грант"]
     assert result.financial.difference == 1500000
-    assert any("not guaranteed" in item for item in result.warnings)
+    assert any("не гарантировано" in item for item in result.warnings)
 
 
 def test_financial_unknown_and_no_selected_funding():
@@ -316,7 +316,7 @@ def test_category_has_no_ranking_effect():
     normal = recommend().recommendations[0]
     special = recommend(student(category="example-category")).recommendations[0]
     assert special.match_score == normal.match_score
-    assert any("category" in warning for warning in special.warnings)
+    assert any("Категория" in warning for warning in special.warnings)
 
 
 def test_exam_fit_is_bounded_and_monotonic():
@@ -445,7 +445,7 @@ def test_expired_funding_deadline_removes_option_and_task():
     assert result.financial.funding_options == []
     assert not result.financial.funding_dependent
     assert all(task.id != "apply_state_grant" for task in result.roadmap)
-    assert any("deadline has passed" in warning for warning in result.warnings)
+    assert any("срок подачи" in warning for warning in result.warnings)
 
 
 def test_expired_task_not_selected():
@@ -513,7 +513,7 @@ def test_scholarship_path_and_campus_activity_component():
                    scholarships=[{"name": "Demo award", "source": SOURCE}],
                    extracurricular=["Robotics"])
     result = recommend(student(funding=["university_scholarship"]), [item]).recommendations[0]
-    assert result.financial.funding_options == ["university_scholarship"]
+    assert result.financial.funding_options == ["университетская стипендия"]
     assert result.scores["extracurricular"] == 1
     assert "extracurricular" in result.weights
     assert any(task.id == "apply_scholarship" for task in result.roadmap)

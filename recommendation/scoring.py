@@ -23,15 +23,15 @@ def city_match(student: StudentProfile, program: Program,
 def hard_constraint_reasons(student: StudentProfile, program: Program, as_of: date) -> list[str]:
     reasons = []
     if not program.active:
-        reasons.append("The program is inactive.")
+        reasons.append("Программа неактивна.")
     if student.entry_year < as_of.year:
-        reasons.append("The requested entry year has passed.")
+        reasons.append("Запрошенный год поступления уже прошёл.")
     if program.admission_year is not None and program.admission_year != student.entry_year:
-        reasons.append("The program admission cycle differs from the requested entry year.")
+        reasons.append("Год набора программы не совпадает с запрошенным годом поступления.")
     if student.must_stay and city_match(student, program) != 1.0:
-        reasons.append("The program city is outside the required cities or is unknown.")
+        reasons.append("Город программы не входит в обязательные города или не указан.")
     if student.level and program.degree and level(student.level) != level(program.degree):
-        reasons.append("The program degree level differs from the requested level.")
+        reasons.append("Уровень программы не совпадает с запрошенным уровнем.")
     return reasons
 
 
@@ -59,7 +59,7 @@ def financial_match(student: StudentProfile, program: Program, as_of: date | Non
                and item.verified(student.entry_year, as_of) and item.date < as_of
                for item in program.deadlines):
             options.remove(option)
-            warnings.append(f"The verified {option} application deadline has passed.")
+            warnings.append("Подтверждённый срок подачи заявки на финансирование уже прошёл.")
     tuition = program.tuition_per_year if verified("tuition_per_year") else None
     difference = tuition - student.budget if tuition is not None and student.budget is not None else None
     within = difference <= 0 if difference is not None else None
@@ -69,16 +69,16 @@ def financial_match(student: StudentProfile, program: Program, as_of: date | Non
         score = 1.0
     elif dependent:
         score = config.funding_dependent_score
-        warnings.append(f"Annual tuition exceeds your budget by {difference} KZT; this option depends on competitive funding, which is not guaranteed and may not cover the full cost.")
+        warnings.append(f"Годовая стоимость обучения превышает ваш бюджет на {difference} тенге; вариант зависит от конкурсного финансирования, которое не гарантировано и может не покрыть всю сумму.")
     elif within is False:
         score = student.budget / tuition
-        warnings.append(f"Annual tuition exceeds your budget by {difference} KZT; no selected funding path is verified.")
+        warnings.append(f"Годовая стоимость обучения превышает ваш бюджет на {difference} тенге; выбранные варианты финансирования не подтверждены.")
     if tuition is None:
-        warnings.append("Annual tuition is unknown or unverified for this entry year.")
+        warnings.append("Годовая стоимость обучения для этого года набора не указана или не подтверждена.")
     if options and not dependent:
-        warnings.append("Selected funding paths exist, but awards and coverage are not guaranteed.")
+        warnings.append("Выбранные варианты финансирования существуют, но получение выплаты и покрытие расходов не гарантированы.")
     if any(item in student.funding for item in ("state_grant", "university_scholarship")) and not options:
-        warnings.append("Availability of the selected grant or scholarship paths is not verified.")
+        warnings.append("Доступность выбранного гранта или стипендии не подтверждена.")
     return FinancialResult(
         score=score, within_budget=within, difference=difference, tuition_per_year=tuition,
         funding_options=options, funding_dependent=dependent, warnings=warnings,
