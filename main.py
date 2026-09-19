@@ -10,16 +10,16 @@ import asyncio
 import queue
 from uuid import UUID, uuid4
 from contextlib import asynccontextmanager
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, Query, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import BaseModel, ConfigDict, Field, JsonValue, ValidationError, field_validator
+from pydantic import BaseModel, ConfigDict, Field, JsonValue, ValidationError, field_validator, model_validator
 
-from database import Database, UsernameAlreadyRegistered, SurveyConflict, RoadmapConflict
+from database import Database, UsernameAlreadyRegistered, SurveyConflict, RoadmapConflict, UserStateConflict
 from settings import load_environment
 from profile_schema import FrontendState, to_survey
 from recommendation.embeddings import InterestMatcher
@@ -111,6 +111,48 @@ class SurveyPayload(BaseModel):
     state: FrontendState | None = None
 
 
+class SavedOption(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    programId: str = Field(min_length=1, max_length=200)
+    label: Literal['Dream', 'Priority', 'Backup']
+
+
+class PlannedActivity(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    id: str = Field(min_length=1, max_length=200)
+    templateId: str | None = Field(default=None, max_length=200)
+    category: str = Field(min_length=1, max_length=80)
+    title: str = Field(min_length=1, max_length=120)
+    targetPeriod: str = Field(min_length=1, max_length=120)
+    status: Literal['planned', 'in-progress', 'completed']
+
+
+class UserState(BaseModel):
+    """Cross-device UI state that is independent of the questionnaire draft."""
+    model_config = ConfigDict(extra='forbid')
+    savedOptions: list[SavedOption] = Field(default_factory=list, max_length=6)
+    comparison: list[str] = Field(default_factory=list, max_length=3)
+    focus: str | None = Field(default=None, max_length=200)
+    activities: list[PlannedActivity] = Field(default_factory=list, max_length=100)
+    completed: list[str] = Field(default_factory=list, max_length=500)
+    inProgress: list[str] = Field(default_factory=list, max_length=500)
+    theme: Literal['light', 'dark', 'system'] = 'dark'
+    revision: int = Field(default=0, ge=0)
+
+    @model_validator(mode='after')
+    def valid_unique_values(self):
+        for value in (self.comparison, self.completed, self.inProgress):
+            if len(value) != len(set(value)) or any(not item or len(item) > 1000 for item in value):
+                raise ValueError('State list contains invalid values')
+        if len({item.programId for item in self.savedOptions}) != len(self.savedOptions):
+            raise ValueError('Programs can be saved only once')
+        if len({item.id for item in self.activities}) != len(self.activities):
+            raise ValueError('Activities must have unique IDs')
+        if set(self.completed) & set(self.inProgress):
+            raise ValueError('A task cannot be completed and in progress')
+        return self
+
+
 def create_app(
     database_url: str | None = None,
     *,
@@ -131,11 +173,11 @@ def create_app(
     application = FastAPI(title="Locus Auth API", version="1.0.0", lifespan=lifespan)
     origins = json.loads(os.getenv('ALLOWED_ORIGINS', '["http://127.0.0.1:5173","http://localhost:5173","http://127.0.0.1:3000","http://localhost:3000"]'))
     application.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True,
-        allow_methods=['GET','POST'], allow_headers=['Content-Type','Authorization','X-Locus-Request','X-Locus-User','X-Request-ID'])
+        allow_methods=['GET','POST','PUT'], allow_headers=['Content-Type','Authorization','X-Locus-Request','X-Locus-User','X-Request-ID'])
 
     @application.middleware('http')
     async def browser_security(request: Request, call_next):
-        if request.method == 'POST':
+        if request.method in ('POST', 'PUT'):
             origin = request.headers.get('origin')
             browser_request = request.headers.get('x-locus-request') == '1'
             cookie_request = request.cookies.get('locus_session') and not request.headers.get('authorization')
@@ -143,7 +185,8 @@ def create_app(
                 return JSONResponse({'detail':'Untrusted origin'}, status_code=403)
             if cookie_request and not browser_request:
                 return JSONResponse({'detail':'Missing CSRF header'}, status_code=403)
-            if len(await request.body()) > 32768:
+            max_body = 131072 if request.url.path == '/user-state' else 32768
+            if len(await request.body()) > max_body:
                 return JSONResponse({'detail':'Payload too large'}, status_code=413)
         response = await call_next(request)
         response.headers['Cache-Control'] = 'no-store'
@@ -213,6 +256,25 @@ def create_app(
         response.delete_cookie('locus_session', path='/')
 
     application.include_router(auth_router)
+
+    def user_state_response(row=None):
+        state = UserState.model_validate(row['state_json'] if row else {})
+        return state.model_copy(update={
+            'revision': row['revision'] if row else 0,
+        })
+
+    @application.get('/user-state', response_model=UserState, tags=['user-state'])
+    def get_user_state(session: Annotated[dict, Depends(current_session)]):
+        return user_state_response(database.get_user_state(session['id']))
+
+    @application.put('/user-state', response_model=UserState, tags=['user-state'])
+    def save_user_state(payload: UserState, session: Annotated[dict, Depends(current_session)]):
+        try:
+            row = database.save_user_state(
+                session['id'], payload.model_dump(exclude={'revision'}), payload.revision)
+        except UserStateConflict:
+            raise HTTPException(409, 'User state changed in another tab') from None
+        return user_state_response(row)
 
     @application.post("/survey", tags=["survey"])
     def save_survey(

@@ -63,7 +63,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Назарбаев Университет",
+    "universityUrl": "https://nu.edu.kz",
+    "admissionsUrl": "https://scai.nu.edu.kz/kz/bsc-cs",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-nu-biology",
@@ -128,7 +133,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Назарбаев Университет",
+    "universityUrl": "https://nu.edu.kz",
+    "admissionsUrl": "https://nu.edu.kz/sprogram/bachelor-of-science-in-biological-sciences/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-journalism",
@@ -177,7 +187,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-sociology",
@@ -226,7 +241,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-psychology",
@@ -274,7 +294,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-politics",
@@ -321,7 +346,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-design",
@@ -368,7 +398,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-satbayev-geology",
@@ -415,7 +450,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНИТУ имени К. И. Сатпаева",
+    "universityUrl": "https://satbayev.university",
+    "admissionsUrl": "https://official.satbayev.university/ru/geology-oil-gas-business/gspemd",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-satbayev-hydrogeology",
@@ -463,7 +503,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНИТУ имени К. И. Сатпаева",
+    "universityUrl": "https://satbayev.university",
+    "admissionsUrl": "https://satbayev.university/ru/specialties/gidrogeologiya-i-inzhenernaya-geologiya-b",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-satbayev-robotics",
@@ -512,7 +557,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНИТУ имени К. И. Сатпаева",
+    "universityUrl": "https://satbayev.university",
+    "admissionsUrl": "https://official.satbayev.university/ru/information-telecommunication-technologies",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-satbayev-architecture",
@@ -560,7 +610,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНИТУ имени К. И. Сатпаева",
+    "universityUrl": "https://satbayev.university",
+    "admissionsUrl": "https://satbayev.university/ru/undergraduate",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-software",
@@ -616,7 +671,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-data",
@@ -672,7 +732,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-cybersecurity",
@@ -726,7 +791,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-electronics",
@@ -780,7 +850,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-journalism",
@@ -836,7 +911,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kbtu-petroleum",
@@ -891,7 +971,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КБТУ",
+    "universityUrl": "https://kbtu.edu.kz",
+    "admissionsUrl": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kbtu-automation",
@@ -940,7 +1025,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КБТУ",
+    "universityUrl": "https://kbtu.edu.kz",
+    "admissionsUrl": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kbtu-information-systems",
@@ -989,7 +1079,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КБТУ",
+    "universityUrl": "https://kbtu.edu.kz",
+    "admissionsUrl": "https://kbtu.edu.kz/ru/shkoly/shkola-energetiki-i-neftegazovoj-industrii/bakalavriat-shkoly-energetiki-i-neftegazovoj-industrii",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kimep-finance",
@@ -1036,7 +1131,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КИМЭП",
+    "universityUrl": "https://www.kimep.kz",
+    "admissionsUrl": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kimep-accounting",
@@ -1084,7 +1184,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КИМЭП",
+    "universityUrl": "https://www.kimep.kz",
+    "admissionsUrl": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kimep-marketing",
@@ -1132,7 +1237,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КИМЭП",
+    "universityUrl": "https://www.kimep.kz",
+    "admissionsUrl": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kimep-international-relations",
@@ -1179,7 +1289,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КИМЭП",
+    "universityUrl": "https://www.kimep.kz",
+    "admissionsUrl": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kimep-international-law",
@@ -1227,7 +1342,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КИМЭП",
+    "universityUrl": "https://www.kimep.kz",
+    "admissionsUrl": "https://www.kimep.kz/prospective-students/kz/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-cs",
@@ -1276,7 +1396,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-data",
@@ -1325,7 +1450,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-security",
@@ -1372,7 +1502,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-fintech",
@@ -1420,7 +1555,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-journalism",
@@ -1469,7 +1609,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznmu-pharmacy",
@@ -1517,7 +1662,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНМУ",
+    "universityUrl": "https://kaznmu.edu.kz",
+    "admissionsUrl": "https://kaznmu.edu.kz/ru/образовательные-программы/бакалавриат/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznmu-dentistry",
@@ -1573,7 +1723,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНМУ",
+    "universityUrl": "https://kaznmu.edu.kz",
+    "admissionsUrl": "https://kaznmu.edu.kz/ru/образовательные-программы/бакалавриат/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-qmu-medicine",
@@ -1621,7 +1776,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КМУ",
+    "universityUrl": "https://qmu.edu.kz",
+    "admissionsUrl": "https://qmu.edu.kz/ru/postupayushchim/vysshee-obrazovanie/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-qmu-pediatrics",
@@ -1669,7 +1829,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КМУ",
+    "universityUrl": "https://qmu.edu.kz",
+    "admissionsUrl": "https://qmu.edu.kz/ru/postupayushchim/vysshee-obrazovanie/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-qmu-nursing",
@@ -1716,7 +1881,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КМУ",
+    "universityUrl": "https://qmu.edu.kz",
+    "admissionsUrl": "https://qmu.edu.kz/ru/postupayushchim/vysshee-obrazovanie/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznaru-agronomy",
@@ -1764,7 +1934,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИУ",
+    "universityUrl": "https://www.kaznaru.edu.kz",
+    "admissionsUrl": "https://www.kaznaru.edu.kz/ru/department/81",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznaru-bioengineering",
@@ -1811,7 +1986,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИУ",
+    "universityUrl": "https://www.kaznaru.edu.kz",
+    "admissionsUrl": "https://www.kaznaru.edu.kz/ru/department/81",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznaru-bioinformatics",
@@ -1858,7 +2038,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИУ",
+    "universityUrl": "https://www.kaznaru.edu.kz",
+    "admissionsUrl": "https://www.kaznaru.edu.kz/ru/department/81",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznaru-veterinary",
@@ -1905,7 +2090,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИУ",
+    "universityUrl": "https://www.kaznaru.edu.kz",
+    "admissionsUrl": "https://www.kaznaru.edu.kz/ru/op?degree=2",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznaru-logistics",
@@ -1953,7 +2143,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИУ",
+    "universityUrl": "https://www.kaznaru.edu.kz",
+    "admissionsUrl": "https://kaznaru.edu.kz/ru/department/84",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-abai-math-teaching",
@@ -2000,7 +2195,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНПУ",
+    "universityUrl": "https://abaiuniversity.edu.kz",
+    "admissionsUrl": "https://www.kaznpu.kz/ru/3131/page/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-abai-physics-teaching",
@@ -2047,7 +2247,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНПУ",
+    "universityUrl": "https://abaiuniversity.edu.kz",
+    "admissionsUrl": "https://www.kaznpu.kz/ru/3131/page/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-abai-cs-teaching",
@@ -2095,7 +2300,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНПУ",
+    "universityUrl": "https://abaiuniversity.edu.kz",
+    "admissionsUrl": "https://www.kaznpu.kz/ru/3131/page/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-abai-informatics-robotics",
@@ -2143,7 +2353,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНПУ",
+    "universityUrl": "https://abaiuniversity.edu.kz",
+    "admissionsUrl": "https://www.kaznpu.kz/ru/3131/page/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-mnu-law",
@@ -2191,7 +2406,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КАЗГЮУ",
+    "universityUrl": "https://mnu.kz",
+    "admissionsUrl": "https://admission.mnu.kz/ru/programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-mnu-international-law",
@@ -2239,7 +2459,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КАЗГЮУ",
+    "universityUrl": "https://mnu.kz",
+    "admissionsUrl": "https://admission.mnu.kz/ru/programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-mnu-psychology",
@@ -2287,7 +2512,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КАЗГЮУ",
+    "universityUrl": "https://mnu.kz",
+    "admissionsUrl": "https://admission.mnu.kz/ru/programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-mnu-translation",
@@ -2335,7 +2565,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КАЗГЮУ",
+    "universityUrl": "https://mnu.kz",
+    "admissionsUrl": "https://admission.mnu.kz/ru/programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-mnu-finance",
@@ -2382,7 +2617,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КАЗГЮУ",
+    "universityUrl": "https://mnu.kz",
+    "admissionsUrl": "https://admission.mnu.kz/ru/programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-mnu-hospitality",
@@ -2430,7 +2670,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КАЗГЮУ",
+    "universityUrl": "https://mnu.kz",
+    "admissionsUrl": "https://admission.mnu.kz/ru/programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-almau-management",
@@ -2478,7 +2723,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Алматы Менеджмент Университет",
+    "universityUrl": "https://almau.edu.kz",
+    "admissionsUrl": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-almau-marketing",
@@ -2526,7 +2776,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Алматы Менеджмент Университет",
+    "universityUrl": "https://almau.edu.kz",
+    "admissionsUrl": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-almau-logistics",
@@ -2574,7 +2829,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Алматы Менеджмент Университет",
+    "universityUrl": "https://almau.edu.kz",
+    "admissionsUrl": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-almau-entrepreneurship",
@@ -2622,7 +2882,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Алматы Менеджмент Университет",
+    "universityUrl": "https://almau.edu.kz",
+    "admissionsUrl": "https://almau.edu.kz/ru/akkreditaciya-rejtingi-nagrady/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kazgasa-architectural-design",
@@ -2669,7 +2934,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазГАСА",
+    "universityUrl": "https://kazgasa.kz",
+    "admissionsUrl": "https://kazgasa.kz/fakultet-dizajna/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kazgasa-graphic-design",
@@ -2716,7 +2986,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазГАСА",
+    "universityUrl": "https://kazgasa.kz",
+    "admissionsUrl": "https://kazgasa.kz/fakultet-dizajna/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kazgasa-industrial-design",
@@ -2763,7 +3038,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазГАСА",
+    "universityUrl": "https://kazgasa.kz",
+    "admissionsUrl": "https://kazgasa.kz/fakultet-dizajna/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kazgasa-fashion",
@@ -2810,7 +3090,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазГАСА",
+    "universityUrl": "https://kazgasa.kz",
+    "admissionsUrl": "https://kazgasa.kz/fakultet-dizajna/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznai-acting",
@@ -2858,7 +3143,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИ",
+    "universityUrl": "https://kaznai.kz",
+    "admissionsUrl": "https://kaznai.kz/ru/bilim-beru-ba-darlamalary-akter-sheb/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznai-directing",
@@ -2906,7 +3196,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНАИ",
+    "universityUrl": "https://kaznai.kz",
+    "admissionsUrl": "https://kaznai.kz/ru/bilim-beru-ba-darlamalary-akter-sheb/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-ektu-energy",
@@ -2953,7 +3248,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ВКТУ",
+    "universityUrl": "https://www.ektu.kz",
+    "admissionsUrl": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-ektu-geology",
@@ -3000,7 +3300,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ВКТУ",
+    "universityUrl": "https://www.ektu.kz",
+    "admissionsUrl": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-ektu-architecture",
@@ -3048,7 +3353,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ВКТУ",
+    "universityUrl": "https://www.ektu.kz",
+    "admissionsUrl": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-ektu-water",
@@ -3096,7 +3406,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ВКТУ",
+    "universityUrl": "https://www.ektu.kz",
+    "admissionsUrl": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-ektu-forestry",
@@ -3144,7 +3459,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ВКТУ",
+    "universityUrl": "https://www.ektu.kz",
+    "admissionsUrl": "https://www.ektu.kz/educationalprograms.aspx?lang=ru",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-zhubanov-primary-education",
@@ -3192,7 +3512,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "АРУ имени К. Жубанова",
+    "universityUrl": "https://zhubanov.edu.kz",
+    "admissionsUrl": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-zhubanov-psychology",
@@ -3240,7 +3565,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "АРУ имени К. Жубанова",
+    "universityUrl": "https://zhubanov.edu.kz",
+    "admissionsUrl": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-zhubanov-petroleum",
@@ -3288,7 +3618,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "АРУ имени К. Жубанова",
+    "universityUrl": "https://zhubanov.edu.kz",
+    "admissionsUrl": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-zhubanov-sport",
@@ -3336,7 +3671,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "АРУ имени К. Жубанова",
+    "universityUrl": "https://zhubanov.edu.kz",
+    "admissionsUrl": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-zhubanov-dance",
@@ -3385,7 +3725,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "АРУ имени К. Жубанова",
+    "universityUrl": "https://zhubanov.edu.kz",
+    "admissionsUrl": "https://zhubanov.edu.kz/ru/enrollee/category/9/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-auezov-textile",
@@ -3433,7 +3778,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЮКУ",
+    "universityUrl": "https://auezov.edu.kz",
+    "admissionsUrl": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-auezov-food",
@@ -3480,7 +3830,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЮКУ",
+    "universityUrl": "https://auezov.edu.kz",
+    "admissionsUrl": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-auezov-water",
@@ -3528,7 +3883,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЮКУ",
+    "universityUrl": "https://auezov.edu.kz",
+    "admissionsUrl": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-auezov-agronomy",
@@ -3576,7 +3936,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЮКУ",
+    "universityUrl": "https://auezov.edu.kz",
+    "admissionsUrl": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-auezov-transport-logistics",
@@ -3624,7 +3989,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЮКУ",
+    "universityUrl": "https://auezov.edu.kz",
+    "admissionsUrl": "https://auezov.edu.kz/rus/stranitsy-ru/5301-183-образовательных-программ",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-history",
@@ -3672,7 +4042,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-archeology",
@@ -3721,7 +4096,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-international-relations",
@@ -3768,7 +4148,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-law",
@@ -3816,7 +4201,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-biology",
@@ -3864,7 +4254,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iuth-tourism-hospitality",
@@ -3912,7 +4307,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУТиГ",
+    "universityUrl": "https://iuth.edu.kz",
+    "admissionsUrl": "https://iuth.edu.kz/ru/category/obrazovatelnye-programmy-zhana/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iuth-sport-tourism",
@@ -3960,7 +4360,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУТиГ",
+    "universityUrl": "https://iuth.edu.kz",
+    "admissionsUrl": "https://iuth.edu.kz/ru/category/obrazovatelnye-programmy-zhana/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iuth-international-tourism",
@@ -4008,7 +4413,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУТиГ",
+    "universityUrl": "https://iuth.edu.kz",
+    "admissionsUrl": "https://iuth.edu.kz/ru/vysshie-shkoly/turizm-i-gostepriimstvo/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-sociology",
@@ -4078,7 +4488,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-psychology",
@@ -4147,7 +4562,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-kaznu-politics",
@@ -4215,7 +4635,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "КазНУ",
+    "universityUrl": "https://www.kaznu.kz",
+    "admissionsUrl": "https://welcome.kaznu.kz/ru/education_programs/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-software",
@@ -4276,7 +4701,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-data",
@@ -4337,7 +4767,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-cybersecurity",
@@ -4396,7 +4831,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-electronics",
@@ -4455,7 +4895,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-aitu-journalism",
@@ -4516,7 +4961,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "Астана IT",
+    "universityUrl": "https://astanait.edu.kz",
+    "admissionsUrl": "https://astanait.edu.kz/ru/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-cs",
@@ -4570,7 +5020,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-data",
@@ -4624,7 +5079,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-security",
@@ -4676,7 +5136,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-fintech",
@@ -4729,7 +5194,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-iitu-journalism",
@@ -4783,7 +5253,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "МУИТ",
+    "universityUrl": "https://iitu.edu.kz",
+    "admissionsUrl": "https://iitu.edu.kz/ru/applicants/bachelor/",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-history",
@@ -4852,7 +5327,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-archeology",
@@ -4922,7 +5402,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-international-relations",
@@ -4990,7 +5475,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-law",
@@ -5059,7 +5549,12 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   },
   {
     "id": "kz-enu-biology",
@@ -5128,6 +5623,11 @@
       }
     },
     "active": true,
-    "isDemo": false
+    "isDemo": false,
+    "universityShortName": "ЕНУ",
+    "universityUrl": "https://enu.kz",
+    "admissionsUrl": "https://enu.kz/kz/page/university/faculties/applicants/bachelor",
+    "duration": null,
+    "documents": []
   }
 ]

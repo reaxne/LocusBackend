@@ -68,3 +68,45 @@ def test_data_survives_restart(db_url):
         token = client.post("/auth/login", json=USER).json()["access_token"]
     with TestClient(create_app(path)) as client:
         assert client.get("/auth/me", headers={"Authorization": f"Bearer {token}"}).status_code == 200
+
+
+def test_user_state_is_owned_versioned_and_persists(api):
+    client, _ = api
+    client.post('/auth/register', json=USER)
+    token = client.post('/auth/login', json=USER).json()['access_token']
+    headers = {'Authorization': f'Bearer {token}'}
+    empty = client.get('/user-state', headers=headers)
+    assert empty.status_code == 200
+    assert empty.json() == {
+        'savedOptions': [], 'comparison': [], 'focus': None, 'activities': [],
+        'completed': [], 'inProgress': [], 'theme': 'dark', 'revision': 0,
+    }
+    payload = {
+        'savedOptions': [{'programId': 'kz-program', 'label': 'Priority'}],
+        'comparison': ['kz-program'], 'focus': 'kz-program',
+        'activities': [{'id': 'activity-1', 'templateId': None, 'category': 'Personal Projects',
+                        'title': 'Проект', 'targetPeriod': 'Осень', 'status': 'planned'}],
+        'completed': ['task-1'], 'inProgress': ['task-2'], 'theme': 'system', 'revision': 0,
+    }
+    saved = client.put('/user-state', headers=headers, json=payload)
+    assert saved.status_code == 200
+    assert saved.json() == {**payload, 'revision': 1}
+    assert client.get('/user-state', headers=headers).json() == {**payload, 'revision': 1}
+    assert client.put('/user-state', headers=headers, json=payload).status_code == 409
+    assert client.get('/user-state').status_code == 401
+
+
+@pytest.mark.parametrize('patch', [
+    {'comparison': ['same', 'same']},
+    {'completed': ['same'], 'inProgress': ['same']},
+    {'theme': 'blue'},
+    {'activities': [{'id': 'same', 'templateId': None, 'category': 'project',
+                    'title': 'Один', 'targetPeriod': 'Сейчас', 'status': 'invalid'}]},
+])
+def test_user_state_rejects_invalid_payload(api, patch):
+    client, _ = api
+    client.post('/auth/register', json=USER)
+    token = client.post('/auth/login', json=USER).json()['access_token']
+    payload = {'savedOptions': [], 'comparison': [], 'focus': None, 'activities': [],
+               'completed': [], 'inProgress': [], 'theme': 'dark', 'revision': 0, **patch}
+    assert client.put('/user-state', headers={'Authorization': f'Bearer {token}'}, json=payload).status_code == 422

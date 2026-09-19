@@ -19,6 +19,10 @@ class RoadmapConflict(Exception):
     pass
 
 
+class UserStateConflict(Exception):
+    pass
+
+
 class Database:
     def __init__(self, url: str | None = None):
         self.url = database_url(url)
@@ -49,6 +53,9 @@ class Database:
             if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 5').fetchone():
                 db.execute((Path(__file__).parent / 'migrations/005_roadmap_plans.sql').read_text(encoding='utf-8'))
                 db.execute('INSERT INTO schema_migrations(version) VALUES (5)')
+            if not db.execute('SELECT 1 FROM schema_migrations WHERE version = 6').fetchone():
+                db.execute((Path(__file__).parent / 'migrations/006_user_states.sql').read_text(encoding='utf-8'))
+                db.execute('INSERT INTO schema_migrations(version) VALUES (6)')
 
     @contextmanager
     def ai_request(self, user_id):
@@ -110,6 +117,27 @@ class Database:
     def get_survey(self, user_id):
         row = self.get_survey_record(user_id)
         return row['answers_json'] if row else None
+
+    def get_user_state(self, user_id):
+        with self._connect() as db:
+            return db.execute('''SELECT state_json,revision,updated_at FROM user_states
+                WHERE user_id=%s''', (user_id,)).fetchone()
+
+    def save_user_state(self, user_id, state, expected_revision):
+        with self._connect() as db:
+            # Lock the owner so the first write is also protected from races.
+            db.execute('SELECT id FROM users WHERE id=%s FOR UPDATE', (user_id,))
+            previous = db.execute('SELECT revision FROM user_states WHERE user_id=%s',
+                                  (user_id,)).fetchone()
+            revision = previous['revision'] if previous else 0
+            if revision != expected_revision:
+                raise UserStateConflict('User state changed in another tab')
+            revision += 1
+            return db.execute('''INSERT INTO user_states(user_id,state_json,revision) VALUES (%s,%s,%s)
+                ON CONFLICT(user_id) DO UPDATE SET state_json=excluded.state_json,
+                revision=excluded.revision,updated_at=now()
+                RETURNING state_json,revision,updated_at''',
+                (user_id, Jsonb(state), revision)).fetchone()
 
     def save_program_records(self, records):
         with self._connect() as db:

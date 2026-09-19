@@ -297,6 +297,24 @@ def test_missing_program_information_is_explicit():
     assert recommend(programs=[]).warnings
 
 
+def test_recommendation_exposes_full_program_card_fields_and_sources():
+    item = program(
+        university_short_name='Демо вуз', university_url='https://example.invalid/university',
+        description='Описание программы', duration='4 года', documents=['Аттестат'],
+        admissions_url='https://example.invalid/admission',
+        sources={**program().sources, 'program_catalog': SOURCE, 'languages': SOURCE, 'tuition_per_year': SOURCE,
+                 'documents': SOURCE, 'duration': SOURCE},
+    )
+    result = recommend(programs=[item]).recommendations[0]
+    assert result.university_short_name == 'Демо вуз'
+    assert result.university_url == 'https://example.invalid/university'
+    assert result.description == 'Описание программы'
+    assert result.duration == '4 года'
+    assert result.documents == ['Аттестат']
+    assert result.admissions_url == 'https://example.invalid/admission'
+    assert set(result.field_sources) >= {'name', 'description', 'admissions', 'language', 'tuition', 'duration', 'documents'}
+
+
 def test_empty_route_cannot_imply_eligibility_without_verified_completeness():
     result = check_eligibility(student(), program(admission_routes=[AdmissionRoute(id="unknown")]), AS_OF)
     assert result.status == "unknown" and not result.eligible

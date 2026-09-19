@@ -135,7 +135,11 @@ def localize_response(response):
         excluded.reasons = values(excluded.reasons)
     for item in response.recommendations:
         item.university = text(item.university) or "Университет"
+        item.university_short_name = text(item.university_short_name)
         item.program = text(item.program) or "Образовательная программа"
+        item.description = text(item.description)
+        item.duration = text(item.duration)
+        item.documents = values(item.documents)
         item.city = text(item.city)
         item.interests = values(item.interests)
         item.languages = values(item.languages)

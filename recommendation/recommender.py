@@ -108,9 +108,31 @@ class Recommender:
                 unknown=[item for item in requirements if item.status == "unknown"],
             )
             roadmap = generate_roadmap(student, program, eligibility, financial, as_of)
+            catalog_source = program.sources.get('program_catalog')
+            field_sources = {
+                key: source for key, source in {
+                    'name': catalog_source,
+                    'description': catalog_source,
+                    'admissions': catalog_source,
+                    'language': program.sources.get('languages'),
+                    'tuition': program.sources.get('tuition_per_year'),
+                    'grant': program.sources.get('state_grant_available') or
+                    next((item.source for item in program.scholarships or [] if item.source), None),
+                    'duration': program.sources.get('duration'),
+                    'documents': program.sources.get('documents'),
+                }.items() if source is not None
+            }
+            sources = {**program.sources}
+            for name, source in field_sources.items():
+                sources.setdefault(name, source)
             recommendations.append(Recommendation(
                 university_id=program.university_id, university=program.university_name,
-                program_id=program.id, program=program.name, is_demo=program.is_demo,
+                university_short_name=program.university_short_name or program.university_name,
+                university_url=program.university_url,
+                program_id=program.id, program=program.name, description=program.description,
+                duration=program.duration, documents=program.documents,
+                admissions_url=program.admissions_url or (str(catalog_source.url) if catalog_source else None),
+                is_demo=program.is_demo,
                 match_score=min(1.0, max(0.0, match_score)), eligibility=eligibility,
                 scores=scores,
                 score_breakdown={
@@ -123,7 +145,8 @@ class Recommender:
                 },
                 weights=weights, financial=financial, why_recommended=reasons,
                 warnings=warnings, requirements=summary, missing_requirements=summary.missing,
-                roadmap=roadmap, next_action=get_next_action(roadmap, as_of), sources=program.sources,
+                roadmap=roadmap, next_action=get_next_action(roadmap, as_of), sources=sources,
+                field_sources=field_sources,
                 city=program.city, interests=program.interests, languages=program.languages,
                 program_group=program.program_group,
             ))

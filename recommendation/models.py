@@ -143,12 +143,17 @@ class Program(Model):
     id: str = Field(min_length=1)
     university_id: str = Field(min_length=1)
     university_name: str = Field(min_length=1)
+    university_short_name: str | None = None
+    university_url: str | None = None
     name: str = Field(min_length=1)
     city: str | None = None
     degree: str | None = None
     program_code: str | None = None
     program_group: str | None = None
     description: str | None = None
+    duration: str | None = None
+    documents: list[str] = Field(default_factory=list)
+    admissions_url: str | None = None
     interests: list[str] = Field(default_factory=list)
     tags: list[str] = Field(default_factory=list)
     career_paths: list[str] = Field(default_factory=list)
@@ -245,8 +250,14 @@ class RequirementsSummary(Model):
 class Recommendation(Model):
     university_id: str
     university: str
+    university_short_name: str | None = None
+    university_url: str | None = None
     program_id: str
     program: str
+    description: str | None = None
+    duration: str | None = None
+    documents: list[str] = Field(default_factory=list)
+    admissions_url: str | None = None
     is_demo: bool
     match_score: Score
     eligibility: EligibilityResult
@@ -261,6 +272,7 @@ class Recommendation(Model):
     roadmap: list[RoadmapTask]
     next_action: RoadmapTask | None
     sources: dict[str, Source]
+    field_sources: dict[str, Source] = Field(default_factory=dict)
     city: str | None = None
     interests: list[str] = Field(default_factory=list)
     languages: list[str] = Field(default_factory=list)

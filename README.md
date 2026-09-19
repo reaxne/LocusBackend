@@ -40,6 +40,7 @@ Set `ALLOWED_ORIGINS` to a JSON array of exact frontend origins. `COOKIE_SECURE=
 | GET | `/auth/me` | Authenticated `{id,username}` |
 | POST | `/auth/logout` | Revoke current session, 204 |
 | GET/POST | `/survey` | Read/save the user's survey |
+| GET/PUT | `/user-state` | Read/save the signed-in user's interface state |
 | GET/POST | `/recommendations` | Existing recommendation engine and payload |
 | GET | `/health` | API liveness |
 
@@ -77,6 +78,20 @@ The frontend sends an additional optional `state` object:
 Send `X-Locus-User` equal to the authenticated user's ID for state writes. It only guards against a different tab changing the session; it cannot select another user's data. Draft and committed profile are updated atomically in one PostgreSQL transaction. Each save increments `revision`; stale writes return 409. Submitted profiles require all questions to be answered or skipped. Profile edits use the same POST route. GET recommendations returns 409 for an unfinished frontend questionnaire.
 
 Browser GET requests with `X-Locus-Request: 1` also receive `userId`, `revision`, and `updatedAt`. Older surveys without `state` remain readable; the frontend imports supported values and reports incompatible legacy formats instead of silently overwriting them. A legacy write intentionally replaces the survey and removes the optional frontend state, matching replacement semantics.
+
+## Interface state through `/user-state`
+
+`GET /user-state` returns a default empty state with `revision: 0` before the first save.
+`PUT /user-state` stores the authenticated user's selected programs, comparison, priority
+program, portfolio activities, local roadmap progress and interface theme in one record.
+The payload includes its last `revision`; a stale update returns 409 rather than silently
+overwriting another browser tab. The route is protected by the same session, allowed-origin
+and `X-Locus-Request` checks as other browser mutations.
+
+The state intentionally does not replace the validated roadmap plan: completed persisted
+roadmap-plan steps continue to use `POST /roadmap/steps/{stepId}` and are restored through
+`GET /roadmap`. Roadmap time zone, available hours and achievements continue to use the
+existing `/roadmap/preferences` route.
 
 ## Existing SQLite data
 
