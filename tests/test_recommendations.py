@@ -39,6 +39,17 @@ def student(**updates):
     })
 
 
+def test_saved_survey_formats_are_accepted_by_recommendations():
+    profile = StudentProfile.model_validate({
+        "grade": 11, "entryYear": 2027, "interest": ["Robotics", "Design"],
+        "budget": {"amount": 2_000_000, "currency": "KZT"},
+        "funding": ["grant", "scholarship"],
+    })
+    assert profile.interest == ["Robotics", "Design"]
+    assert profile.budget == 2_000_000
+    assert profile.funding == ["state_grant", "university_scholarship"]
+
+
 def route(route_id="sat", **minimums):
     return AdmissionRoute(
         id=route_id, requirements_complete=True, source=SOURCE,

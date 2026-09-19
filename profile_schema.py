@@ -33,7 +33,7 @@ def check_score(exam, score):
 class ApplicantProfile(StrictModel):
     grade: Literal[9, 10, 11, 12]
     entryYear: int = Field(ge=2026, le=2100)
-    interest: Literal['Software engineering', 'AI & data', 'Cybersecurity']
+    interest: str | list[str]
     city: Literal['Any city', 'Astana', 'Almaty', 'Karaganda', 'Shymkent', 'Other city']
     mustStay: bool
     budget: float | None = Field(ge=0, le=100_000_000)

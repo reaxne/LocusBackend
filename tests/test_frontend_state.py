@@ -44,6 +44,28 @@ def test_recommendation_fields_survive_survey_conversion():
     assert recommendation_profile.level == 'bachelor'
 
 
+def test_frontend_state_allows_multiple_free_form_interests():
+    value = profile()
+    value['interest'] = ['Robotics', 'Product design']
+    assert to_survey(ApplicantProfile(**value))['interest'] == value['interest']
+
+
+def test_state_is_canonical_when_preliminary_survey_is_stale(db_url, monkeypatch):
+    monkeypatch.setenv('COOKIE_SECURE', 'false')
+    with TestClient(create_app(db_url), headers=HEADERS) as client:
+        signup(client)
+        value = payload()
+        value['state']['draft']['interest'] = 'Robotics'
+        value['state']['draft']['city'] = 'Almaty'
+        value['state']['draft']['funding'] = 'self'
+        response = client.post('/survey', json=value)
+        assert response.status_code == 200, response.text
+        assert response.json()['survey']['interest'] == 'Robotics'
+        assert response.json()['survey']['city'] == 'Almaty'
+        assert response.json()['survey']['funding'] == ['self_funded']
+        assert client.get('/survey').json()['survey']['interest'] == 'Robotics'
+
+
 def test_browser_cookie_draft_submit_edit_conflict_and_reload(db_url, monkeypatch):
     monkeypatch.setenv('COOKIE_SECURE','false')
     with TestClient(create_app(db_url), headers=HEADERS) as client:

@@ -223,8 +223,11 @@ def create_app(
         if payload.state is not None:
             if request.headers.get('x-locus-user') != str(session['id']):
                 raise HTTPException(409, 'Account changed. Reload before saving.')
-            if payload.survey.model_dump() != to_survey(payload.state.profile or payload.state.draft):
-                raise HTTPException(422, 'Survey and frontend state disagree')
+            # A draft is saved after every frontend step. Its derived survey is
+            # canonical; the parallel top-level survey can be stale mid-flow.
+            payload.survey = Survey.model_validate(
+                to_survey(payload.state.profile or payload.state.draft)
+            )
         try:
             state = database.save_survey(session['id'], payload.survey.model_dump(mode='json'),
                 payload.state.model_dump(mode='json') if payload.state else None,

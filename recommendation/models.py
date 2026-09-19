@@ -31,7 +31,7 @@ class StudentProfile(Model):
     interest: list[str] = Field(default_factory=list)
     city: list[str] = Field(default_factory=list)
     must_stay: bool = False
-    budget: int | None = Field(default=None, ge=0)
+    budget: Nonnegative | None = None
     funding: list[Funding] = Field(default_factory=list)
     category: str | None = None
     academic_strengths: list[str] = Field(default_factory=list)
@@ -50,7 +50,7 @@ class StudentProfile(Model):
     @field_validator("interest", "city", "academic_strengths", "extracurricular_interests",
                      "funding", mode="before")
     @classmethod
-    def normalize_lists(cls, value):
+    def normalize_lists(cls, value, info):
         if value is None or value == "":
             return []
         if isinstance(value, str):
@@ -62,7 +62,23 @@ class StudentProfile(Model):
             clean = " ".join(item.split())
             if clean:
                 result.setdefault(normalize(clean), clean)
+        if info.field_name == "funding":
+            aliases = {
+                "self": "self_funded",
+                "grant": "state_grant",
+                "scholarship": "university_scholarship",
+            }
+            return [aliases.get(normalize(item), item) for item in result.values()]
         return list(result.values())
+
+    @field_validator("budget", mode="before")
+    @classmethod
+    def unpack_kzt_budget(cls, value):
+        if not isinstance(value, dict):
+            return value
+        if value.get("currency") != "KZT" or "amount" not in value:
+            raise ValueError("Budget objects must specify an amount in KZT")
+        return value["amount"]
 
     @field_validator("SAT", "IELTS", "NUET", "UNT", "AET", "budget", "category", "study_language",
                      "academic_performance", "constraints", "country", "level", mode="before")
