@@ -1,17 +1,17 @@
 {
   "schemaVersion": "1.0.0",
-  "datasetId": "kazakhstan-universities-2026-09-17",
-  "checkedAt": "2026-09-17",
+  "datasetId": "kazakhstan-universities-2026-09-19",
+  "checkedAt": "2026-09-19",
   "countryCode": "KZ",
   "contentLanguage": "ru",
   "purpose": "Каталог для подбора образовательных программ по интересам, академическим склонностям и городу; частичное покрытие финансов и условий поступления.",
   "coverage": {
-    "universities": 20,
-    "cities": 7,
-    "uniquePrograms": 82,
+    "universities": 26,
+    "cities": 13,
+    "uniquePrograms": 118,
     "fieldCategories": 17,
     "cycleSpecificRecords": 18,
-    "exportedRecords": 100,
+    "exportedRecords": 136,
     "programsWithVerified2026Tuition": 10,
     "programsWithPartial2026UntThreshold": 8,
     "completeAdmissionRoutes": 0
@@ -5090,6 +5090,2082 @@
           "documents": []
         }
       ]
+    },
+    {
+      "id": "kz-kozybayev",
+      "name": "Северо-Казахстанский университет имени Манаша Козыбаева",
+      "aliases": [
+        "Kozybayev University",
+        "СКУ имени М. Козыбаева"
+      ],
+      "countryCode": "KZ",
+      "city": "Петропавловск",
+      "cityAliases": [
+        "Петропавловск",
+        "Петропавл",
+        "Petropavl",
+        "Petropavlovsk"
+      ],
+      "website": "https://ku.edu.kz",
+      "profileFieldIds": [
+        "it",
+        "natural_sciences",
+        "agriculture",
+        "environment",
+        "media",
+        "business"
+      ],
+      "description": "В выборке представлены направления: Информационные технологии и данные, Естественные науки, Сельское хозяйство и ветеринария, Окружающая среда и природные ресурсы, Журналистика и медиа, Бизнес, финансы и экономика.",
+      "programs": [
+        {
+          "id": "kz-kozybayev-information-systems",
+          "universityId": "kz-kozybayev",
+          "universityName": "Северо-Казахстанский университет имени Манаша Козыбаева",
+          "name": "Информационные системы",
+          "city": "Петропавловск",
+          "degree": "bachelor",
+          "programCode": "6B06102",
+          "programGroup": "B057",
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://ku.edu.kz/page/view?id=39&lang=ru",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Kozybayev University",
+          "universityUrl": "https://ku.edu.kz",
+          "admissionsUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-kozybayev-biotechnology",
+          "universityId": "kz-kozybayev",
+          "universityName": "Северо-Казахстанский университет имени Манаша Козыбаева",
+          "name": "Биотехнология",
+          "city": "Петропавловск",
+          "degree": "bachelor",
+          "programCode": "6B05102",
+          "programGroup": "B050",
+          "description": "Применение клеток, микроорганизмов и биологических процессов для создания полезных продуктов.",
+          "interests": [
+            "биотехнология",
+            "biotechnology",
+            "биотехнологиялар",
+            "биология",
+            "микробиология"
+          ],
+          "tags": [
+            "natural_sciences",
+            "bioeng"
+          ],
+          "careerPaths": [
+            "биотехнолог"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Chemistry"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://ku.edu.kz/page/view?id=39&lang=ru",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Kozybayev University",
+          "universityUrl": "https://ku.edu.kz",
+          "admissionsUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-kozybayev-agronomy",
+          "universityId": "kz-kozybayev",
+          "universityName": "Северо-Казахстанский университет имени Манаша Козыбаева",
+          "name": "Агрономия",
+          "city": "Петропавловск",
+          "degree": "bachelor",
+          "programCode": "6B08101",
+          "programGroup": "B077",
+          "description": "Растениеводство, выращивание сельскохозяйственных культур и агротехнологии.",
+          "interests": [
+            "агрономия",
+            "agronomy",
+            "ауыл шаруашылығы",
+            "растения",
+            "сельское хозяйство"
+          ],
+          "tags": [
+            "agriculture",
+            "agro"
+          ],
+          "careerPaths": [
+            "агроном"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Chemistry"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://ku.edu.kz/page/view?id=39&lang=ru",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Kozybayev University",
+          "universityUrl": "https://ku.edu.kz",
+          "admissionsUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-kozybayev-forestry",
+          "universityId": "kz-kozybayev",
+          "universityName": "Северо-Казахстанский университет имени Манаша Козыбаева",
+          "name": "Лесные ресурсы и лесоводство",
+          "city": "Петропавловск",
+          "degree": "bachelor",
+          "programCode": "6B08301",
+          "programGroup": "B079",
+          "description": "Лесные экосистемы, лесоводство и управление лесными ресурсами.",
+          "interests": [
+            "лес",
+            "forestry",
+            "орман",
+            "экология",
+            "природа"
+          ],
+          "tags": [
+            "environment",
+            "forest"
+          ],
+          "careerPaths": [
+            "специалист лесного хозяйства"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Geography"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://ku.edu.kz/page/view?id=39&lang=ru",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Kozybayev University",
+          "universityUrl": "https://ku.edu.kz",
+          "admissionsUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-kozybayev-journalism",
+          "universityId": "kz-kozybayev",
+          "universityName": "Северо-Казахстанский университет имени Манаша Козыбаева",
+          "name": "Журналистика",
+          "city": "Петропавловск",
+          "degree": "bachelor",
+          "programCode": "6B03201",
+          "programGroup": "B042",
+          "description": "Подготовка материалов для СМИ и работа с общественно значимой информацией.",
+          "interests": [
+            "журналистика",
+            "journalism",
+            "медиа",
+            "СМИ",
+            "жазу"
+          ],
+          "tags": [
+            "media",
+            "journalism"
+          ],
+          "careerPaths": [
+            "журналист",
+            "редактор"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Literature",
+            "Communication"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://ku.edu.kz/page/view?id=39&lang=ru",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Kozybayev University",
+          "universityUrl": "https://ku.edu.kz",
+          "admissionsUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-kozybayev-finance",
+          "universityId": "kz-kozybayev",
+          "universityName": "Северо-Казахстанский университет имени Манаша Козыбаева",
+          "name": "Финансы",
+          "city": "Петропавловск",
+          "degree": "bachelor",
+          "programCode": "6B04104",
+          "programGroup": "B046",
+          "description": "Финансовые решения, инвестиции и управление денежными потоками.",
+          "interests": [
+            "финансы",
+            "finance",
+            "қаржы",
+            "инвестиции",
+            "банки"
+          ],
+          "tags": [
+            "business",
+            "finance"
+          ],
+          "careerPaths": [
+            "финансовый аналитик"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://ku.edu.kz/page/view?id=39&lang=ru",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Kozybayev University",
+          "universityUrl": "https://ku.edu.kz",
+          "admissionsUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+          "duration": null,
+          "documents": []
+        }
+      ]
+    },
+    {
+      "id": "kz-korkyt",
+      "name": "Кызылординский университет имени Коркыт ата",
+      "aliases": [
+        "Korkyt Ata University",
+        "КУ имени Коркыт ата"
+      ],
+      "countryCode": "KZ",
+      "city": "Кызылорда",
+      "cityAliases": [
+        "Кызылорда",
+        "Қызылорда",
+        "Kyzylorda",
+        "Qyzylorda"
+      ],
+      "website": "https://korkyt.edu.kz",
+      "profileFieldIds": [
+        "it",
+        "engineering",
+        "environment",
+        "humanities"
+      ],
+      "description": "В выборке представлены направления: Информационные технологии и данные, Инженерия и производственные технологии, Окружающая среда и природные ресурсы, Гуманитарные науки.",
+      "programs": [
+        {
+          "id": "kz-korkyt-information-systems",
+          "universityId": "kz-korkyt",
+          "universityName": "Кызылординский университет имени Коркыт ата",
+          "name": "Информационные системы",
+          "city": "Кызылорда",
+          "degree": "bachelor",
+          "programCode": "6B06149",
+          "programGroup": "B057",
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://korkyt.edu.kz/ru/staticpages/160",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Korkyt Ata University",
+          "universityUrl": "https://korkyt.edu.kz",
+          "admissionsUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-korkyt-information-security",
+          "universityId": "kz-korkyt",
+          "universityName": "Кызылординский университет имени Коркыт ата",
+          "name": "Системы информационной безопасности",
+          "city": "Кызылорда",
+          "degree": "bachelor",
+          "programCode": "6B06152",
+          "programGroup": "B058",
+          "description": "Защита информации, компьютерных систем и сетей.",
+          "interests": [
+            "кибербезопасность",
+            "ақпараттық қауіпсіздік",
+            "cybersecurity",
+            "защита информации"
+          ],
+          "tags": [
+            "it",
+            "cyber"
+          ],
+          "careerPaths": [
+            "специалист по информационной безопасности"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://korkyt.edu.kz/ru/staticpages/160",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Korkyt Ata University",
+          "universityUrl": "https://korkyt.edu.kz",
+          "admissionsUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-korkyt-petroleum",
+          "universityId": "kz-korkyt",
+          "universityName": "Кызылординский университет имени Коркыт ата",
+          "name": "Нефтегазовое дело",
+          "city": "Кызылорда",
+          "degree": "bachelor",
+          "programCode": "6B07261",
+          "programGroup": "B071",
+          "description": "Разработка месторождений, добыча и транспортировка нефти и газа.",
+          "interests": [
+            "нефть",
+            "газ",
+            "мұнай",
+            "petroleum engineering",
+            "бурение"
+          ],
+          "tags": [
+            "engineering",
+            "oil"
+          ],
+          "careerPaths": [
+            "инженер нефтегазовой отрасли"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Physics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://korkyt.edu.kz/ru/staticpages/160",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Korkyt Ata University",
+          "universityUrl": "https://korkyt.edu.kz",
+          "admissionsUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-korkyt-water",
+          "universityId": "kz-korkyt",
+          "universityName": "Кызылординский университет имени Коркыт ата",
+          "name": "Водные ресурсы и водопользование",
+          "city": "Кызылорда",
+          "degree": "bachelor",
+          "programCode": "6B08674",
+          "programGroup": "B082",
+          "description": "Водные ресурсы, их использование и управление водными системами.",
+          "interests": [
+            "водные ресурсы",
+            "water resources",
+            "су",
+            "экология",
+            "водоснабжение"
+          ],
+          "tags": [
+            "environment",
+            "water"
+          ],
+          "careerPaths": [
+            "специалист по водным ресурсам"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Geography"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://korkyt.edu.kz/ru/staticpages/160",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Korkyt Ata University",
+          "universityUrl": "https://korkyt.edu.kz",
+          "admissionsUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-korkyt-translation",
+          "universityId": "kz-korkyt",
+          "universityName": "Кызылординский университет имени Коркыт ата",
+          "name": "Переводческое дело",
+          "city": "Кызылорда",
+          "degree": "bachelor",
+          "programCode": "6B02335",
+          "programGroup": "B036",
+          "description": "Письменный и устный перевод и межъязыковая коммуникация.",
+          "interests": [
+            "перевод",
+            "translation",
+            "аударма",
+            "языки",
+            "languages"
+          ],
+          "tags": [
+            "humanities",
+            "translation"
+          ],
+          "careerPaths": [
+            "переводчик"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "English",
+            "Literature"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://korkyt.edu.kz/ru/staticpages/160",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Korkyt Ata University",
+          "universityUrl": "https://korkyt.edu.kz",
+          "admissionsUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-korkyt-archeology",
+          "universityId": "kz-korkyt",
+          "universityName": "Кызылординский университет имени Коркыт ата",
+          "name": "Археология и этнология",
+          "city": "Кызылорда",
+          "degree": "bachelor",
+          "programCode": "6B02234",
+          "programGroup": "B034",
+          "description": "Материальное наследие, археологические исследования и культуры народов.",
+          "interests": [
+            "археология",
+            "archeology",
+            "этнология",
+            "антропология",
+            "история"
+          ],
+          "tags": [
+            "humanities",
+            "archeology"
+          ],
+          "careerPaths": [
+            "археолог",
+            "специалист музея"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "History",
+            "Geography"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://korkyt.edu.kz/ru/staticpages/160",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Korkyt Ata University",
+          "universityUrl": "https://korkyt.edu.kz",
+          "admissionsUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+          "duration": null,
+          "documents": []
+        }
+      ]
+    },
+    {
+      "id": "kz-baitursynuly",
+      "name": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+      "aliases": [
+        "Baitursynuly University",
+        "КРУ имени Ахмет Байтұрсынұлы"
+      ],
+      "countryCode": "KZ",
+      "city": "Костанай",
+      "cityAliases": [
+        "Костанай",
+        "Қостанай",
+        "Kostanay",
+        "Qostanai"
+      ],
+      "website": "https://ksu.edu.kz",
+      "profileFieldIds": [
+        "it",
+        "engineering",
+        "agriculture",
+        "transport"
+      ],
+      "description": "В выборке представлены направления: Информационные технологии и данные, Инженерия и производственные технологии, Сельское хозяйство и ветеринария, Транспорт и логистика.",
+      "programs": [
+        {
+          "id": "kz-baitursynuly-information-systems",
+          "universityId": "kz-baitursynuly",
+          "universityName": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+          "name": "Информационные системы",
+          "city": "Костанай",
+          "degree": "bachelor",
+          "programCode": "6B06102",
+          "programGroup": "B057",
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Baitursynuly University",
+          "universityUrl": "https://ksu.edu.kz",
+          "admissionsUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-baitursynuly-it-robotics",
+          "universityId": "kz-baitursynuly",
+          "universityName": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+          "name": "Информационные технологии и робототехника",
+          "city": "Костанай",
+          "degree": "bachelor",
+          "programCode": "6B06103",
+          "programGroup": "B057",
+          "description": "Разработка программных и робототехнических систем для автоматизации прикладных задач.",
+          "interests": [
+            "робототехника",
+            "robotics",
+            "программирование",
+            "информационные технологии"
+          ],
+          "tags": [
+            "it",
+            "robot"
+          ],
+          "careerPaths": [
+            "инженер по автоматизации",
+            "инженер-робототехник"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Physics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Baitursynuly University",
+          "universityUrl": "https://ksu.edu.kz",
+          "admissionsUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-baitursynuly-energy",
+          "universityId": "kz-baitursynuly",
+          "universityName": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+          "name": "Электроэнергетика",
+          "city": "Костанай",
+          "degree": "bachelor",
+          "programCode": "6B07102",
+          "programGroup": "B062",
+          "description": "Электрическая энергия, оборудование и энергетические системы.",
+          "interests": [
+            "энергетика",
+            "электричество",
+            "energy",
+            "электроэнергетика"
+          ],
+          "tags": [
+            "engineering",
+            "energy"
+          ],
+          "careerPaths": [
+            "инженер-энергетик"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Physics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Baitursynuly University",
+          "universityUrl": "https://ksu.edu.kz",
+          "admissionsUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-baitursynuly-agronomy",
+          "universityId": "kz-baitursynuly",
+          "universityName": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+          "name": "Агрономия",
+          "city": "Костанай",
+          "degree": "bachelor",
+          "programCode": "6B08101",
+          "programGroup": "B077",
+          "description": "Растениеводство, выращивание сельскохозяйственных культур и агротехнологии.",
+          "interests": [
+            "агрономия",
+            "agronomy",
+            "ауыл шаруашылығы",
+            "растения",
+            "сельское хозяйство"
+          ],
+          "tags": [
+            "agriculture",
+            "agro"
+          ],
+          "careerPaths": [
+            "агроном"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Chemistry"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Baitursynuly University",
+          "universityUrl": "https://ksu.edu.kz",
+          "admissionsUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-baitursynuly-plant-protection",
+          "universityId": "kz-baitursynuly",
+          "universityName": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+          "name": "Защита и карантин растений",
+          "city": "Костанай",
+          "degree": "bachelor",
+          "programCode": "6B08102",
+          "programGroup": "B077",
+          "description": "Выявление болезней и вредителей растений, защита посевов и фитосанитарный контроль.",
+          "interests": [
+            "защита растений",
+            "plant protection",
+            "өсімдіктерді қорғау",
+            "агрономия",
+            "фитосанитария"
+          ],
+          "tags": [
+            "agriculture",
+            "plantprotection"
+          ],
+          "careerPaths": [
+            "специалист по защите растений",
+            "агроном"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Chemistry"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Baitursynuly University",
+          "universityUrl": "https://ksu.edu.kz",
+          "admissionsUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-baitursynuly-transport",
+          "universityId": "kz-baitursynuly",
+          "universityName": "Костанайский региональный университет имени Ахмет Байтұрсынұлы",
+          "name": "Транспорт, транспортная техника и технологии",
+          "city": "Костанай",
+          "degree": "bachelor",
+          "programCode": "6B07101",
+          "programGroup": "B065",
+          "description": "Устройство, обслуживание и эксплуатация транспортных машин и оборудования.",
+          "interests": [
+            "транспорт",
+            "transport engineering",
+            "көлік",
+            "автомобили",
+            "механика"
+          ],
+          "tags": [
+            "transport",
+            "transportengineering"
+          ],
+          "careerPaths": [
+            "инженер по эксплуатации транспортной техники"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Physics",
+            "Mathematics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Baitursynuly University",
+          "universityUrl": "https://ksu.edu.kz",
+          "admissionsUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+          "duration": null,
+          "documents": []
+        }
+      ]
+    },
+    {
+      "id": "kz-wku",
+      "name": "Западно-Казахстанский университет имени Махамбета Утемисова",
+      "aliases": [
+        "ЗКУ имени М. Утемисова",
+        "Makhambet University"
+      ],
+      "countryCode": "KZ",
+      "city": "Уральск",
+      "cityAliases": [
+        "Уральск",
+        "Орал",
+        "Oral",
+        "Uralsk"
+      ],
+      "website": "https://wku.edu.kz",
+      "profileFieldIds": [
+        "architecture_design",
+        "it",
+        "environment",
+        "business",
+        "law",
+        "arts"
+      ],
+      "description": "В выборке представлены направления: Архитектура и дизайн, Информационные технологии и данные, Окружающая среда и природные ресурсы, Бизнес, финансы и экономика, Право, Искусство.",
+      "programs": [
+        {
+          "id": "kz-wku-graphic-design",
+          "universityId": "kz-wku",
+          "universityName": "Западно-Казахстанский университет имени Махамбета Утемисова",
+          "name": "Графический дизайн",
+          "city": "Уральск",
+          "degree": "bachelor",
+          "programCode": "6B02127",
+          "programGroup": null,
+          "description": "Визуальные коммуникации, графика и оформление цифровых и печатных материалов.",
+          "interests": [
+            "графический дизайн",
+            "дизайн",
+            "graphic design",
+            "иллюстрация"
+          ],
+          "tags": [
+            "architecture_design",
+            "graphic"
+          ],
+          "careerPaths": [
+            "графический дизайнер"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Drawing",
+            "Art"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "ЗКУ имени М. Утемисова",
+          "universityUrl": "https://wku.edu.kz",
+          "admissionsUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-wku-information-systems",
+          "universityId": "kz-wku",
+          "universityName": "Западно-Казахстанский университет имени Махамбета Утемисова",
+          "name": "Информационные системы",
+          "city": "Уральск",
+          "degree": "bachelor",
+          "programCode": "6B06102",
+          "programGroup": null,
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "ЗКУ имени М. Утемисова",
+          "universityUrl": "https://wku.edu.kz",
+          "admissionsUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-wku-ecology",
+          "universityId": "kz-wku",
+          "universityName": "Западно-Казахстанский университет имени Махамбета Утемисова",
+          "name": "Экология",
+          "city": "Уральск",
+          "degree": "bachelor",
+          "programCode": "6B05201",
+          "programGroup": null,
+          "description": "Изучение экосистем, оценка воздействия хозяйственной деятельности и охрана окружающей среды.",
+          "interests": [
+            "экология",
+            "ecology",
+            "қоршаған орта",
+            "охрана природы",
+            "экосистемы"
+          ],
+          "tags": [
+            "environment",
+            "ecology"
+          ],
+          "careerPaths": [
+            "эколог",
+            "специалист по охране окружающей среды"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Geography"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "ЗКУ имени М. Утемисова",
+          "universityUrl": "https://wku.edu.kz",
+          "admissionsUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-wku-finance",
+          "universityId": "kz-wku",
+          "universityName": "Западно-Казахстанский университет имени Махамбета Утемисова",
+          "name": "Финансы",
+          "city": "Уральск",
+          "degree": "bachelor",
+          "programCode": "6B04105",
+          "programGroup": null,
+          "description": "Финансовые решения, инвестиции и управление денежными потоками.",
+          "interests": [
+            "финансы",
+            "finance",
+            "қаржы",
+            "инвестиции",
+            "банки"
+          ],
+          "tags": [
+            "business",
+            "finance"
+          ],
+          "careerPaths": [
+            "финансовый аналитик"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "ЗКУ имени М. Утемисова",
+          "universityUrl": "https://wku.edu.kz",
+          "admissionsUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-wku-law",
+          "universityId": "kz-wku",
+          "universityName": "Западно-Казахстанский университет имени Махамбета Утемисова",
+          "name": "Юриспруденция",
+          "city": "Уральск",
+          "degree": "bachelor",
+          "programCode": "6B04202",
+          "programGroup": null,
+          "description": "Правовые нормы, юридический анализ и защита прав.",
+          "interests": [
+            "право",
+            "law",
+            "құқық",
+            "юриспруденция",
+            "законы"
+          ],
+          "tags": [
+            "law"
+          ],
+          "careerPaths": [
+            "юрист — с учетом требований к выбранной практике"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "History",
+            "Communication"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "ЗКУ имени М. Утемисова",
+          "universityUrl": "https://wku.edu.kz",
+          "admissionsUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-wku-acting",
+          "universityId": "kz-wku",
+          "universityName": "Западно-Казахстанский университет имени Махамбета Утемисова",
+          "name": "Актерское искусство",
+          "city": "Уральск",
+          "degree": "bachelor",
+          "programCode": "6B02126",
+          "programGroup": null,
+          "description": "Актерское мастерство и создание сценического образа.",
+          "interests": [
+            "театр",
+            "актерское искусство",
+            "acting",
+            "сцена",
+            "өнер"
+          ],
+          "tags": [
+            "arts",
+            "acting"
+          ],
+          "careerPaths": [
+            "актер"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Art",
+            "Literature"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "ЗКУ имени М. Утемисова",
+          "universityUrl": "https://wku.edu.kz",
+          "admissionsUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+          "duration": null,
+          "documents": []
+        }
+      ]
+    },
+    {
+      "id": "kz-shakarim",
+      "name": "Шәкәрім университет",
+      "aliases": [
+        "Shakarim University",
+        "Университет Шакарима"
+      ],
+      "countryCode": "KZ",
+      "city": "Семей",
+      "cityAliases": [
+        "Семей",
+        "Semey",
+        "Semei",
+        "Семипалатинск"
+      ],
+      "website": "https://shakarim.university",
+      "profileFieldIds": [
+        "natural_sciences",
+        "environment",
+        "it",
+        "engineering",
+        "transport"
+      ],
+      "description": "В выборке представлены направления: Естественные науки, Окружающая среда и природные ресурсы, Информационные технологии и данные, Инженерия и производственные технологии, Транспорт и логистика.",
+      "programs": [
+        {
+          "id": "kz-shakarim-biotechnology",
+          "universityId": "kz-shakarim",
+          "universityName": "Шәкәрім университет",
+          "name": "Биотехнология",
+          "city": "Семей",
+          "degree": "bachelor",
+          "programCode": "6B05102",
+          "programGroup": "B050",
+          "description": "Применение клеток, микроорганизмов и биологических процессов для создания полезных продуктов.",
+          "interests": [
+            "биотехнология",
+            "biotechnology",
+            "биотехнологиялар",
+            "биология",
+            "микробиология"
+          ],
+          "tags": [
+            "natural_sciences",
+            "bioeng"
+          ],
+          "careerPaths": [
+            "биотехнолог"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Chemistry"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Shakarim University",
+          "universityUrl": "https://shakarim.university",
+          "admissionsUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-shakarim-ecology",
+          "universityId": "kz-shakarim",
+          "universityName": "Шәкәрім университет",
+          "name": "Экология",
+          "city": "Семей",
+          "degree": "bachelor",
+          "programCode": "6B05201",
+          "programGroup": "B051",
+          "description": "Изучение экосистем, оценка воздействия хозяйственной деятельности и охрана окружающей среды.",
+          "interests": [
+            "экология",
+            "ecology",
+            "қоршаған орта",
+            "охрана природы",
+            "экосистемы"
+          ],
+          "tags": [
+            "environment",
+            "ecology"
+          ],
+          "careerPaths": [
+            "эколог",
+            "специалист по охране окружающей среды"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Geography"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Shakarim University",
+          "universityUrl": "https://shakarim.university",
+          "admissionsUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-shakarim-smart-systems",
+          "universityId": "kz-shakarim",
+          "universityName": "Шәкәрім университет",
+          "name": "SMART системы и программирование",
+          "city": "Семей",
+          "degree": "bachelor",
+          "programCode": "6B06106",
+          "programGroup": "B057",
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Shakarim University",
+          "universityUrl": "https://shakarim.university",
+          "admissionsUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-shakarim-heat-power",
+          "universityId": "kz-shakarim",
+          "universityName": "Шәкәрім университет",
+          "name": "Теплоэнергетика",
+          "city": "Семей",
+          "degree": "bachelor",
+          "programCode": "6B07103",
+          "programGroup": "B062",
+          "description": "Производство и передача тепловой энергии, эксплуатация теплотехнических установок.",
+          "interests": [
+            "теплоэнергетика",
+            "thermal power",
+            "жылу энергетикасы",
+            "энергетика",
+            "теплоснабжение"
+          ],
+          "tags": [
+            "engineering",
+            "energy"
+          ],
+          "careerPaths": [
+            "инженер-теплоэнергетик"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Physics"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Shakarim University",
+          "universityUrl": "https://shakarim.university",
+          "admissionsUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-shakarim-food",
+          "universityId": "kz-shakarim",
+          "universityName": "Шәкәрім университет",
+          "name": "Технология продовольственных продуктов",
+          "city": "Семей",
+          "degree": "bachelor",
+          "programCode": "6B07202",
+          "programGroup": "B068",
+          "description": "Разработка и организация производства пищевых продуктов, контроль технологических процессов.",
+          "interests": [
+            "пищевые технологии",
+            "food technology",
+            "тағам технологиясы",
+            "производство продуктов",
+            "качество пищевой продукции"
+          ],
+          "tags": [
+            "engineering",
+            "food"
+          ],
+          "careerPaths": [
+            "технолог пищевого производства"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Chemistry",
+            "Biology"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Shakarim University",
+          "universityUrl": "https://shakarim.university",
+          "admissionsUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-shakarim-logistics",
+          "universityId": "kz-shakarim",
+          "universityName": "Шәкәрім университет",
+          "name": "Логистика и организация перевозок",
+          "city": "Семей",
+          "degree": "bachelor",
+          "programCode": "6B11303",
+          "programGroup": "B095",
+          "description": "Организация перевозок, поставок и движения товаров.",
+          "interests": [
+            "логистика",
+            "logistics",
+            "көлік",
+            "транспорт",
+            "поставки"
+          ],
+          "tags": [
+            "transport",
+            "logistics"
+          ],
+          "careerPaths": [
+            "логист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Geography"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "Shakarim University",
+          "universityUrl": "https://shakarim.university",
+          "admissionsUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+          "duration": null,
+          "documents": []
+        }
+      ]
+    },
+    {
+      "id": "kz-sdu",
+      "name": "SDU University",
+      "aliases": [
+        "SDU",
+        "СДУ",
+        "Университет имени Сулеймана Демиреля"
+      ],
+      "countryCode": "KZ",
+      "city": "Каскелен",
+      "cityAliases": [
+        "Каскелен",
+        "Қаскелең",
+        "Kaskelen",
+        "Qaskelen"
+      ],
+      "website": "https://sdu.edu.kz",
+      "profileFieldIds": [
+        "it",
+        "social_sciences",
+        "law",
+        "business"
+      ],
+      "description": "В выборке представлены направления: Информационные технологии и данные, Социальные науки, Право, Бизнес, финансы и экономика.",
+      "programs": [
+        {
+          "id": "kz-sdu-cs",
+          "universityId": "kz-sdu",
+          "universityName": "SDU University",
+          "name": "Компьютерные науки",
+          "city": "Каскелен",
+          "degree": "bachelor",
+          "programCode": "6B06102",
+          "programGroup": "B057",
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://sdu.edu.kz/ru/admission/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "SDU",
+          "universityUrl": "https://sdu.edu.kz",
+          "admissionsUrl": "https://sdu.edu.kz/ru/admission/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-sdu-software",
+          "universityId": "kz-sdu",
+          "universityName": "SDU University",
+          "name": "Программная инженерия",
+          "city": "Каскелен",
+          "degree": "bachelor",
+          "programCode": "6B06105",
+          "programGroup": "B057",
+          "description": "Разработка программ, алгоритмы и компьютерные системы.",
+          "interests": [
+            "программирование",
+            "информатика",
+            "бағдарламалау",
+            "computer science",
+            "software development"
+          ],
+          "tags": [
+            "it",
+            "cs"
+          ],
+          "careerPaths": [
+            "разработчик программного обеспечения",
+            "программист"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://sdu.edu.kz/ru/admission/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "SDU",
+          "universityUrl": "https://sdu.edu.kz",
+          "admissionsUrl": "https://sdu.edu.kz/ru/admission/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-sdu-data",
+          "universityId": "kz-sdu",
+          "universityName": "SDU University",
+          "name": "Статистика и наука о данных",
+          "city": "Каскелен",
+          "degree": "bachelor",
+          "programCode": "6B05402",
+          "programGroup": "B055",
+          "description": "Статистическое моделирование, обработка данных и поиск закономерностей для прикладных задач.",
+          "interests": [
+            "анализ данных",
+            "деректерді талдау",
+            "data science",
+            "machine learning",
+            "статистика"
+          ],
+          "tags": [
+            "it",
+            "data"
+          ],
+          "careerPaths": [
+            "аналитик данных",
+            "специалист по машинному обучению"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Computer Science"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://sdu.edu.kz/ru/admission/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "SDU",
+          "universityUrl": "https://sdu.edu.kz",
+          "admissionsUrl": "https://sdu.edu.kz/ru/admission/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-sdu-psychology",
+          "universityId": "kz-sdu",
+          "universityName": "SDU University",
+          "name": "Прикладная психология",
+          "city": "Каскелен",
+          "degree": "bachelor",
+          "programCode": "6B03103",
+          "programGroup": "B041",
+          "description": "Поведение человека, психические процессы и психологические исследования.",
+          "interests": [
+            "психология",
+            "psychology",
+            "адам",
+            "поведение",
+            "помощь людям"
+          ],
+          "tags": [
+            "social_sciences",
+            "psychology"
+          ],
+          "careerPaths": [
+            "психолог — с учетом квалификационных требований"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Biology",
+            "Communication"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://sdu.edu.kz/ru/admission/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "SDU",
+          "universityUrl": "https://sdu.edu.kz",
+          "admissionsUrl": "https://sdu.edu.kz/ru/admission/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-sdu-international-law",
+          "universityId": "kz-sdu",
+          "universityName": "SDU University",
+          "name": "Международное право",
+          "city": "Каскелен",
+          "degree": "bachelor",
+          "programCode": "6B04202",
+          "programGroup": "B049",
+          "description": "Правовые нормы, юридический анализ и защита прав.",
+          "interests": [
+            "право",
+            "law",
+            "құқық",
+            "юриспруденция",
+            "законы"
+          ],
+          "tags": [
+            "law"
+          ],
+          "careerPaths": [
+            "юрист — с учетом требований к выбранной практике"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "History",
+            "Communication"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://sdu.edu.kz/ru/admission/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "SDU",
+          "universityUrl": "https://sdu.edu.kz",
+          "admissionsUrl": "https://sdu.edu.kz/ru/admission/",
+          "duration": null,
+          "documents": []
+        },
+        {
+          "id": "kz-sdu-digital-marketing",
+          "universityId": "kz-sdu",
+          "universityName": "SDU University",
+          "name": "Цифровой маркетинг",
+          "city": "Каскелен",
+          "degree": "bachelor",
+          "programCode": "6B04105",
+          "programGroup": "B047",
+          "description": "Продвижение товаров и услуг в цифровых каналах, анализ аудитории и результатов рекламы.",
+          "interests": [
+            "цифровой маркетинг",
+            "digital marketing",
+            "цифрлық маркетинг",
+            "интернет-реклама",
+            "аналитика"
+          ],
+          "tags": [
+            "business",
+            "marketing"
+          ],
+          "careerPaths": [
+            "маркетолог"
+          ],
+          "importantCourses": [],
+          "recommendedAcademicStrengths": [
+            "Mathematics",
+            "Communication"
+          ],
+          "languages": [],
+          "tuitionPerYear": null,
+          "stateGrantAvailable": null,
+          "scholarships": null,
+          "dormitoryAvailable": null,
+          "extracurricular": null,
+          "admissionYear": null,
+          "admissionRoutes": [],
+          "deadlines": [],
+          "sources": {
+            "program_catalog": {
+              "url": "https://sdu.edu.kz/ru/admission/",
+              "verifiedAt": "2026-09-19",
+              "academicYear": 2026
+            }
+          },
+          "active": true,
+          "isDemo": false,
+          "universityShortName": "SDU",
+          "universityUrl": "https://sdu.edu.kz",
+          "admissionsUrl": "https://sdu.edu.kz/ru/admission/",
+          "duration": null,
+          "documents": []
+        }
+      ]
     }
   ],
   "programCycleOverrides": [
@@ -7258,6 +9334,492 @@
       "durationYears": null,
       "notes": [
         "Страница школы указывает набор 2025–2026; набор следующего года не подтвержден."
+      ]
+    },
+    "kz-kozybayev-information-systems": {
+      "officialSourceUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Наличие, названия и коды проверены по индексированному содержанию официального каталога; прямое открытие страницы инструментом проверки завершилось ошибкой."
+      ]
+    },
+    "kz-kozybayev-biotechnology": {
+      "officialSourceUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "natural_sciences",
+      "curatedProfileId": "bioeng",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Наличие, названия и коды проверены по индексированному содержанию официального каталога; прямое открытие страницы инструментом проверки завершилось ошибкой."
+      ]
+    },
+    "kz-kozybayev-agronomy": {
+      "officialSourceUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "agriculture",
+      "curatedProfileId": "agro",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Наличие, названия и коды проверены по индексированному содержанию официального каталога; прямое открытие страницы инструментом проверки завершилось ошибкой."
+      ]
+    },
+    "kz-kozybayev-forestry": {
+      "officialSourceUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "environment",
+      "curatedProfileId": "forest",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Наличие, названия и коды проверены по индексированному содержанию официального каталога; прямое открытие страницы инструментом проверки завершилось ошибкой."
+      ]
+    },
+    "kz-kozybayev-journalism": {
+      "officialSourceUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "media",
+      "curatedProfileId": "journalism",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Наличие, названия и коды проверены по индексированному содержанию официального каталога; прямое открытие страницы инструментом проверки завершилось ошибкой."
+      ]
+    },
+    "kz-kozybayev-finance": {
+      "officialSourceUrl": "https://ku.edu.kz/page/view?id=39&lang=ru",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "business",
+      "curatedProfileId": "finance",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Наличие, названия и коды проверены по индексированному содержанию официального каталога; прямое открытие страницы инструментом проверки завершилось ошибкой."
+      ]
+    },
+    "kz-korkyt-information-systems": {
+      "officialSourceUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-korkyt-information-security": {
+      "officialSourceUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cyber",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-korkyt-petroleum": {
+      "officialSourceUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "engineering",
+      "curatedProfileId": "oil",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-korkyt-water": {
+      "officialSourceUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "environment",
+      "curatedProfileId": "water",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-korkyt-translation": {
+      "officialSourceUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "humanities",
+      "curatedProfileId": "translation",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-korkyt-archeology": {
+      "officialSourceUrl": "https://korkyt.edu.kz/ru/staticpages/160",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "humanities",
+      "curatedProfileId": "archeology",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-baitursynuly-information-systems": {
+      "officialSourceUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Каталог содержит документы разных лет, включая 2025; год набора не выводится из наличия ссылки на учебный план."
+      ]
+    },
+    "kz-baitursynuly-it-robotics": {
+      "officialSourceUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "robot",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Каталог содержит документы разных лет, включая 2025; год набора не выводится из наличия ссылки на учебный план."
+      ]
+    },
+    "kz-baitursynuly-energy": {
+      "officialSourceUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "engineering",
+      "curatedProfileId": "energy",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Каталог содержит документы разных лет, включая 2025; год набора не выводится из наличия ссылки на учебный план."
+      ]
+    },
+    "kz-baitursynuly-agronomy": {
+      "officialSourceUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "agriculture",
+      "curatedProfileId": "agro",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Каталог содержит документы разных лет, включая 2025; год набора не выводится из наличия ссылки на учебный план."
+      ]
+    },
+    "kz-baitursynuly-plant-protection": {
+      "officialSourceUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "agriculture",
+      "curatedProfileId": "plantprotection",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Каталог содержит документы разных лет, включая 2025; год набора не выводится из наличия ссылки на учебный план."
+      ]
+    },
+    "kz-baitursynuly-transport": {
+      "officialSourceUrl": "https://www.ksu.edu.kz/educational-activity/obrazovatelnye-programmy/bakalavriat/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "transport",
+      "curatedProfileId": "transportengineering",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Каталог содержит документы разных лет, включая 2025; год набора не выводится из наличия ссылки на учебный план."
+      ]
+    },
+    "kz-wku-graphic-design": {
+      "officialSourceUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "architecture_design",
+      "curatedProfileId": "graphic",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-wku-information-systems": {
+      "officialSourceUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-wku-ecology": {
+      "officialSourceUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "environment",
+      "curatedProfileId": "ecology",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-wku-finance": {
+      "officialSourceUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "business",
+      "curatedProfileId": "finance",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-wku-law": {
+      "officialSourceUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "law",
+      "curatedProfileId": "law",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-wku-acting": {
+      "officialSourceUrl": "https://wku.edu.kz/ru/bakalavriat-3/spetsialnosti-bakalavriata",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "arts",
+      "curatedProfileId": "acting",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-shakarim-biotechnology": {
+      "officialSourceUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "natural_sciences",
+      "curatedProfileId": "bioeng",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-shakarim-ecology": {
+      "officialSourceUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "environment",
+      "curatedProfileId": "ecology",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-shakarim-smart-systems": {
+      "officialSourceUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-shakarim-heat-power": {
+      "officialSourceUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "engineering",
+      "curatedProfileId": "energy",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-shakarim-food": {
+      "officialSourceUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "engineering",
+      "curatedProfileId": "food",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-shakarim-logistics": {
+      "officialSourceUrl": "https://shakarim.university/ru/page/bilim-beru-bagdarlamalary",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "transport",
+      "curatedProfileId": "logistics",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В."
+      ]
+    },
+    "kz-sdu-cs": {
+      "officialSourceUrl": "https://sdu.edu.kz/ru/admission/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Название взято из раздела «Программы». На той же странице встречаются старые названия в таблицах скидок и грантов; эти таблицы не использованы как подтверждение условий приема."
+      ]
+    },
+    "kz-sdu-software": {
+      "officialSourceUrl": "https://sdu.edu.kz/ru/admission/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "cs",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Название взято из раздела «Программы». На той же странице встречаются старые названия в таблицах скидок и грантов; эти таблицы не использованы как подтверждение условий приема."
+      ]
+    },
+    "kz-sdu-data": {
+      "officialSourceUrl": "https://sdu.edu.kz/ru/admission/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "it",
+      "curatedProfileId": "data",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Название взято из раздела «Программы». На той же странице встречаются старые названия в таблицах скидок и грантов; эти таблицы не использованы как подтверждение условий приема."
+      ]
+    },
+    "kz-sdu-psychology": {
+      "officialSourceUrl": "https://sdu.edu.kz/ru/admission/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "social_sciences",
+      "curatedProfileId": "psychology",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Название взято из раздела «Программы». На той же странице встречаются старые названия в таблицах скидок и грантов; эти таблицы не использованы как подтверждение условий приема."
+      ]
+    },
+    "kz-sdu-international-law": {
+      "officialSourceUrl": "https://sdu.edu.kz/ru/admission/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "law",
+      "curatedProfileId": "law",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Название взято из раздела «Программы». На той же странице встречаются старые названия в таблицах скидок и грантов; эти таблицы не использованы как подтверждение условий приема."
+      ]
+    },
+    "kz-sdu-digital-marketing": {
+      "officialSourceUrl": "https://sdu.edu.kz/ru/admission/",
+      "checkedAt": "2026-09-19",
+      "verificationScope": "Наличие, название и код программы в официальном каталоге; группа указана только при наличии в источнике. Не подтверждает открытый набор или полноту правил приема.",
+      "admissionCycleConfirmed": false,
+      "fieldId": "business",
+      "curatedProfileId": "marketing",
+      "sourceDocumentYear": null,
+      "durationYears": null,
+      "notes": [
+        "Коды нормализованы: латинская B вместо визуально одинаковой кириллической В.",
+        "Название взято из раздела «Программы». На той же странице встречаются старые названия в таблицах скидок и грантов; эти таблицы не использованы как подтверждение условий приема."
       ]
     }
   }

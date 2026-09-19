@@ -104,7 +104,7 @@ def test_real_formats_match_and_work_with_recommender(monkeypatch, tmp_path):
     nested = JSONProgramRepository(root / "catalogs/kazakhstan_universities.json")
     for year in (2026, 2027):
         assert flat.get_programs_for_entry_year(year) == nested.get_programs_for_entry_year(year)
-        assert len(flat.get_programs_for_entry_year(year)) == 82
+        assert len(flat.get_programs_for_entry_year(year)) == 118
     assert flat.get_program_by_id("kz-iitu-cs", 2026).tuition_per_year == 1479000
     assert flat.get_program_by_id("kz-iitu-cs", 2027).tuition_per_year is None
     result = Recommender(flat).recommend(
